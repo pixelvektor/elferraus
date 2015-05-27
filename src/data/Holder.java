@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 /** Hochschule Hamm-Lippstadt
  * Praktikum Informatik II (ElferRaus)
  * (C) 2015 Lara Sievers, Adrian Schmidt, Fabian Schneider
@@ -16,8 +18,9 @@ public abstract class Holder {
 		
 	}
 
-	public Karte getObersteKarten() {
+	public ArrayList<Karte> getNaechsteKarten() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Karte> naechsteKarte = new ArrayList<Karte>();
+		return naechsteKarte;
 	}
 }

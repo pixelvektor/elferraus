@@ -21,4 +21,9 @@ public class Karte {
 		return null;
 	}
 
+	public int getNummer() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

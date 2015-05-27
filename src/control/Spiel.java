@@ -24,9 +24,9 @@ import view.View;
 public class Spiel {
 	/** Spieler-ArrayList. */
 	private ArrayList<Holder> spieler = new ArrayList<Holder>();
-	/** Stapel-ArrayList. */
+	/** Stapel fuer die Karten. */
 	private Stapel stapel = new Stapel();
-	/** Spielfeld-ArrayList. */
+	/** Spielfeld. */
 	private Spielfeld spielfeld = new Spielfeld();
 	/** Fuer den Zug aktiver Holder. */
 	private Holder activeHolder;
@@ -56,7 +56,9 @@ public class Spiel {
     	kartenInit();
     }
     /**
-     *  Methode um den Karten einen neuen Holder zuzuweisen. 
+     *  Methode um eine Karte einem neuen Holder zu überschreiben.
+     *  @param karte die Karte die verschoben werden soll.
+     *  @param ziel Holder an den die Karte geht. 
      */
     private boolean move(Karte karte, Holder ziel){
     	
@@ -97,39 +99,23 @@ public class Spiel {
     	
     }
     /** 
-     * prüft ob der aktuelle Zug gültig ist.
+     * Prueft ob der aktuelle Zug gueltig ist.
+     * @return true wenn karte eine moegliche naechste Karte ist.
+     * @return true wenn ziel kein Spielfeld ist. 
      */
     private boolean pruefeZug(Karte karte, Holder ziel){
-    	if(ziel==stapel){
+    	if(!ziel.equals(spielfeld)){
     		return true;
     	}
     	else{
-    	
-    	 if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
-    		 return true;
-    	 }
-    	 else{
-    		 return false;
-    	 }
-    	
+    		if(spielfeld.getNaechsteKarten().contains(karte)){
+    			return true;
+    		}
+    		else{
+    			return false;
+    		}
+    	    	 
         }
     }
-    /** 
-     * prüft ob die gewählte Farbe in Ordnung ist.
-     */
-    private boolean pruefeFarbe(Karte karte, Holder ziel){
-        if(karte.getFarbe()==ziel.getObersteKarten().getFarbe()){
-        	return true;
-        }
-        else{
-        	return false;
-        }
-    	
-    }
-    /** 
-     * prüft ob die gewählte Nummer in Ordnung ist.
-     */
-    private boolean pruefeNummer(Karte karte, Holder ziel){
-    	return true;
-    }
+   
 }

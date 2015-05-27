@@ -100,20 +100,31 @@ public class Spiel {
      * prüft ob der aktuelle Zug gültig ist.
      */
     private boolean pruefeZug(Karte karte, Holder ziel){
-    	if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
+    	if(ziel==stapel){
     		return true;
     	}
     	else{
-    		return false;
-    	}
     	
+    	 if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
+    		 return true;
+    	 }
+    	 else{
+    		 return false;
+    	 }
+    	
+        }
     }
     /** 
      * prüft ob die gewählte Farbe in Ordnung ist.
      */
     private boolean pruefeFarbe(Karte karte, Holder ziel){
-        
-    	return true;	
+        if(karte.getFarbe()==ziel.getObersteKarten().getFarbe()){
+        	return true;
+        }
+        else{
+        	return false;
+        }
+    	
     }
     /** 
      * prüft ob die gewählte Nummer in Ordnung ist.

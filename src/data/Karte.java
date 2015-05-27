@@ -16,4 +16,9 @@ public class Karte {
 		
 	}
 
+	public Color getFarbe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -15,4 +15,9 @@ public abstract class Holder {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Karte getObersteKarten() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -9,5 +9,10 @@ package data;
 /**
  * @author lara
  */
-public class Holder {
+public abstract class Holder {
+	
+	public void add(Karte karte) {
+		// TODO Auto-generated method stub
+		
+	}
 }

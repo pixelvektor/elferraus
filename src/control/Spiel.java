@@ -7,6 +7,7 @@ package control;
  */
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import data.Holder;
 import data.Karte;
@@ -21,8 +22,12 @@ import view.View;
  * @author adrian
  */
 public class Spiel {
-	/** Holder-Array. */
-	private Holder[] holder = new Holder[6];
+	/** Spieler-ArrayList. */
+	private ArrayList<Holder> spieler = new ArrayList<Holder>();
+	/** Stapel-ArrayList. */
+	private Stapel stapel = new Stapel();
+	/** Spielfeld-ArrayList. */
+	private Spielfeld spielfeld = new Spielfeld();
 	/** Fuer den Zug aktiver Holder. */
 	private Holder activeHolder;
 	//private int activeHolder;
@@ -35,31 +40,28 @@ public class Spiel {
 	private boolean isRunning = true;
 	
 	
-	
+	/**
+	 * Erstellt ein Spiel.
+	 */
     public Spiel(View view) {
        this.view=view;
        
        gameInit();
 	}
-    /** Initialisiert das Spiel. */
+    /**
+     *  Initialisiert das Spiel.
+     */
     public void gameInit(){
-    	for(int x=0; x<6; x++){         //erstellt 6 Holder
-    		holder[x]= new Holder(); 
-    	}
-    	
-    	//holder[0]= new Stapel();         //erstellt jeden Holder spezifisch
-    	//holder[1]= new Spieler();
-    	//holder[2]= new Ki();
-    	//holder[3]= new Spielfeld();
     	
     	kartenInit();
     }
-    /** Methode um den Karten einen neuen Holder zuzuweisen. */
+    /**
+     *  Methode um den Karten einen neuen Holder zuzuweisen. 
+     */
     private boolean move(Karte karte, Holder ziel){
     	
     	if (pruefeZug(karte, ziel) == true){
-        	Holder.setOwnerHolder(ziel);  //ownerHolder=Karte im Besitz
-        	Holder.add(karte);
+    		ziel.add(karte);
         	return true;
     	}
     	else{
@@ -67,34 +69,36 @@ public class Spiel {
     	}
  
     }
-    /** Karten werden erstellt. */
+    /**
+     *  Karten werden erstellt.
+     */
     public void kartenInit(){
-    	
-    	targetHolder= Holder.getTargetHolder();  //targetHolder= möchte Karte haben
     	
     	for(int wert=1; wert<=20; wert++){
     		Color farbe = Color.BLUE;
     		Karte karte = new Karte(farbe, wert);
-    		move(karte, targetHolder);
+    		move(karte, stapel);
     	}
     	for(int wert=1; wert<=20; wert++){
     		Color farbe = Color.YELLOW;
     		Karte karte = new Karte(farbe, wert);
-    		move(karte, targetHolder);
+    		move(karte, stapel);
     	}
     	for(int wert=1; wert<=20; wert++){
     		Color farbe = Color.GREEN;
     		Karte karte = new Karte(farbe, wert);
-    		move(karte, targetHolder);
+    		move(karte, stapel);
     	}
     	for(int wert=1; wert<=20; wert++){
     		Color farbe = Color.RED;
     		Karte karte = new Karte(farbe, wert);
-    		move(karte, targetHolder);
+    		move(karte, stapel);
     	}
     	
     }
-    /** prüft ob der aktuelle Zug gültig ist. */
+    /** 
+     * prüft ob der aktuelle Zug gültig ist.
+     */
     private boolean pruefeZug(Karte karte, Holder ziel){
     	if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
     		return true;
@@ -104,11 +108,16 @@ public class Spiel {
     	}
     	
     }
-    /** prüft ob die gewählte Farbe in Ordnung ist. */
+    /** 
+     * prüft ob die gewählte Farbe in Ordnung ist.
+     */
     private boolean pruefeFarbe(Karte karte, Holder ziel){
-        return true;	
+        
+    	return true;	
     }
-    /** prüft ob die gewählte Nummer in Ordnung ist. */
+    /** 
+     * prüft ob die gewählte Nummer in Ordnung ist.
+     */
     private boolean pruefeNummer(Karte karte, Holder ziel){
     	return true;
     }

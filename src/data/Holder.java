@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import data.Karte;
 
 /** Hochschule Hamm-Lippstadt
  * Praktikum Informatik II (ElferRaus)
@@ -18,9 +19,27 @@ public abstract class Holder {
 		
 	}
 
-	public ArrayList<Karte> getNaechsteKarten() {
+	
+	public Karte GetObersteKartenGruen() {
 		// TODO Auto-generated method stub
-		ArrayList<Karte> naechsteKarte = new ArrayList<Karte>();
-		return naechsteKarte;
+		return null;
+	}
+
+
+	public Karte GetObersteKartenGelb() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Karte GetObersteKartenRot() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Karte getObersteKartenBlau() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

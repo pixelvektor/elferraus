@@ -52,6 +52,14 @@ public class Spiel {
      *  Initialisiert das Spiel.
      */
     public void gameInit(){
+    	Holder spieler1 = new Spieler();
+    	Holder ki1 = new Ki();
+    	Holder ki2 = new Ki();
+    	Holder ki3 = new Ki();
+    	spieler.add(spieler1);
+    	spieler.add(ki1);	
+    	spieler.add(ki2);
+    	spieler.add(ki3);
     	
     	kartenInit();
     }
@@ -61,7 +69,10 @@ public class Spiel {
      *  @param ziel Holder an den die Karte geht. 
      */
     private boolean move(Karte karte, Holder ziel){
-    	
+    	if(karte.getNummer()==11){
+    		ziel.add(karte);
+    		return true;
+    	}
     	if (pruefeZug(karte, ziel) == true){
     		ziel.add(karte);
         	return true;
@@ -108,7 +119,7 @@ public class Spiel {
     		return true;
     	}
     	else{
-    		if(spielfeld.getNaechsteKarten().contains(karte)){
+    		if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
     			return true;
     		}
     		else{
@@ -116,6 +127,70 @@ public class Spiel {
     		}
     	    	 
         }
+    }
+    /** 
+     * Prueft ob die gewaehlte Farbe in Ordnung ist.
+     */
+    private boolean pruefeFarbe(Karte karte, Holder ziel){	
+        if(karte.getFarbe()==ziel.getObersteKartenBlau().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenRot().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenGelb().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenGruen().getFarbe()){
+        	return true;
+        }
+        else{
+        	return false;
+        }
+    }    
+     /** 
+      * Prueft ob die gewaehlte Farbe in Ordnung ist.
+      */
+    private boolean pruefeNummer(Karte karte, Holder ziel){	
+        if(karte.getFarbe()==Color.BLUE){
+        	if(karte.getNummer()==ziel.getObersteKartenBlau().getNummer()+1){
+        		return true;
+        	}
+        	if(karte.getNummer()==ziel.getObersteKartenBlau().getNummer()-1){
+        		return true;
+        	}
+        	else{
+        		return false;
+        	}
+        }
+        if(karte.getFarbe()==Color.RED){
+        	if(karte.getNummer()==ziel.GetObersteKartenRot().getNummer()+1){
+        		return true;
+        	}
+        	if(karte.getNummer()==ziel.GetObersteKartenRot().getNummer()-1){
+        		return true;
+        	}
+        	else{
+        		return false;
+        	}
+        }
+        if(karte.getFarbe()==Color.YELLOW){
+        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()+1){
+        		return true;
+        	}
+        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()-1){
+        		return true;
+        	}
+        	else{
+        		return false;
+        	}
+        }
+        if(karte.getFarbe()==Color.GREEN){
+        	if(karte.getNummer()==ziel.GetObersteKartenGruen().getNummer()+1){
+        		return true;
+        	}
+        	if(karte.getNummer()==ziel.GetObersteKartenGruen().getNummer()-1){
+        		return true;
+        	}
+        	else{
+        		return false;
+        	}
+        }
+        else{
+        	return false;
+        }
+    	
     }
    
 }

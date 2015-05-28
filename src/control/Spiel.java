@@ -30,10 +30,8 @@ public class Spiel {
 	private Spielfeld spielfeld = new Spielfeld();
 	/** Fuer den Zug aktiver Holder. */
 	private Holder activeHolder;
-	//private int activeHolder;
 	/** Fuer den Zug aktives Ziel. */
 	private Holder targetHolder;
-	//private int targetHolder;
 	/** Speichert die View. */
 	private View view;
 	/** true solange das Spiel laeuft. */
@@ -62,11 +60,24 @@ public class Spiel {
     	spieler.add(ki3);
     	
     	kartenInit();
+    	gameStart();
+    }
+    private void gameStart(){
+    	stapel.mischen();
+    	for(int i=0; i<11; i++){
+    		move(stapel.getObersteKarte(), spieler.get(0));
+    		move(stapel.getObersteKarte(), spieler.get(1));
+    		move(stapel.getObersteKarte(), spieler.get(2));
+    		move(stapel.getObersteKarte(), spieler.get(3));
+    	}
+    	
     }
     /**
-     *  Methode um eine Karte einem neuen Holder zu überschreiben.
+     *  Methode um eine Karte einem neuen Holder zu ueberschreiben.
      *  @param karte die Karte die verschoben werden soll.
-     *  @param ziel Holder an den die Karte geht. 
+     *  @param ziel Holder an den die Karte geht.
+     *  @return true wenn die Nummer der Karte 11 ist.
+     *  @return true wenn pruefeZug() erfolgreich. 
      */
     private boolean move(Karte karte, Holder ziel){
     	if(karte.getNummer()==11){
@@ -83,7 +94,7 @@ public class Spiel {
  
     }
     /**
-     *  Karten werden erstellt.
+     *  Karten werden erstellt, danach an die Methode move() uebergeben.
      */
     public void kartenInit(){
     	
@@ -111,38 +122,16 @@ public class Spiel {
     }
     /** 
      * Prueft ob der aktuelle Zug gueltig ist.
-     * @return true wenn karte eine moegliche naechste Karte ist.
      * @return true wenn ziel kein Spielfeld ist. 
+     * @return true wenn Farbe und Nummer stimmen.
+     * @param karte die Karte die verschoben werden soll.
+     * @param ziel Holder an den die Karte geht. 
      */
     private boolean pruefeZug(Karte karte, Holder ziel){
     	if(!ziel.equals(spielfeld)){
     		return true;
     	}
     	else{
-    		if(pruefeFarbe(karte, ziel)==true && pruefeNummer(karte, ziel)==true){
-    			return true;
-    		}
-    		else{
-    			return false;
-    		}
-    	    	 
-        }
-    }
-    /** 
-     * Prueft ob die gewaehlte Farbe in Ordnung ist.
-     */
-    private boolean pruefeFarbe(Karte karte, Holder ziel){	
-        if(karte.getFarbe()==ziel.getObersteKartenBlau().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenRot().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenGelb().getFarbe()||karte.getFarbe()==ziel.GetObersteKartenGruen().getFarbe()){
-        	return true;
-        }
-        else{
-        	return false;
-        }
-    }    
-     /** 
-      * Prueft ob die gewaehlte Farbe in Ordnung ist.
-      */
-    private boolean pruefeNummer(Karte karte, Holder ziel){	
         if(karte.getFarbe()==Color.BLUE){
         	if(karte.getNummer()==ziel.getObersteKartenBlau().getNummer()+1){
         		return true;
@@ -190,6 +179,7 @@ public class Spiel {
         else{
         	return false;
         }
+    	}
     	
     }
    

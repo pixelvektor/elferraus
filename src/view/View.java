@@ -8,6 +8,8 @@ package view;
 
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 
 /** Stellt das Spiel in einer GUI auf dem Monitor dar.
@@ -34,6 +36,7 @@ public class View implements ViewInterface{
     public View() {
         initializeView();
         erstelleSpielfeld();
+        //frame.setVisible(true);
     }
 
     @Override
@@ -45,12 +48,19 @@ public class View implements ViewInterface{
      *
      */
     private void initializeView() {
+        // Deaktivierung des plattformabhaengigen UI Design
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Berechnen der mittleren Anzeigeposition des Fensters
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
         int xPos = (screensize.width / 2) - (FRAME_XSIZE / 2);
         int yPos = (screensize.height / 2) - (FRAME_YSIZE / 2);
 
-
+        // Aufbau des Hauptfensters
         frame.setTitle("ElferRaus");
         frame.getContentPane().setBackground(Color.GREEN.darker());
 
@@ -68,22 +78,32 @@ public class View implements ViewInterface{
     private void erstelleSpielfeld() {
         //hand.add(erstelleKarte(Color.BLUE, 10));
         //frame.add(hand);
-        frame.add(erstelleKarte(Color.BLUE, 10));
+        frame.add(erstelleKarte(Color.BLUE, 10, 0, 0));
+        frame.add(erstelleKarte(Color.RED, 11, 0, 45+2));
+        frame.add(erstelleKarte(Color.GREEN, 9, 0, 90+4));
+        frame.add(erstelleKarte(Color.ORANGE, 20, 0, 135+6));
     }
 
-    private JButton erstelleKarte(final Color color, final int number) {
+    /** Erstellt eine Karte als JButton.
+     * @param color Farbe, welche die Karte haben soll.
+     * @param number Nummer der Karte, wird sichtbar dargestellt.
+     * @return Karte als JButton fuer das Spielfeld.
+     */
+    private JButton erstelleKarte(final Color color, final int number, final int xPos, final int yPos) {
         JButton card = new JButton();
         //Anpassung fuer OS X
         card.setOpaque(true);
 
-        card.setSize(BUTTON_XSIZE,BUTTON_YSIZE);
+        card.setBounds(xPos, yPos, BUTTON_XSIZE, BUTTON_YSIZE);
         card.setHorizontalAlignment(SwingConstants.LEFT);
         card.setVerticalAlignment(SwingConstants.TOP);
 
         card.setBackground(color);
         card.setForeground(Color.WHITE);
-        card.setBorder(null);
+        Border border = BorderFactory.createLineBorder(Color.WHITE, 2);
+        card.setBorder(border);
         card.setText("" + number);
+        card.setVisible(true);
 
         return card;
     }

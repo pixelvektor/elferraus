@@ -74,7 +74,21 @@ public class Spiel {
     		if(spieler.get(0).zeigeKarten().get(i).getNummer()==11){
     			activeHolder=spieler.get(0);
     		}
+    		if(spieler.get(1).zeigeKarten().get(i).getNummer()==11){
+    			activeHolder=spieler.get(1);
+    		}
+    		if(spieler.get(2).zeigeKarten().get(i).getNummer()==11){
+    			activeHolder=spieler.get(2);
+    		}
+    		if(spieler.get(3).zeigeKarten().get(i).getNummer()==11){
+    			activeHolder=spieler.get(3);
+    		}
+    		activeHolder=spieler.get(0);
     	}
+    	startRound();
+    }
+    private void startRound(){
+    	
     }
     /**
      *  Methode um eine Karte einem neuen Holder zu ueberschreiben.

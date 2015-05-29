@@ -12,18 +12,22 @@ import java.awt.Color;
  * @author lara
  */
 public class Karte {
-	public Karte(Color farbe, int wert){
-		
+	/** Farbe der Karte. */
+	private final Color farbe;
+	/** Nummer der Karte. */
+	private final int nummer;
+	
+	public Karte(final Color farbe, final int nummer){
+		this.farbe = farbe;
+		this.nummer = nummer;
 	}
 
 	public Color getFarbe() {
-		// TODO Auto-generated method stub
-		return null;
+		return farbe;
 	}
 
 	public int getNummer() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nummer;
 	}
 
 }

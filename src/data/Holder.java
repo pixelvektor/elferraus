@@ -13,13 +13,20 @@ import data.Karte;
  * @author lara
  */
 public abstract class Holder {
-   
-	private String name;
-	
-	private ArrayList<Karte> Karten = new ArrayList<Karte>();
+    private String name;
+
+	private ArrayList<Karte> karten = new ArrayList<Karte>();
+    
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public void add(Karte karte) {
-		// TODO Auto-generated method stub
+		karten.add(karte);
 		
 	}
 	
@@ -27,34 +34,28 @@ public abstract class Holder {
 		
 	}
 
-	
 	public Karte GetObersteKartenGruen() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public Karte GetObersteKartenGelb() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public Karte GetObersteKartenRot() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public Karte getObersteKartenBlau() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public ArrayList<Karte> zeigeKarten() {
-		// TODO Auto-generated method stub
-		return null;
+		return karten;
 	}
 
 	private void sortColor() {
@@ -64,5 +65,4 @@ public abstract class Holder {
 	private void sortCount() {
 		
 	}
-	
 }

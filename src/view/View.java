@@ -10,7 +10,12 @@ package view;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import data.Karte;
+import data.Holder;
+
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Stellt das Spiel in einer GUI auf dem Monitor dar.
  * @author fabian
@@ -28,20 +33,28 @@ public class View implements ViewInterface{
     /** Groesse einer Karte in Y Richtung. */
     private static final int BUTTON_YSIZE = 45;
     /** Kartenhalter fuer den Spieler */
-    private final Container hand = new Container();
+    private final Container handPlayer = new Container();
+    /** Das Kartenset plus eine Rueckseite. */
+    private final Map<Karte, JButton> cards = new HashMap<Karte, JButton>();
+    private Holder stapel;
 
     /** Erstellt eine View fuer das Spiel.
      *
      */
     public View() {
-        initializeView();
-        erstelleSpielfeld();
+        //initializeView();
+        //erstelleSpielfeld();
         //frame.setVisible(true);
     }
 
     @Override
     public void update() {
 
+    }
+    
+    @Override
+    public void update(Holder stapel) {
+    	this.stapel = stapel;
     }
 
     /** Initialisiert das Frame.
@@ -62,11 +75,10 @@ public class View implements ViewInterface{
 
         // Aufbau des Hauptfensters
         frame.setTitle("ElferRaus");
-        frame.getContentPane().setBackground(Color.GREEN.darker());
 
         frame.setBounds(xPos, yPos, FRAME_XSIZE,FRAME_YSIZE);
         frame.setResizable(false);
-        frame.setLayout(new BorderLayout());
+        //frame.setLayout(new BorderLayout());
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -76,12 +88,35 @@ public class View implements ViewInterface{
      *
      */
     private void erstelleSpielfeld() {
-        //hand.add(erstelleKarte(Color.BLUE, 10));
-        //frame.add(hand);
-        frame.add(erstelleKarte(Color.BLUE, 10, 0, 0));
-        frame.add(erstelleKarte(Color.RED, 11, 0, 45+2));
-        frame.add(erstelleKarte(Color.GREEN, 9, 0, 90+4));
-        frame.add(erstelleKarte(Color.ORANGE, 20, 0, 135+6));
+    	Container contentPane = frame.getContentPane();
+    	// Einrichten des Hintergrundes.
+    	contentPane.setBackground(Color.GREEN.darker());
+    	contentPane.setLayout(null);
+    	
+        // Einrichten des Handbereiches des Spielers
+    	handPlayer.setBounds(100, 100, 100, 100);
+    	handPlayer.setBackground(Color.PINK);
+    	handPlayer.setVisible(true);
+    	contentPane.add(handPlayer);
+        
+    	for (int i = 0; i < 3; i++) {
+    		Karte karte = stapel.zeigeKarten().get(i);
+        	cards.put(karte, erstelleKarte(karte.getFarbe(), karte.getNummer(), i*31, 0));
+        	JButton bCard = cards.get(karte);
+        	frame.add(bCard);
+    	}
+    	
+    	/*
+        cards[0] = erstelleKarte(Color.BLUE, 1, 0, 0);
+        cards[1] = erstelleKarte(Color.RED, 1, 0, 45+2);
+        cards[2] = erstelleKarte(Color.GREEN, 1, 0, 90+4);
+        cards[3] = erstelleKarte(Color.ORANGE, 1, 0, 135+6);
+        
+        frame.add(cards[0]);
+        frame.add(cards[1]);
+        frame.add(cards[2]);
+        frame.add(cards[3]);
+        */
     }
 
     /** Erstellt eine Karte als JButton.

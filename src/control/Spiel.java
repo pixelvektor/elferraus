@@ -42,14 +42,15 @@ public class Spiel {
 	 * Erstellt ein Spiel.
 	 */
     public Spiel(View view) {
-       this.view=view;
-       
-       gameInit();
+    	System.out.println("start0");
+    	this.view=view;
+    	
+    	gameInit();
 	}
     /**
      *  Initialisiert das Spiel.
      */
-    public void gameInit(){
+    private void gameInit(){
     	Holder spieler1 = new Spieler();
     	Holder ki1 = new Ki();
     	Holder ki2 = new Ki();
@@ -62,6 +63,7 @@ public class Spiel {
     	kartenInit();
     	gameStart();
     }
+    
     private void gameStart(){
     	stapel.mischen();
     	for(int i=0; i<11; i++){
@@ -87,9 +89,11 @@ public class Spiel {
     	}
     	startRound();
     }
+    
     private void startRound(){
     	
     }
+    
     /**
      *  Methode um eine Karte einem neuen Holder zu ueberschreiben.
      *  @param karte die Karte die verschoben werden soll.
@@ -111,33 +115,32 @@ public class Spiel {
     	
  
     }
+    
     /**
      *  Karten werden erstellt, danach an die Methode move() uebergeben.
      */
-    public void kartenInit(){
+    private void kartenInit(){
     	
-    	for(int wert=1; wert<=20; wert++){
-    		Color farbe = Color.BLUE;
-    		Karte karte = new Karte(farbe, wert);
-    		move(karte, stapel);
+    	for(int nummer=1; nummer<=20; nummer++){
+    		Karte karte = new Karte(Color.BLUE, nummer);
+    		stapel.add(karte);
     	}
-    	for(int wert=1; wert<=20; wert++){
-    		Color farbe = Color.YELLOW;
-    		Karte karte = new Karte(farbe, wert);
-    		move(karte, stapel);
+    	for(int nummer=1; nummer<=20; nummer++){
+    		Karte karte = new Karte(Color.ORANGE, nummer);
+    		stapel.add(karte);
     	}
-    	for(int wert=1; wert<=20; wert++){
-    		Color farbe = Color.GREEN;
-    		Karte karte = new Karte(farbe, wert);
-    		move(karte, stapel);
+    	for(int nummer=1; nummer<=20; nummer++){
+    		Karte karte = new Karte(Color.GREEN, nummer);
+    		stapel.add(karte);
     	}
-    	for(int wert=1; wert<=20; wert++){
-    		Color farbe = Color.RED;
-    		Karte karte = new Karte(farbe, wert);
-    		move(karte, stapel);
+    	for(int nummer=1; nummer<=20; nummer++){
+    		Karte karte = new Karte(Color.RED, nummer);
+    		stapel.add(karte);
     	}
+    	view.update(stapel);
     	
     }
+    
     /** 
      * Prueft ob der aktuelle Zug gueltig ist.
      * @return true wenn ziel kein Spielfeld ist. 

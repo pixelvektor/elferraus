@@ -6,6 +6,8 @@ package view;
  * 22.05.2015
  */
 
+import data.Holder;
+
 /** Interface der View.
  * Gibt die Schnittstelle zur control vor.
  * @author fabian
@@ -17,4 +19,6 @@ public interface ViewInterface {
      *
      */
     public void update();
+    
+    public void update(Holder stapel);
 }

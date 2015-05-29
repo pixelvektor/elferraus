@@ -7,15 +7,24 @@ package view;
  */
 
 
-import javax.swing.*;
-import javax.swing.border.Border;
-
-import data.Karte;
-import data.Holder;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+
+import control.Spiel;
+import data.Holder;
+import data.Karte;
 
 /** Stellt das Spiel in einer GUI auf dem Monitor dar.
  * @author fabian
@@ -34,29 +43,45 @@ public class View implements ViewInterface{
     private static final int BUTTON_YSIZE = 45;
     /** Kartenhalter fuer den Spieler */
     private final Container handPlayer = new Container();
+    /** ContentPane des Frames. */
+    private Container contentPane;
     /** Das Kartenset plus eine Rueckseite. */
-    private final Map<Karte, JButton> cards = new HashMap<Karte, JButton>();
-    private Holder stapel;
+    private Map<Karte, JButton> cards;
 
     /** Erstellt eine View fuer das Spiel.
      *
      */
     public View() {
-        //initializeView();
-        //erstelleSpielfeld();
-        //frame.setVisible(true);
+        initializeView();
     }
 
     @Override
-    public void update() {
-
+    public void update(final Spiel spiel) {
+    	cards = new HashMap<Karte, JButton>();
+    	Holder stapel = spiel.getStapel();
+    	Holder spielfeld = spiel.getSpielfeld();
+    	ArrayList<Holder> spieler = spiel.getSpieler();
+    	
+    	ArrayList<Karte> stapelKarten = stapel.getKarten();
+    	System.out.println(stapelKarten);
+    	int y = 0;
+    	int x = 0;
+    	Color c = stapelKarten.get(0).getFarbe();
+    	for (int i = 0;  i < stapelKarten.size(); i++) {
+    		Karte karte = stapelKarten.get(i);
+    		if (!c.equals(karte.getFarbe())) {
+				y++;
+				x = 0;
+				c = karte.getFarbe();
+			}
+    		JButton b = erstelleKarte(karte.getFarbe(), karte.getNummer(), x * (BUTTON_XSIZE + 2), y * (BUTTON_YSIZE +2));
+			cards.put(karte, b);
+			frame.add(b);
+			x++;
+			System.out.println(i);
+		}
     }
     
-    @Override
-    public void update(Holder stapel) {
-    	this.stapel = stapel;
-    }
-
     /** Initialisiert das Frame.
      *
      */
@@ -75,6 +100,9 @@ public class View implements ViewInterface{
 
         // Aufbau des Hauptfensters
         frame.setTitle("ElferRaus");
+        
+        contentPane = frame.getContentPane();
+        contentPane.setBackground(Color.GREEN.darker().darker());
 
         frame.setBounds(xPos, yPos, FRAME_XSIZE,FRAME_YSIZE);
         frame.setResizable(false);
@@ -98,25 +126,6 @@ public class View implements ViewInterface{
     	handPlayer.setBackground(Color.PINK);
     	handPlayer.setVisible(true);
     	contentPane.add(handPlayer);
-        
-    	for (int i = 0; i < 3; i++) {
-    		Karte karte = stapel.zeigeKarten().get(i);
-        	cards.put(karte, erstelleKarte(karte.getFarbe(), karte.getNummer(), i*31, 0));
-        	JButton bCard = cards.get(karte);
-        	frame.add(bCard);
-    	}
-    	
-    	/*
-        cards[0] = erstelleKarte(Color.BLUE, 1, 0, 0);
-        cards[1] = erstelleKarte(Color.RED, 1, 0, 45+2);
-        cards[2] = erstelleKarte(Color.GREEN, 1, 0, 90+4);
-        cards[3] = erstelleKarte(Color.ORANGE, 1, 0, 135+6);
-        
-        frame.add(cards[0]);
-        frame.add(cards[1]);
-        frame.add(cards[2]);
-        frame.add(cards[3]);
-        */
     }
 
     /** Erstellt eine Karte als JButton.
@@ -130,8 +139,8 @@ public class View implements ViewInterface{
         card.setOpaque(true);
 
         card.setBounds(xPos, yPos, BUTTON_XSIZE, BUTTON_YSIZE);
-        card.setHorizontalAlignment(SwingConstants.LEFT);
-        card.setVerticalAlignment(SwingConstants.TOP);
+        //card.setHorizontalAlignment(SwingConstants.LEFT);
+        //card.setVerticalAlignment(SwingConstants.TOP);
 
         card.setBackground(color);
         card.setForeground(Color.WHITE);

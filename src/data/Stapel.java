@@ -14,15 +14,8 @@ public class Stapel extends Holder{
 	         Random random = new Random();
 	           for(int i = 0; i < 79; i++) {
 	             zufall = random.nextInt(80);
-	             zwischenspeicher = zeigeKarten().get(i);
-	             zwischenspeicher = zeigeKarten().get(zufall);
+	             zwischenspeicher = getKarten().get(i);
+	             zwischenspeicher = getKarten().get(zufall);
 	           }
     }
-	           
-
-	public Karte getObersteKarte() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

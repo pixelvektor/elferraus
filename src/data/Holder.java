@@ -53,8 +53,12 @@ public abstract class Holder {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Karte getObersteKarte() {
+		return karten.get(0);
+	}
 
-	public ArrayList<Karte> zeigeKarten() {
+	public ArrayList<Karte> getKarten() {
 		return karten;
 	}
 

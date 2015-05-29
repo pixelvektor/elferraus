@@ -6,7 +6,7 @@ package view;
  * 22.05.2015
  */
 
-import data.Holder;
+import control.Spiel;
 
 /** Interface der View.
  * Gibt die Schnittstelle zur control vor.
@@ -18,7 +18,5 @@ public interface ViewInterface {
     /** Aktualisiert die View auf den momentanen Spielstatus.
      *
      */
-    public void update();
-    
-    public void update(Holder stapel);
+    public void update(Spiel spiel);
 }

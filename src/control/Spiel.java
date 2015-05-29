@@ -70,6 +70,11 @@ public class Spiel {
     		move(stapel.getObersteKarte(), spieler.get(2));
     		move(stapel.getObersteKarte(), spieler.get(3));
     	}
+    	for(int i=0; i<11; i++){
+    		if(spieler.get(0).zeigeKarten().get(i).getNummer()==11){
+    			activeHolder=spieler.get(0);
+    		}
+    	}
     	
     }
     /**
@@ -88,34 +93,31 @@ public class Spiel {
     		ziel.add(karte);
         	return true;
     	}
-    	else{
-    		return false;
-    	}
- 
+   		return false;
     }
     /**
      *  Karten werden erstellt, danach an die Methode move() uebergeben.
      */
     public void kartenInit(){
     	
-    	for(int wert=1; wert<=20; wert++){
+    	for(int nummer=1; nummer<=20; nummer++){
     		Color farbe = Color.BLUE;
-    		Karte karte = new Karte(farbe, wert);
+    		Karte karte = new Karte(farbe, nummer);
     		move(karte, stapel);
     	}
-    	for(int wert=1; wert<=20; wert++){
-    		Color farbe = Color.YELLOW;
-    		Karte karte = new Karte(farbe, wert);
+    	for(int nummer=1; nummer<=20; nummer++){
+    		Color farbe = Color.ORANGE;
+    		Karte karte = new Karte(farbe, nummer);
     		move(karte, stapel);
     	}
-    	for(int wert=1; wert<=20; wert++){
+    	for(int nummer=1; nummer<=20; nummer++){
     		Color farbe = Color.GREEN;
-    		Karte karte = new Karte(farbe, wert);
+    		Karte karte = new Karte(farbe, nummer);
     		move(karte, stapel);
     	}
-    	for(int wert=1; wert<=20; wert++){
+    	for(int nummer=1; nummer<=20; nummer++){
     		Color farbe = Color.RED;
-    		Karte karte = new Karte(farbe, wert);
+    		Karte karte = new Karte(farbe, nummer);
     		move(karte, stapel);
     	}
     	
@@ -154,11 +156,11 @@ public class Spiel {
         		return false;
         	}
         }
-        if(karte.getFarbe()==Color.YELLOW){
-        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()+1){
+        if(karte.getFarbe()==Color.ORANGE){
+        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()-1){
+        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()-1){
         		return true;
         	}
         	else{

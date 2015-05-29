@@ -26,7 +26,7 @@ public abstract class Holder {
 	}
 
 
-	public Karte GetObersteKartenGelb() {
+	public Karte GetObersteKartenOrange() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -39,6 +39,12 @@ public abstract class Holder {
 
 
 	public Karte getObersteKartenBlau() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public ArrayList<Karte> zeigeKarten() {
 		// TODO Auto-generated method stub
 		return null;
 	}

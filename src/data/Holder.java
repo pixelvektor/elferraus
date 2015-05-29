@@ -14,37 +14,35 @@ import data.Karte;
  */
 public abstract class Holder {
 	
-	private String name;
-	
-	private ArrayList<Karte> Karten = new ArrayList<Karte>();
-	
 	public void add(Karte karte) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void remove(Karte karte) {
-		
-	}
 	
 	public Karte GetObersteKartenGruen() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	public Karte GetObersteKartenGelb() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	public Karte GetObersteKartenRot() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	public Karte getObersteKartenBlau() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
+	
 }

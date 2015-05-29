@@ -13,12 +13,17 @@ import data.Karte;
  * @author lara
  */
 public abstract class Holder {
-    private String name;
+   
+	private String name;
 	
 	private ArrayList<Karte> Karten = new ArrayList<Karte>();
 	
 	public void add(Karte karte) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void remove(Karte karte) {
 		
 	}
 
@@ -52,6 +57,12 @@ public abstract class Holder {
 		return null;
 	}
 
-
+	private void sortColor() {
+	
+	}
+	
+	private void sortCount() {
+		
+	}
 	
 }

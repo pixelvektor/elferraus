@@ -13,6 +13,9 @@ import data.Karte;
  * @author lara
  */
 public abstract class Holder {
+    private String name;
+	
+	private ArrayList<Karte> Karten = new ArrayList<Karte>();
 	
 	public void add(Karte karte) {
 		// TODO Auto-generated method stub

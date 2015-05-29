@@ -47,5 +47,11 @@ public abstract class Holder {
 	}
 
 
+	public ArrayList<Karte> zeigeKarten() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 }

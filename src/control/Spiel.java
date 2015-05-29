@@ -70,7 +70,11 @@ public class Spiel {
     		move(stapel.getObersteKarte(), spieler.get(2));
     		move(stapel.getObersteKarte(), spieler.get(3));
     	}
-    	
+    	for(int i=0; i<11; i++){
+    		if(spieler.get(0).zeigeKarten().get(i).getNummer()==11){
+    			activeHolder=spieler.get(0);
+    		}
+    	}
     }
     /**
      *  Methode um eine Karte einem neuen Holder zu ueberschreiben.
@@ -88,9 +92,9 @@ public class Spiel {
     		ziel.add(karte);
         	return true;
     	}
-    	else{
+    	
     		return false;
-    	}
+    	
  
     }
     /**

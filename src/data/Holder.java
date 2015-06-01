@@ -39,7 +39,7 @@ public abstract class Holder {
 		return null;
 	}
 
-	public Karte GetObersteKartenGelb() {
+	public Karte GetObersteKartenOrange() {
 		// TODO Auto-generated method stub
 		return null;
 	}

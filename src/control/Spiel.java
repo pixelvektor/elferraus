@@ -193,11 +193,11 @@ public class Spiel {
         		return false;
         	}
         }
-        if(karte.getFarbe()==Color.ORANGE){
-        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()+1){
+        if(karte.getFarbe()==Color.YELLOW){
+        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()-1){
+        	if(karte.getNummer()==ziel.GetObersteKartenGelb().getNummer()-1){
         		return true;
         	}
         	else{

@@ -7,6 +7,7 @@ package view;
  */
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -18,6 +19,7 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -30,7 +32,7 @@ import data.Karte;
  * @author fabian
  * @version 2205201501
  */
-public class View implements ViewInterface{
+public class ViewGui implements ViewInterface{
     /** Beinhaltet das Fenster fuer das Spiel. */
     private final JFrame frame = new JFrame();
     /** Groesse des Fensters in X Richtung. */
@@ -51,7 +53,7 @@ public class View implements ViewInterface{
     /** Erstellt eine View fuer das Spiel.
      *
      */
-    public View() {
+    public ViewGui() {
         initializeView();
     }
 
@@ -76,14 +78,14 @@ public class View implements ViewInterface{
 			}
     		JButton b = erstelleKarte(karte.getFarbe(), karte.getNummer(), x * (BUTTON_XSIZE + 2), y * (BUTTON_YSIZE +2));
 			cards.put(karte, b);
-			frame.add(b);
+			handPlayer.add(b);
+			b.setVisible(true);
 			x++;
-			System.out.println(i);
 		}
     }
     
     /** Initialisiert das Frame.
-     *
+     * UI wird plattformunabhaengig mittig aufgebaut.
      */
     private void initializeView() {
         // Deaktivierung des plattformabhaengigen UI Design
@@ -103,6 +105,10 @@ public class View implements ViewInterface{
         
         contentPane = frame.getContentPane();
         contentPane.setBackground(Color.GREEN.darker().darker());
+        
+        handPlayer.setBounds(100, 100, 630, 186);
+        handPlayer.setVisible(true);
+        contentPane.add(handPlayer);
 
         frame.setBounds(xPos, yPos, FRAME_XSIZE,FRAME_YSIZE);
         frame.setResizable(false);
@@ -147,7 +153,6 @@ public class View implements ViewInterface{
         Border border = BorderFactory.createLineBorder(Color.WHITE, 2);
         card.setBorder(border);
         card.setText("" + number);
-        card.setVisible(true);
 
         return card;
     }

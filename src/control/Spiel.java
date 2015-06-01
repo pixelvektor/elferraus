@@ -69,6 +69,10 @@ public class Spiel {
 	public Spielfeld getSpielfeld() {
 		return spielfeld;
 	}
+	
+	public void exit() {
+		isRunning = false;
+	}
 
 	/**
      *  Initialisiert das Spiel.

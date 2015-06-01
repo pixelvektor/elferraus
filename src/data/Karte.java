@@ -29,5 +29,9 @@ public class Karte {
 	public int getNummer() {
 		return nummer;
 	}
+	
+	public String toString() {
+		return farbe + " " + nummer + "\n";
+	}
 
 }

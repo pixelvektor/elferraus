@@ -43,7 +43,10 @@ public class View implements ViewInterface {
 			System.out.println("Bye Bye.");
 			spiel.exit();
 			break;
-
+		case "next":
+			System.out.println("Bitte Warten.");
+			spiel.naechsterSpieler();
+            break;
 		default:
 			System.out.println("Ich verstehe '" + input + "' nicht.");
 			break;

@@ -34,6 +34,8 @@ public class Spiel {
 	private Holder activeHolder;
 	/** Fuer den Zug aktives Ziel. */
 	private Holder targetHolder;
+	/** Index des aktiven Spielers. */
+	private int activePlayer=0;
 	/** Speichert die View. */
 	private View view;
 	/** true solange das Spiel laeuft. */
@@ -102,23 +104,52 @@ public class Spiel {
     	for(int i=0; i<ELF; i++){
     		if(spieler.get(0).getKarten().get(i).getNummer()==ELF){
     			activeHolder=spieler.get(0);
+    			activePlayer=0;
     		}
     		if(spieler.get(1).getKarten().get(i).getNummer()==ELF){
     			activeHolder=spieler.get(1);
+    			activePlayer=1;
     		}
     		if(spieler.get(2).getKarten().get(i).getNummer()==ELF){
     			activeHolder=spieler.get(2);
+    			activePlayer=2;
     		}
     		if(spieler.get(3).getKarten().get(i).getNummer()==ELF){
     			activeHolder=spieler.get(3);
+    			activePlayer=3;
     		}
-    		activeHolder=spieler.get(0);
+    		activeHolder=spieler.get(activePlayer);
     	}
     	startRound();
+    	System.out.println("test3");
+    	System.out.println(activeHolder.toString());
+    	System.out.println(activePlayer);
     }
     
     private void startRound(){
+    	if(isRunning=true){
+    		
+    		view.update(this);
+    		System.out.println("test");
+    	}
     	
+    }
+    
+    public void naechsterSpieler(){
+    	if(activePlayer<3){
+    		activePlayer=activePlayer+1;
+    	}
+    	else{
+    		activePlayer=0;
+    	}
+    	activeHolder=spieler.get(activePlayer);
+    	
+    	
+    	System.out.println("test2");
+    	System.out.println(activeHolder.toString());
+    	System.out.println(activePlayer);
+    	
+    	startRound();
     }
     
     /** Methode um eine Karte einem neuen Holder zu ueberschreiben.

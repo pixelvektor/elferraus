@@ -183,7 +183,7 @@ public class Spiel {
     		stapel.add(karte);
     	}
     	for(int nummer=1; nummer<=20; nummer++){
-    		Karte karte = new Karte(Color.GREEN.darker(), nummer);
+    		Karte karte = new Karte(Color.GREEN, nummer);
     		stapel.add(karte);
     	}
     	for(int nummer=1; nummer<=20; nummer++){
@@ -207,10 +207,10 @@ public class Spiel {
     	}
     	else{
         if(karte.getFarbe()==Color.BLUE){
-        	if(karte.getNummer()==ziel.getObersteKartenBlau().getNummer()+1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.BLUE).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.getObersteKartenBlau().getNummer()-1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.BLUE).getNummer()-1){
         		return true;
         	}
         	else{
@@ -218,10 +218,10 @@ public class Spiel {
         	}
         }
         if(karte.getFarbe()==Color.RED){
-        	if(karte.getNummer()==ziel.GetObersteKartenRot().getNummer()+1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.RED).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.GetObersteKartenRot().getNummer()-1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.RED).getNummer()-1){
         		return true;
         	}
         	else{
@@ -229,10 +229,10 @@ public class Spiel {
         	}
         }
         if(karte.getFarbe()==Color.ORANGE){
-        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()+1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.ORANGE).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.GetObersteKartenOrange().getNummer()-1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.ORANGE).getNummer()-1){
         		return true;
         	}
         	else{
@@ -240,10 +240,10 @@ public class Spiel {
         	}
         }
         if(karte.getFarbe()==Color.GREEN){
-        	if(karte.getNummer()==ziel.GetObersteKartenGruen().getNummer()+1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.GREEN).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.GetObersteKartenGruen().getNummer()-1){
+        	if(karte.getNummer()==ziel.getHighestCard(Color.GREEN).getNummer()-1){
         		return true;
         	}
         	else{

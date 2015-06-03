@@ -76,8 +76,60 @@ public class Spiel {
 		isRunning = false;
 	}
 
-	/**
-     *  Initialisiert das Spiel.
+	public void naechsterSpieler(){
+		if(activePlayer<3){
+			activePlayer=activePlayer+1;
+		}
+		else{
+			activePlayer=0;
+		}
+		activeHolder=spieler.get(activePlayer);
+		
+		
+		System.out.println("test2");
+		System.out.println(activeHolder.toString());
+		System.out.println(activePlayer);
+		
+		startRound();
+	}
+
+	/** Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.
+	 * @param color Farbe der zu bewegenden Karte.
+	 * @param number Nummer der zu bewegenden Karte.
+	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
+	 */
+	public boolean setMove(final Color color, final int number) {
+		return false;
+	}
+	
+	/** Der aktive Spieler zieht eine Karte vom Stapel.
+	 * @return true wenn die Karte vom Stapel gezogen wurde. Sonst false (=leer).
+	 */
+	public boolean pull() {
+		return move(stapel.getObersteKarte(), activeHolder);
+	}
+
+	/** Methode um eine Karte einem neuen Holder zu ueberschreiben.
+	 *  @param karte die Karte die verschoben werden soll. Nicht null.
+	 *  @param ziel Holder an den die Karte geht.
+	 *  @return true wenn der Zug erfolgreich ist. Sonst false (Karte null).
+	 */
+	private boolean move(Karte karte, Holder ziel){
+		if (karte != null) {
+			if(karte.getNummer()==ELF){
+				ziel.add(karte);
+				return true;
+			}
+			if (pruefeZug(karte, ziel)){
+				ziel.add(karte);
+		    	return true;
+			}
+		}
+		return false;
+	}
+
+	/** Initialisiert das Spiel.
+     *
      */
     private void gameInit(){
     	Holder spieler1 = new Spieler();
@@ -135,43 +187,8 @@ public class Spiel {
     	
     }
     
-    public void naechsterSpieler(){
-    	if(activePlayer<3){
-    		activePlayer=activePlayer+1;
-    	}
-    	else{
-    		activePlayer=0;
-    	}
-    	activeHolder=spieler.get(activePlayer);
-    	
-    	
-    	System.out.println("test2");
-    	System.out.println(activeHolder.toString());
-    	System.out.println(activePlayer);
-    	
-    	startRound();
-    }
-    
-    /** Methode um eine Karte einem neuen Holder zu ueberschreiben.
-     *  @param karte die Karte die verschoben werden soll.
-     *  @param ziel Holder an den die Karte geht.
-     *  @return true wenn die Nummer der Karte 11 ist.
-     *  @return true wenn pruefeZug() erfolgreich. 
-     */
-    private boolean move(Karte karte, Holder ziel){
-    	if(karte.getNummer()==ELF){
-    		ziel.add(karte);
-    		return true;
-    	}
-    	if (pruefeZug(karte, ziel) == true){
-    		ziel.add(karte);
-        	return true;
-    	}
-    	return false;
-    }
-    
-    /**
-     *  Karten werden erstellt, danach an die Methode move() uebergeben.
+    /** Karten werden erstellt, danach an die Methode move() uebergeben.
+     *
      */
     private void kartenInit(){
     	for(int nummer=1; nummer<=20; nummer++){
@@ -196,10 +213,9 @@ public class Spiel {
     
     /** 
      * Prueft ob der aktuelle Zug gueltig ist.
-     * @return true wenn ziel kein Spielfeld ist. 
-     * @return true wenn Farbe und Nummer stimmen.
      * @param karte die Karte die verschoben werden soll.
-     * @param ziel Holder an den die Karte geht. 
+     * @param ziel Holder an den die Karte geht.
+     * @return true wenn ziel kein Spielfeld ist, Farbe und Nummer stimmen. Sonst false.
      */
     private boolean pruefeZug(Karte karte, Holder ziel){
     	if(!ziel.equals(spielfeld)){

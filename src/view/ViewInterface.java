@@ -11,12 +11,12 @@ import control.Spiel;
 /** Interface der View.
  * Gibt die Schnittstelle zur control vor.
  * @author fabian
- * @version 2205201501
+ * @version 0306201501
  */
 public interface ViewInterface {
 
     /** Aktualisiert die View auf den momentanen Spielstatus.
-     *
+     * @param spiel Das Spiel welches update aufruft.
      */
     public void update(Spiel spiel);
 }

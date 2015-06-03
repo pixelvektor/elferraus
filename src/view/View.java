@@ -17,8 +17,10 @@ import control.Spiel;
  *
  */
 public class View implements ViewInterface {
-	private static final String HELP_MESSAGE = "Um eine Karte zu ziehen geben Sie 'pull' ein.\r\n"
+	private static final String HELP_MESSAGE = "\r\n"
+			+ "Um eine Karte zu ziehen geben Sie 'pull' ein.\r\n"
 			+ "Um eine Karte zu legen geben Sie den Farbbuchstaben und die Nummer ein. Bsp: R9.\r\n"
+			+ "Diese Hilfe kann mit 'help' angezeigt werden.\r\n"
 			+ "Und wenn Sie dann doch keine Lust mehr haben sagen Sie 'bye'.\r\n";
 
 	/** Erstellt eine neue View fuer das Spiel.
@@ -47,6 +49,9 @@ public class View implements ViewInterface {
 			System.out.println("Bitte Warten.");
 			spiel.naechsterSpieler();
             break;
+        case "help":
+        	System.out.println(HELP_MESSAGE);
+        	break;
 		default:
 			System.out.println("Ich verstehe '" + input + "' nicht.");
 			break;
@@ -65,13 +70,13 @@ public class View implements ViewInterface {
 	}
 
 	private void printSpielfeld() {
-		System.out.print("Blau   ");
+		System.out.print("Blau   -|-|-");
 		System.out.println();
-		System.out.print("Rot    ");
+		System.out.print("Rot    -|-|-");
 		System.out.println();
-		System.out.print("Gruen  ");
+		System.out.print("Gruen  -|-|-");
 		System.out.println();
-		System.out.print("Orange ");
+		System.out.print("Orange -|-|-");
 		System.out.println();
 	}
 }

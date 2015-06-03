@@ -36,6 +36,8 @@ public class Spiel {
 	private Holder targetHolder;
 	/** Index des aktiven Spielers. */
 	private int activePlayer=0;
+	/** Anzahl der vorhandenen Kis */
+	private int kiAnzahl=1;
 	/** Speichert die View. */
 	private View view;
 	/** true solange das Spiel laeuft. */
@@ -132,15 +134,10 @@ public class Spiel {
      *
      */
     private void gameInit(){
-    	Holder spieler1 = new Spieler();
-    	Holder ki1 = new Ki();
-    	Holder ki2 = new Ki();
-    	Holder ki3 = new Ki();
-    	spieler.add(spieler1);
-    	spieler.add(ki1);	
-    	spieler.add(ki2);
-    	spieler.add(ki3);
-    	
+    	spieler.add(new Spieler());
+    	for(int y=1; y<=kiAnzahl; y++){
+    	 spieler.add(new Ki());	
+     	}
     	kartenInit();
     	gameStart();
     }
@@ -149,40 +146,40 @@ public class Spiel {
     	stapel.mischen();
     	for(int i=0; i<ELF; i++){
     		move(stapel.getObersteKarte(), spieler.get(0));
-    		move(stapel.getObersteKarte(), spieler.get(1));
-    		move(stapel.getObersteKarte(), spieler.get(2));
-    		move(stapel.getObersteKarte(), spieler.get(3));
+    		for(int y=1; y<=kiAnzahl; y++){
+    		 move(stapel.getObersteKarte(), spieler.get(y));
+    		}
     	}
     	for(int i=0; i<ELF; i++){
     		if(spieler.get(0).getKarten().get(i).getNummer()==ELF){
     			activeHolder=spieler.get(0);
     			activePlayer=0;
     		}
-    		if(spieler.get(1).getKarten().get(i).getNummer()==ELF){
-    			activeHolder=spieler.get(1);
-    			activePlayer=1;
-    		}
-    		if(spieler.get(2).getKarten().get(i).getNummer()==ELF){
-    			activeHolder=spieler.get(2);
-    			activePlayer=2;
-    		}
-    		if(spieler.get(3).getKarten().get(i).getNummer()==ELF){
-    			activeHolder=spieler.get(3);
-    			activePlayer=3;
+    		for(int x=1; x<=kiAnzahl; x++){
+    		if(spieler.get(x).getKarten().get(i).getNummer()==ELF){
+    			activeHolder=spieler.get(x);
+    			activePlayer=x;
+    		 }
+    		
     		}
     		activeHolder=spieler.get(activePlayer);
     	}
-    	startRound();
+    	
     	System.out.println("test3");
     	System.out.println(activeHolder.toString());
     	System.out.println(activePlayer);
+    	startRound();
     }
     
     private void startRound(){
     	if(isRunning=true){
-    		
+    		if(activePlayer!= 0){
+    		//hier wird die ki aufgefordert etwas zu tun
+    			System.out.println("Ki macht");
+    			
+    		}
     		view.update(this);
-    		System.out.println("test");
+    		
     	}
     	
     }
@@ -207,7 +204,7 @@ public class Spiel {
     		Karte karte = new Karte(Color.RED, nummer);
     		stapel.add(karte);
     	}
-    	view.update(this);
+    	
     	
     }
     
@@ -226,7 +223,7 @@ public class Spiel {
         	if(karte.getNummer()==ziel.getHighestCard(Color.BLUE).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.getHighestCard(Color.BLUE).getNummer()-1){
+        	if(karte.getNummer()==ziel.getLowestCard(Color.BLUE).getNummer()-1){
         		return true;
         	}
         	else{
@@ -237,7 +234,7 @@ public class Spiel {
         	if(karte.getNummer()==ziel.getHighestCard(Color.RED).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.getHighestCard(Color.RED).getNummer()-1){
+        	if(karte.getNummer()==ziel.getLowestCard(Color.RED).getNummer()-1){
         		return true;
         	}
         	else{
@@ -248,7 +245,7 @@ public class Spiel {
         	if(karte.getNummer()==ziel.getHighestCard(Color.ORANGE).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.getHighestCard(Color.ORANGE).getNummer()-1){
+        	if(karte.getNummer()==ziel.getLowestCard(Color.ORANGE).getNummer()-1){
         		return true;
         	}
         	else{
@@ -259,7 +256,7 @@ public class Spiel {
         	if(karte.getNummer()==ziel.getHighestCard(Color.GREEN).getNummer()+1){
         		return true;
         	}
-        	if(karte.getNummer()==ziel.getHighestCard(Color.GREEN).getNummer()-1){
+        	if(karte.getNummer()==ziel.getLowestCard(Color.GREEN).getNummer()-1){
         		return true;
         	}
         	else{

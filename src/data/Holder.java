@@ -62,7 +62,7 @@ public abstract class Holder {
 	 * @return Die hoechste Karte der Farbe, sofern groesser 11. Sonst null.
 	 */
 	public Karte getHighestCard(final Color farbe) {
-		Karte highestCard = karten.get(0);
+		Karte highestCard = null;
 		
 		for (Karte k : karten) {
 			if (k.getFarbe().equals(farbe) && k.getNummer() > 11) {

@@ -25,11 +25,11 @@ public class Spiel {
 	/** Die Schluesselzahl 11. */
 	private static final int ELF = 11;
 	/** Spieler-ArrayList. */
-	private ArrayList<Holder> spieler = new ArrayList<Holder>();
+	private final ArrayList<Holder> spieler = new ArrayList<Holder>();
 	/** Stapel fuer die Karten. */
-	private Stapel stapel = new Stapel();
+	private final Stapel stapel = new Stapel();
 	/** Spielfeld. */
-	private Spielfeld spielfeld = new Spielfeld();
+	private final Spielfeld spielfeld = new Spielfeld();
 	/** Fuer den Zug aktiver Holder. */
 	private Holder activeHolder;
 	/** Fuer den Zug aktives Ziel. */
@@ -37,9 +37,9 @@ public class Spiel {
 	/** Index des aktiven Spielers. */
 	private int activePlayer=0;
 	/** Anzahl der vorhandenen Kis */
-	private int kiAnzahl=1;
+	private final int kiAnzahl;
 	/** Speichert die View. */
-	private View view;
+	private final View view;
 	/** true solange das Spiel laeuft. */
 	private boolean isRunning = true;
 	
@@ -48,8 +48,8 @@ public class Spiel {
 	 * Erstellt ein Spiel.
 	 */
     public Spiel(View view) {
-    	this.view=view;
-    	
+    	this.view = view;
+    	kiAnzahl = 1;
     	gameInit();
 	}
     
@@ -208,8 +208,7 @@ public class Spiel {
     	
     }
     
-    /** 
-     * Prueft ob der aktuelle Zug gueltig ist.
+    /** Prueft ob der aktuelle Zug gueltig ist.
      * @param karte die Karte die verschoben werden soll.
      * @param ziel Holder an den die Karte geht.
      * @return true wenn ziel kein Spielfeld ist, Farbe und Nummer stimmen. Sonst false.

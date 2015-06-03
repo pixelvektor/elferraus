@@ -49,7 +49,7 @@ public class View implements ViewInterface {
 		System.out.println("Sie haben " + spiel.getSpieler().get(0).getKarten().size() + " auf der Hand.");
 		
 		boolean result = true;
-		String[] input = (input("Ihr Zug: ")).split(" ");
+		String[] input = input("Ihr Zug: ").split(" ");
 		switch (input[0]) {
         case "help":
         	System.out.println(HELP_MESSAGE);

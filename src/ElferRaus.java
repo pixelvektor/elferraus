@@ -12,7 +12,7 @@ import view.View;
  * @author fabian
  * @version 2205201501
  */
-public class ElferRaus {
+public final class ElferRaus {
 
     /** Hauptmethode des Spiels.
      * Erstellt eine View und weist diese dem Spiel zu.
@@ -22,4 +22,6 @@ public class ElferRaus {
         View view = new View();
         new Spiel(view);
     }
+    
+    private ElferRaus() {}
 }

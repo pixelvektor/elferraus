@@ -32,8 +32,6 @@ public class Spiel {
 	private final Spielfeld spielfeld = new Spielfeld();
 	/** Fuer den Zug aktiver Holder. */
 	private Holder activeHolder;
-	/** Fuer den Zug aktives Ziel. */
-	private Holder targetHolder;
 	/** Index des aktiven Spielers. */
 	private int activePlayer=0;
 	/** Anzahl der vorhandenen Kis */
@@ -77,7 +75,9 @@ public class Spiel {
 	public void exit() {
 		isRunning = false;
 	}
-
+    /** Wechselt bei Aufruf den aktiven Holder und startet eine neue Runde.
+     * 
+     */
 	public void naechsterSpieler(){
 		if(activePlayer<kiAnzahl){
 			activePlayer=activePlayer+1;
@@ -141,7 +141,9 @@ public class Spiel {
     	kartenInit();
     	gameStart();
     }
-    
+   /** Der Stapel wird gemischt, danach werden jeweils 11 Karten an die Spieler verteilt. Der Spieler mit einer 11 beginnt. 
+    *  
+    */
     private void gameStart(){
     	stapel.mischen();
     	for(int i=0; i<ELF; i++){
@@ -184,7 +186,7 @@ public class Spiel {
     	
     }
     
-    /** Karten werden erstellt, danach an die Methode move() uebergeben.
+    /** Karten werden erstellt, danach zum Stapel hinzugefügt.
      *
      */
     private void kartenInit(){

@@ -32,7 +32,9 @@ public abstract class Holder {
 		
 	}
 	
-	public abstract void remove(Karte karte);
+	public void remove(Karte karte) {
+		
+	}
 
 	/** Gibt die kleinste Karte unterhalb von 11 der gesuchten Farbe zurueck.
 	 * @param farbe Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die kleinste Karte gesucht wird.

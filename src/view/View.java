@@ -70,12 +70,15 @@ public class View implements ViewInterface {
 			switch (input[0]) {
 	        case "help":
 	        	System.out.println(HELP_MESSAGE);
+	        	update(spiel);
 	        	break;
 	        case "rules":
 	        	System.out.println(RULES);
+	        	update(spiel);
 	        	break;
 	        case "pull":
 	        	if (spiel.pull()) {
+	        		update(spiel);
 	        		result = true;
 	        	} else {
 					result = false;
@@ -84,6 +87,7 @@ public class View implements ViewInterface {
 	        	break;
 	        case "put":
 	        	result = move(input[1]);
+	        	update(spiel);
 	        	break;
 			case "next":
 				System.out.println("Bitte Warten.");
@@ -95,6 +99,7 @@ public class View implements ViewInterface {
 				break;
 			default:
 				System.out.println("Ich verstehe '" + input + "' nicht.");
+				update(spiel);
 				break;
 			}
 		} while (!result);

@@ -33,8 +33,24 @@ public class View implements ViewInterface {
 	public View() {
 		System.out.println("ElferRaus");
 		System.out.println(HELP_MESSAGE);
-		String countKi = input("Anzahl Gegner [1-3]: ");
-		String difficulty = input("Schwierigkeitsgrad [1/2/3]:  ");
+		
+		int countKi = 0;
+		int difficulty = 0;
+		
+		do {
+			try {
+				countKi = Integer.parseInt(input("Anzahl Gegner [1-3]: "));
+			} catch (NumberFormatException e) {
+			}
+		} while (countKi < 1 || countKi > 3);
+		
+		do {
+			try {
+				difficulty = Integer.parseInt(input("Schwierigkeitsgrad [1-3]:  "));
+			} catch (NumberFormatException e) {
+			}
+		} while (difficulty < 1 || difficulty > 3);
+		
 	}
 	
 	/** Aktualisiert das Spiel auf der Kommandozeile und wartet auf neue Befehle.
@@ -46,43 +62,42 @@ public class View implements ViewInterface {
 		
 		printSpielfeld();
 		
-		System.out.println("Sie haben " + spiel.getSpieler().get(0).getKarten().size() + " auf der Hand.");
+		System.out.println("Sie haben " + spiel.getSpieler().get(0).getKarten().size() + " Karten auf der Hand.");
 		
 		boolean result = true;
-		String[] input = input("Ihr Zug: ").split(" ");
-		switch (input[0]) {
-        case "help":
-        	System.out.println(HELP_MESSAGE);
-        	break;
-        case "rules":
-        	System.out.println(RULES);
-        	break;
-        case "pull":
-        	if (spiel.pull()) {
-        		result = true;
-        	} else {
-				result = false;
-				System.out.println("Keine Karten mehr auf dem Stapel.");
+		do {
+			String[] input = input("Ihr Zug: ").split(" ");
+			switch (input[0]) {
+	        case "help":
+	        	System.out.println(HELP_MESSAGE);
+	        	break;
+	        case "rules":
+	        	System.out.println(RULES);
+	        	break;
+	        case "pull":
+	        	if (spiel.pull()) {
+	        		result = true;
+	        	} else {
+					result = false;
+					System.out.println("Keine Karten mehr auf dem Stapel.");
+				}
+	        	break;
+	        case "put":
+	        	result = move(input[1]);
+	        	break;
+			case "next":
+				System.out.println("Bitte Warten.");
+				spiel.naechsterSpieler();
+	            break;
+			case "bye":
+				System.out.println("Bye Bye.");
+				spiel.exit();
+				break;
+			default:
+				System.out.println("Ich verstehe '" + input + "' nicht.");
+				break;
 			}
-        	break;
-        case "put":
-        	result = move(input[1]);
-        	break;
-		case "next":
-			System.out.println("Bitte Warten.");
-			spiel.naechsterSpieler();
-            break;
-		case "bye":
-			System.out.println("Bye Bye.");
-			spiel.exit();
-			break;
-		default:
-			System.out.println("Ich verstehe '" + input + "' nicht.");
-			break;
-		}
-		if (!result) {
-			System.out.println("Die Aktion konnte nicht ausgefuehrt werden.");
-		}
+		} while (!result);
 	}
 	
 	/** Gibt eine Nachricht auf der Kommandozeile aus und liesst eine Eingabe.
@@ -101,14 +116,44 @@ public class View implements ViewInterface {
 	}
 
 	private void printSpielfeld() {
-		System.out.print("Blau   -|-|-");
+		int[] blue = getNumbers(Color.BLUE);
+		int[] red = getNumbers(Color.RED);
+		int[] green = getNumbers(Color.GREEN);
+		int[] orange = getNumbers(Color.ORANGE);
+		
+		System.out.print("Blau   " + blue[0] + "|" + blue[1] + "|" + blue[2]);
 		System.out.println();
-		System.out.print("Rot    -|-|-");
+		System.out.print("Rot    " + red[0] + "|" + red[1] + "|" + red[2]);
 		System.out.println();
-		System.out.print("Gruen  -|-|-");
+		System.out.print("Gruen  " + green[0] + "|" + green[1] + "|" + green[2]);
 		System.out.println();
-		System.out.print("Orange -|-|-");
+		System.out.print("Orange " + orange[0] + "|" + orange[1] + "|" + orange[2]);
 		System.out.println();
+	}
+
+	/** Gibt die Nummern der Karten auf dem Spielfeld fuer eine Farbe zurueck.
+	 * @param color Die Farbe der Karten fuer die die Nummern gesucht sind.
+	 * @return Ein int Array mit der niedrigsten, der elf und der hoechsten Nummer pro Farbe auf dem Spielfeld.
+	 */
+	private int[] getNumbers(Color color) {
+		int[] result = new int[3];
+		// Wert der niedrigsten Karte
+		try {
+			result[0] = spiel.getSpielfeld().getLowestCard(color).getNummer();
+		} catch (NullPointerException e) {
+			result[0] = 0;
+		}
+		// Die Elf
+		// TODO Elf ausbauen
+		result[1] = 0;
+		// Wert der hoechsten Karte
+		try {
+			result[2] = spiel.getSpielfeld().getHighestCard(color).getNummer();
+		} catch (NullPointerException e) {
+			result[2] = 0;
+		}
+		
+		return result;
 	}
 	
 	/** Prueft den gewuenschsten Zug vor und laesst ihn ausfuehren.

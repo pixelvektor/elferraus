@@ -79,7 +79,7 @@ public class Spiel {
 	}
 
 	public void naechsterSpieler(){
-		if(activePlayer<3){
+		if(activePlayer<kiAnzahl){
 			activePlayer=activePlayer+1;
 		}
 		else{

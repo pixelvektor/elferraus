@@ -10,8 +10,10 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import control.Spiel;
+import data.Karte;
 
 /**
  * @author fabian
@@ -62,7 +64,8 @@ public class View implements ViewInterface {
 		
 		printSpielfeld();
 		
-		System.out.println("Sie haben " + spiel.getSpieler().get(0).getKarten().size() + " Karten auf der Hand.");
+		System.out.println("Ihre Karten:");
+		printSpielerKarten();
 		
 		boolean result = true;
 		do {
@@ -77,12 +80,8 @@ public class View implements ViewInterface {
 	        	update(spiel);
 	        	break;
 	        case "pull":
-	        	if (spiel.pull()) {
-	        		update(spiel);
-	        		result = true;
-	        	} else {
-					result = false;
-					System.out.println("Keine Karten mehr auf dem Stapel.");
+	        	if (!spiel.pull()) {
+	        		System.out.println("Keine Karten mehr auf dem Stapel.");
 				}
 	        	break;
 	        case "put":
@@ -126,13 +125,13 @@ public class View implements ViewInterface {
 		int[] green = getNumbers(Color.GREEN);
 		int[] orange = getNumbers(Color.ORANGE);
 		
-		System.out.print("Blau   " + blue[0] + "|" + blue[1] + "|" + blue[2]);
+		System.out.print("Blau   " + blue[0] + "|" + blue[1]);
 		System.out.println();
-		System.out.print("Rot    " + red[0] + "|" + red[1] + "|" + red[2]);
+		System.out.print("Rot    " + red[0] + "|" + red[1]);
 		System.out.println();
-		System.out.print("Gruen  " + green[0] + "|" + green[1] + "|" + green[2]);
+		System.out.print("Gruen  " + green[0] + "|" + green[1]);
 		System.out.println();
-		System.out.print("Orange " + orange[0] + "|" + orange[1] + "|" + orange[2]);
+		System.out.print("Orange " + orange[0] + "|" + orange[1]);
 		System.out.println();
 	}
 
@@ -141,24 +140,26 @@ public class View implements ViewInterface {
 	 * @return Ein int Array mit der niedrigsten, der elf und der hoechsten Nummer pro Farbe auf dem Spielfeld.
 	 */
 	private int[] getNumbers(Color color) {
-		int[] result = new int[3];
+		int[] result = new int[2];
 		// Wert der niedrigsten Karte
 		try {
 			result[0] = spiel.getSpielfeld().getLowestCard(color).getNummer();
 		} catch (NullPointerException e) {
 			result[0] = 0;
 		}
-		// Die Elf
-		// TODO Elf ausbauen
-		result[1] = 0;
+
 		// Wert der hoechsten Karte
 		try {
-			result[2] = spiel.getSpielfeld().getHighestCard(color).getNummer();
+			result[1] = spiel.getSpielfeld().getHighestCard(color).getNummer();
 		} catch (NullPointerException e) {
-			result[2] = 0;
+			result[1] = 0;
 		}
 		
 		return result;
+	}
+	
+	private void printSpielerKarten() {
+		ArrayList<Karte> karten = spiel.getSpieler().get(0).getKarten();
 	}
 	
 	/** Prueft den gewuenschsten Zug vor und laesst ihn ausfuehren.

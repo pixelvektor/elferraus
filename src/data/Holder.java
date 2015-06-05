@@ -33,7 +33,7 @@ public abstract class Holder {
 	}
 	
 	public void remove(Karte karte) {
-		
+		karten.remove(karte);
 	}
 
 	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.

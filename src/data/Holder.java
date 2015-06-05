@@ -90,10 +90,21 @@ public abstract class Holder {
 	}
 
 	private void sortColor() {
-	
+		
 	}
 	
-	private void sortCount() {
+	/** Sortiert die Karten nach ihrer Nummer mit Insertion Sort
+	 */
+	private void sortCount(int[] karten) {
 		
+		for (int i = 1; i < karten.length; i++){
+			int temporaer = karten[i];
+			int j=i;
+			while (j > 0 && karten[j-1] > temporaer){
+				karten[j] = karten[j-1];
+				j--;
+			}
+			karten[j] = temporaer;
+		}
 	}
 }

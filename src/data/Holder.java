@@ -36,15 +36,15 @@ public abstract class Holder {
 		
 	}
 
-	/** Gibt die kleinste Karte unterhalb von 11 der gesuchten Farbe zurueck.
+	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.
 	 * @param farbe Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die kleinste Karte gesucht wird.
-	 * @return Die kleinste Karte der Farbe, sofern kleiner 11. Sonst null.
+	 * @return Die kleinste Karte der Farbe, sofern kleiner gleich 11. Sonst null.
 	 */
 	public Karte getLowestCard(final Color farbe) {
 		Karte lowestCard = null;
 		
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(farbe) && k.getNummer() < 11) {
+			if (k.getFarbe().equals(farbe) && k.getNummer() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
 				if (lowestCard == null) {
 					lowestCard = k;
@@ -59,15 +59,15 @@ public abstract class Holder {
 		return lowestCard;
 	}
 
-	/** Gibt die hoechste Karte oberhalb von 11 der gesuchten Farbe zurueck.
+	/** Gibt die hoechste Karte oberhalb von 10 der gesuchten Farbe zurueck.
 	 * @param farbe Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die hoechste Karte gesucht wird.
-	 * @return Die hoechste Karte der Farbe, sofern groesser 11. Sonst null.
+	 * @return Die hoechste Karte der Farbe, sofern groesser gleich 11. Sonst null.
 	 */
 	public Karte getHighestCard(final Color farbe) {
 		Karte highestCard = null;
 		
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(farbe) && k.getNummer() > 11) {
+			if (k.getFarbe().equals(farbe) && k.getNummer() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
 				if (highestCard == null) {
 					highestCard = k;
@@ -82,14 +82,9 @@ public abstract class Holder {
 		return highestCard;
 	}
 	
-	/** Nur fuer den Stapel relevant.
-	 * UNDER CONSTRUCTION!
-	 * @return
+	/** Getter fuer die Karten des Holders.
+	 * @return Gibt die Karten des Holders zurueck.
 	 */
-	public Karte getObersteKarte() {
-		return karten.get(0);
-	}
-
 	public ArrayList<Karte> getKarten() {
 		return karten;
 	}

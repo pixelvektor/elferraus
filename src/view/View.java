@@ -64,7 +64,7 @@ public class View implements ViewInterface {
 		
 		printSpielfeld();
 		
-		System.out.println("Ihre Karten:");
+		System.out.println("Ihre Karten: " + spiel.getSpieler().get(0).getKarten().size());
 		printSpielerKarten();
 		
 		boolean result = true;

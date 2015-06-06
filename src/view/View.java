@@ -64,8 +64,9 @@ public class View implements ViewInterface {
 		
 		printSpielfeld();
 		
+		System.out.println("Stapel: " + spiel.getStapel().getKarten().size());
 		System.out.println("Ihre Karten: " + spiel.getSpieler().get(0).getKarten().size());
-		printSpielerKarten();
+		printSpielerKarten(spiel.getSpieler().get(0).getKarten());
 		
 		boolean result = true;
 		do {
@@ -86,7 +87,6 @@ public class View implements ViewInterface {
 	        	break;
 	        case "put":
 	        	result = move(input[1]);
-	        	update(spiel);
 	        	break;
 			case "next":
 				System.out.println("Bitte Warten.");
@@ -158,8 +158,22 @@ public class View implements ViewInterface {
 		return result;
 	}
 	
-	private void printSpielerKarten() {
-		ArrayList<Karte> karten = spiel.getSpieler().get(0).getKarten();
+	private void printSpielerKarten(final ArrayList<Karte> karten) {
+		Karte temp = karten.get(0);
+		String[] farbe = {"B","G","O","R"};
+		
+		int i = 0;
+		String output = farbe[i++];
+		for (Karte k : karten) {
+			if (!temp.getFarbe().equals(k.getFarbe())) {
+				output += "\r\n" + farbe[i];
+				i++;
+			}
+			output += " " + k.getNummer();
+			temp = k;
+		}
+		
+		System.out.println(output);
 	}
 	
 	/** Prueft den gewuenschsten Zug vor und laesst ihn ausfuehren.

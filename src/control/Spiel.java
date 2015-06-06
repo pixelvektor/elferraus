@@ -54,7 +54,14 @@ public class Spiel {
 		}
 	}
     
-    /** Getter fuer die Spieler.
+    /** Getter fuer die Farben des Spiels.
+	 * @return Gibt die Farben des Spiels zurueck.
+	 */
+	public static Color[] getColor() {
+		return COLOR;
+	}
+
+	/** Getter fuer die Spieler.
 	 * @return Gibt die Spieler zurueck.
 	 */
 	public ArrayList<Holder> getSpieler() {
@@ -102,6 +109,13 @@ public class Spiel {
 	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
 	 */
 	public boolean setMove(final Color color, final int number) {
+		for (Karte k : spieler.get(activePlayer).getKarten()) {
+			if (k.getFarbe().equals(color) && k.getNummer() == number) {
+				move(k, spielfeld);
+				spieler.get(activePlayer).remove(k);
+				return true;
+			}
+		}
 		return false;
 	}
 	

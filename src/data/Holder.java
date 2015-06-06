@@ -3,8 +3,6 @@ package data;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import data.Karte;
-
 /** Hochschule Hamm-Lippstadt
  * Praktikum Informatik II (ElferRaus)
  * (C) 2015 Lara Sievers, Adrian Schmidt, Fabian Schneider
@@ -29,7 +27,7 @@ public abstract class Holder {
 	
 	public void add(Karte karte) {
 		karten.add(karte);
-		
+		sort();
 	}
 	
 	public void remove(Karte karte) {
@@ -89,22 +87,62 @@ public abstract class Holder {
 		return karten;
 	}
 
-	private void sortColor() {
+	private void sort() {
+		ArrayList<Karte> blue = new ArrayList<Karte>();
+		ArrayList<Karte> green = new ArrayList<Karte>();
+		ArrayList<Karte> orange = new ArrayList<Karte>();
+		ArrayList<Karte> red = new ArrayList<Karte>();
 		
+		// Aufsplitten der Farben im Stapel
+		for (Karte k : karten) {
+			if (k.getFarbe().equals(Color.BLUE)) {
+				blue.add(k);
+			} else if (k.getFarbe().equals(Color.GREEN)) {
+				green.add(k);
+			} else if (k.getFarbe().equals(Color.ORANGE)) {
+				orange.add(k);
+			} else {
+				red.add(k);
+			}
+		}
+		
+		// Sortieren der Nummern
+		sortNumber(blue);
+		sortNumber(green);
+		sortNumber(orange);
+		sortNumber(red);
+		
+		karten.clear();
+		
+		// Zusammenfuegen der Farben in einen Stapel
+		for (Karte k : blue) {
+			karten.add(k);
+		}
+		for (Karte k : green) {
+			karten.add(k);
+		}
+		for (Karte k : orange) {
+			karten.add(k);
+		}
+		for (Karte k : red) {
+			karten.add(k);
+		}
 	}
-	
-	/** Sortiert die Karten nach ihrer Nummer mit Insertion Sort
+
+	/** Sortiert die Nummern einer Kartenfarbe aufsteigend.
+	 * @param farbe ArrayList der zu sortierenden Kartenfarbe.
 	 */
-	private void sortCount(int[] karten) {
-		
-		for (int i = 1; i < karten.length; i++){
-			int temporaer = karten[i];
-			int j=i;
-			while (j > 0 && karten[j-1] > temporaer){
-				karten[j] = karten[j-1];
+	private void sortNumber(final ArrayList<Karte> farbe) {
+		for (int i = 0; i < farbe.size(); i++) {
+			Karte temp = farbe.get(i);
+			int j = i;
+			while (j > 0 && farbe.get(j-1).getNummer() > temp.getNummer()) {
+				farbe.add(j, farbe.get(j-1));
+				farbe.remove(j+1);
 				j--;
 			}
-			karten[j] = temporaer;
+			farbe.add(j, temp);
+			farbe.remove(j+1);
 		}
 	}
 }

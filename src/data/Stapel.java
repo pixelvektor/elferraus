@@ -14,7 +14,12 @@ public class Stapel extends Holder{
 	 * @return Unterste Karte vom Stapel. null bei leerem Stapel.
 	 */
 	public Karte getNext() {
-		Karte karte = this.getKarten().get(0);
+		Karte karte = null;
+		try {
+			karte = this.getKarten().get(0);
+		} catch (IndexOutOfBoundsException e) {
+			//e.printStackTrace();
+		}
 		this.remove(karte);
 		return karte;
 	}

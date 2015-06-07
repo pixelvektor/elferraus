@@ -52,7 +52,6 @@ public class View implements ViewInterface {
 			} catch (NumberFormatException e) {
 			}
 		} while (difficulty < 1 || difficulty > 3);
-		
 	}
 	
 	/** Aktualisiert das Spiel auf der Kommandozeile und wartet auf neue Befehle.
@@ -161,13 +160,24 @@ public class View implements ViewInterface {
 	private void printSpielerKarten(final ArrayList<Karte> karten) {
 		Karte temp = karten.get(0);
 		String[] farbe = {"B","G","O","R"};
+		String output = "";
 		
-		int i = 0;
-		String output = farbe[i++];
+		boolean firstRound = true;
 		for (Karte k : karten) {
+			if (firstRound) {
+				for (int i = 0; i < farbe.length; i++) {
+					if (k.getFarbe().equals(Spiel.getColor()[i])) {
+						output += farbe[i];
+					}
+				}
+				firstRound = false;
+			}
 			if (!temp.getFarbe().equals(k.getFarbe())) {
-				output += "\r\n" + farbe[i];
-				i++;
+				for (int i = 0; i < farbe.length; i++) {
+					if (k.getFarbe().equals(Spiel.getColor()[i])) {
+						output += "\r\n" + farbe[i];
+					}
+				}
 			}
 			output += " " + k.getNummer();
 			temp = k;

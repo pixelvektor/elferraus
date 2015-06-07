@@ -25,7 +25,7 @@ public class Spiel {
 	/** Die Schluesselzahl 11. */
 	private static final int ELF = 11;
 	/** Die Farben der Karten. */
-	private static final Color[] COLOR = {Color.BLUE, Color.RED, Color.ORANGE, Color.GREEN};
+	private static final Color[] COLOR = {Color.BLUE, Color.GREEN, Color.ORANGE, Color.RED};
 	/** Spieler-ArrayList. */
 	private final ArrayList<Holder> spieler = new ArrayList<Holder>();
 	/** Stapel fuer die Karten. */
@@ -36,8 +36,6 @@ public class Spiel {
 	private int activePlayer;
 	/** Anzahl der vorhandenen Kis */
 	private final int kiAnzahl;
-	/** Speichert die View. */
-	private final View view;
 	/** true solange das Spiel laeuft. */
 	private boolean isRunning = true;
 	
@@ -46,7 +44,6 @@ public class Spiel {
 	 *
 	 */
     public Spiel(View view) {
-    	this.view = view;
     	kiAnzahl = 1;
     	gameInit();
     	while (isRunning) {
@@ -111,9 +108,10 @@ public class Spiel {
 	public boolean setMove(final Color color, final int number) {
 		for (Karte k : spieler.get(activePlayer).getKarten()) {
 			if (k.getFarbe().equals(color) && k.getNummer() == number) {
-				move(k, spielfeld);
-				spieler.get(activePlayer).remove(k);
-				return true;
+				if (move(k, spielfeld)) {
+					spieler.get(activePlayer).remove(k);
+					return true;
+				}
 			}
 		}
 		return false;

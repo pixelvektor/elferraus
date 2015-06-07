@@ -3,6 +3,8 @@ package data;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import control.Spiel;
+
 /** Hochschule Hamm-Lippstadt
  * Praktikum Informatik II (ElferRaus)
  * (C) 2015 Lara Sievers, Adrian Schmidt, Fabian Schneider
@@ -32,6 +34,10 @@ public abstract class Holder {
 	
 	public void remove(Karte karte) {
 		karten.remove(karte);
+	}
+	
+	public void react(Spiel spiel){
+		
 	}
 
 	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.

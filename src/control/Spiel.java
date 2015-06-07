@@ -157,7 +157,7 @@ public class Spiel {
     	spieler.add(new Spieler());
     	
     	for(int y=1; y<=kiAnzahl; y++){
-    		spieler.add(new Ki());	
+    		spieler.add(new Ki(1));	
      	}
     	
     	kartenInit();
@@ -198,8 +198,8 @@ public class Spiel {
     }
     
     private void startRound(){
-    	if(isRunning && activePlayer != 0) {
-    		System.out.println("Ki macht");
+    	if(isRunning && activePlayer > 0) {
+    		spieler.get(activePlayer).react(this);
     	}
     }
     

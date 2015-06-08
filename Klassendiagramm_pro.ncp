@@ -1,0 +1,164 @@
+<Project>
+  <Name>Erlferraus</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Unbenannt</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Holder</Name>
+        <Access>Public</Access>
+        <Location left="76" top="43" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">boolean isSpieler</Member>
+        <Member type="Field">ArrayList karten</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Elferraus</Name>
+    <Language>Java</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Holder</Name>
+        <Access>Public</Access>
+        <Location left="20" top="24" />
+        <Size width="182" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private final ArrayList&lt;Karte&gt; karten</Member>
+        <Member type="Field">private String name</Member>
+        <Member type="Method">public void getName()</Member>
+        <Member type="Method">public void setName(String name)</Member>
+        <Member type="Method">public void remove()</Member>
+        <Member type="Method">public void add(Karte karte)</Member>
+        <Member type="Method">public Karte getLowestCard()</Member>
+        <Member type="Method">public Karte getHighestCard()</Member>
+        <Member type="Method">public ArrayList&lt;Karte&gt; getKarten()</Member>
+        <Member type="Method">private void sort()</Member>
+        <Member type="Method">public void sortNumber()</Member>
+        <Member type="Method">public void newMethod()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Spieler</Name>
+        <Access>Public</Access>
+        <Location left="299" top="24" />
+        <Size width="162" height="104" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Spieler()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>KI</Name>
+        <Access>Public</Access>
+        <Location left="534" top="18" />
+        <Size width="162" height="110" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public KI()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Stapel</Name>
+        <Access>Public</Access>
+        <Location left="534" top="191" />
+        <Size width="162" height="127" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void newMethod()</Member>
+        <Member type="Method">public Karte getNext()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Spielfeld</Name>
+        <Access>Public</Access>
+        <Location left="533" top="371" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void remove(Karte karte)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Karte</Name>
+        <Access>Public</Access>
+        <Location left="25" top="376" />
+        <Size width="162" height="191" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private final Color farbe</Member>
+        <Member type="Field">private final int newField</Member>
+        <Member type="Constructor">public Karte()</Member>
+        <Member type="Method">public Color getFarbe()</Member>
+        <Member type="Method">public int getNummer()</Member>
+        <Member type="Method">public String toString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Spiel</Name>
+        <Access>Public</Access>
+        <Location left="283" top="371" />
+        <Size width="162" height="485" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static final int ELF</Member>
+        <Member type="Field">private static final Color[] COLOR</Member>
+        <Member type="Field">private final ArrayList&lt;Holder&gt; spieler</Member>
+        <Member type="Field">private final Stapel stapel</Member>
+        <Member type="Field">private final Spielfeld spielfeld</Member>
+        <Member type="Field">private int activePlayer</Member>
+        <Member type="Field">private final int kiAnzahl</Member>
+        <Member type="Field">private final View view</Member>
+        <Member type="Field">private boolean isRunning</Member>
+        <Member type="Constructor">public Spiel(View view)</Member>
+        <Member type="Method">public static Color[] getColor()</Member>
+        <Member type="Method">public ArrayList&lt;Holder&gt; getSpieler()</Member>
+        <Member type="Method">public void getStapel()</Member>
+        <Member type="Method">public Spielfeld getSpielfeld()</Member>
+        <Member type="Method">public void exit()</Member>
+        <Member type="Method">public void naechsterSpieler()</Member>
+        <Member type="Method">public boolean setMove()</Member>
+        <Member type="Method">public boolean pull()</Member>
+        <Member type="Method">private boolean move()</Member>
+        <Member type="Method">private void gameInit()</Member>
+        <Member type="Method">private void gameStart()</Member>
+        <Member type="Method">private void startRound()</Member>
+        <Member type="Method">private void kartenInit()</Member>
+        <Member type="Method">private boolean pruefeZug()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>View</Name>
+        <Access>Public</Access>
+        <Location left="28" top="627" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static final String HELP_MESSAGE</Member>
+        <Member type="Field">private static final String RULES</Member>
+        <Member type="Constructor">public View()</Member>
+        <Member type="Method">public void update(Spiel spiel)</Member>
+        <Member type="Method">public String input()</Member>
+        <Member type="Method">private void printSpielfeld()</Member>
+        <Member type="Method">private int[] getNumbers(Color color)</Member>
+        <Member type="Method">private void printSpielerKarten()</Member>
+        <Member type="Method">private boolean move()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="1" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="2" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="3" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="4" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

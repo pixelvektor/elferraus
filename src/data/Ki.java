@@ -14,6 +14,13 @@ public class Ki extends Spieler {
 	public void react(Spiel spiel){
 		this.spiel=spiel;
 		System.out.println("Ki macht");
-		spiel.naechsterSpieler();
+		if(spiel.getStapel().getKarten().isEmpty() != true){
+			spiel.pull();
+		}
+		else{
+			spiel.naechsterSpieler();
+		}
+		//spiel.pull();
+		//spiel.naechsterSpieler();
 	}
  }

@@ -106,8 +106,8 @@ public class Spiel {
 	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
 	 */
 	public boolean setMove(final Color color, final int number) {
-		for (Karte k : spieler.get(activePlayer).getKarten()) {
-			if (k.getFarbe().equals(color) && k.getNummer() == number) {
+			for (Karte k : spieler.get(activePlayer).getKarten()) {
+				if (k.getFarbe().equals(color) && k.getNummer() == number) {
 				if (move(k, spielfeld)) {
 					spieler.get(activePlayer).remove(k);
 					return true;
@@ -124,15 +124,38 @@ public class Spiel {
 		Karte karte = stapel.getNext();
 		boolean result = true;
 		
-		if (karte.getNummer() == ELF) {
-			result = move(karte, spielfeld);
-		} else {
-			result = move(karte, spieler.get(activePlayer));
-			result = move(stapel.getNext(), spieler.get(activePlayer));
-			result = move(stapel.getNext(), spieler.get(activePlayer));
+		if(stapel.getKarten().size() != 0){
+		     if(pruefeAufElf() == false){
+		    	 if (karte.getNummer() == ELF) {
+		    		 result = move(karte, spielfeld);
+		         } else {
+			         result = move(karte, spieler.get(activePlayer));
+			         result = move(stapel.getNext(), spieler.get(activePlayer));
+			         result = move(stapel.getNext(), spieler.get(activePlayer));
+		         }
+		         naechsterSpieler();
+		         return result;
+		     }
+		     else{
+			 naechsterSpieler();
+			 return true;
+		     }
+	    }else{
+			return false;
+		}
+	}
+
+	private boolean pruefeAufElf() {
+		for (Karte k : spieler.get(activePlayer).getKarten()){
+			if(k.getNummer() == ELF){
+				System.out.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
+				move(k, spielfeld);
+				spieler.get(activePlayer).remove(k);
+				return true;
+			}
 		}
 		
-		return result;
+		return false;
 	}
 
 	/** Methode um eine Karte einem neuen Holder zu ueberschreiben.

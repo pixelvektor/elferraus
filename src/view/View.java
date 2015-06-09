@@ -6,7 +6,7 @@
 
 package view;
 
-import java.awt.Color;
+import data.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -138,7 +138,7 @@ public class View implements ViewInterface {
 	 * @param color Die Farbe der Karten fuer die die Nummern gesucht sind.
 	 * @return Ein int Array mit der niedrigsten, der elf und der hoechsten Nummer pro Farbe auf dem Spielfeld.
 	 */
-	private int[] getNumbers(Color color) {
+	private int[] getNumbers(final Color color) {
 		int[] result = new int[2];
 		// Wert der niedrigsten Karte
 		try {

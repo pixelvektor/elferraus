@@ -1,6 +1,5 @@
 package data;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import control.Spiel;

@@ -6,10 +6,10 @@ package control;
  * 22.05.2015
  */
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import view.View;
+import data.Color;
 import data.Holder;
 import data.Karte;
 import data.Ki;
@@ -43,7 +43,7 @@ public class Spiel {
 	/** Erstellt ein Spiel.
 	 *
 	 */
-    public Spiel(View view) {
+    public Spiel(final View view) {
     	kiAnzahl = 1;
     	gameInit();
     	while (isRunning) {
@@ -235,11 +235,11 @@ public class Spiel {
     		stapel.add(karte);
     	}
     	for(int nummer=1; nummer<=20; nummer++){
-    		Karte karte = new Karte(Color.ORANGE, nummer);
+    		Karte karte = new Karte(Color.GREEN, nummer);
     		stapel.add(karte);
     	}
     	for(int nummer=1; nummer<=20; nummer++){
-    		Karte karte = new Karte(Color.GREEN, nummer);
+    		Karte karte = new Karte(Color.ORANGE, nummer);
     		stapel.add(karte);
     	}
     	for(int nummer=1; nummer<=20; nummer++){

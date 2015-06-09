@@ -20,14 +20,21 @@ import data.Karte;
  *
  */
 public class View implements ViewInterface {
+	/** Hilfetext. */
 	private static final String HELP_MESSAGE = "\r\n"
 			+ "Um eine Karte zu ziehen geben Sie 'pull' ein.\r\n"
 			+ "Um eine Karte zu legen geben Sie 'put', den Farbbuchstaben und die Nummer ein. Bsp: put R9.\r\n"
 			+ "Diese Hilfe kann mit 'help' angezeigt werden.\r\n"
 			+ "Die Regeln erhalten Sie ueber den Befehl 'rules'.\r\n"
 			+ "Und wenn Sie dann doch keine Lust mehr haben sagen Sie 'bye'.\r\n";
+	/** Regeltext. */
 	private static final String RULES = "Spielregeln:\r\n";
+	/** Das Spiel. */
 	private Spiel spiel;
+	/** Anzahl der KIs. */
+	private int countKi;
+	/** Schwierigkeit. */
+	private int difficulty;
 
 	/** Erstellt eine neue View fuer das Spiel.
 	 * Muss an Spiel uebergeben werden.
@@ -35,9 +42,6 @@ public class View implements ViewInterface {
 	public View() {
 		System.out.println("ElferRaus");
 		System.out.println(HELP_MESSAGE);
-		
-		int countKi = 0;
-		int difficulty = 0;
 		
 		do {
 			try {
@@ -54,12 +58,28 @@ public class View implements ViewInterface {
 		} while (difficulty < 1 || difficulty > 3);
 	}
 	
+	/** Getter fuer die Anzahl der KIs.
+	 * @return Gibt die Anzahl der KIs zurueck.
+	 */
+	public int getCountKi() {
+		return countKi;
+	}
+
+	/** Getter fuer die Schwierigkeit.
+	 * @return Gibt die Schwierigkeit zurueck.
+	 */
+	public int getDifficulty() {
+		return difficulty;
+	}
+
 	/** Aktualisiert das Spiel auf der Kommandozeile und wartet auf neue Befehle.
 	 */
 	@Override
-	public void update(Spiel spiel) {
+	public void update(final Spiel spiel) {
 		this.spiel = spiel;
-		System.out.println("Karten des Computers: " + spiel.getSpieler().get(1).getKarten().size() + ".");
+		for (int i = 1; i < spiel.getSpieler().size(); i++) {
+			System.out.println("Karten von " + spiel.getSpieler().get(i).getName() + ": " + spiel.getSpieler().get(i).getKarten().size() + ".");
+		}
 		
 		printSpielfeld();
 		
@@ -120,17 +140,17 @@ public class View implements ViewInterface {
 
 	private void printSpielfeld() {
 		int[] blue = getNumbers(Color.BLUE);
-		int[] red = getNumbers(Color.RED);
-		int[] green = getNumbers(Color.GREEN);
 		int[] orange = getNumbers(Color.ORANGE);
+		int[] green = getNumbers(Color.GREEN);
+		int[] red = getNumbers(Color.RED);
 		
 		System.out.print("Blau   " + blue[0] + "|" + blue[1]);
-		System.out.println();
-		System.out.print("Rot    " + red[0] + "|" + red[1]);
 		System.out.println();
 		System.out.print("Gruen  " + green[0] + "|" + green[1]);
 		System.out.println();
 		System.out.print("Orange " + orange[0] + "|" + orange[1]);
+		System.out.println();
+		System.out.print("Rot    " + red[0] + "|" + red[1]);
 		System.out.println();
 	}
 

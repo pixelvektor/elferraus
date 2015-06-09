@@ -7,7 +7,8 @@ public class Ki extends Spieler {
 	private int schwierigkeit;
 	private Spiel spiel;
 	
-	public Ki(int schwierigkeit){
+	public Ki(final String name, final int schwierigkeit){
+		setName(name);
 		this.schwierigkeit=schwierigkeit;
 	}
 	

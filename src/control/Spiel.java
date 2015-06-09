@@ -44,7 +44,7 @@ public class Spiel {
 	 *
 	 */
     public Spiel(final View view) {
-    	kiAnzahl = 1;
+    	kiAnzahl = view.getCountKi();
     	gameInit();
     	while (isRunning) {
 			view.update(this);
@@ -180,7 +180,7 @@ public class Spiel {
     	spieler.add(new Spieler());
     	
     	for(int y=1; y<=kiAnzahl; y++){
-    		spieler.add(new Ki(1));	
+    		spieler.add(new Ki("KI " + y,1));	
      	}
     	
     	kartenInit();

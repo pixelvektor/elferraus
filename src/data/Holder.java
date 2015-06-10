@@ -22,20 +22,20 @@ public abstract class Holder {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 	
-	public void add(Karte karte) {
+	public void add(final Karte karte) {
 		karten.add(karte);
 		sort();
 	}
 	
-	public void remove(Karte karte) {
+	public void remove(final Karte karte) {
 		karten.remove(karte);
 	}
 	
-	public void react(Spiel spiel){
+	public void react(final Spiel spiel){
 		
 	}
 

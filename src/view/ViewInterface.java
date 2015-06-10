@@ -18,5 +18,5 @@ public interface ViewInterface {
     /** Aktualisiert die View auf den momentanen Spielstatus.
      * @param spiel Das Spiel welches update aufruft.
      */
-    public void update(Spiel spiel);
+    public void update(final Spiel spiel);
 }

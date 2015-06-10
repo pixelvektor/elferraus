@@ -5,25 +5,39 @@ import control.Spiel;
 public class Ki extends Spieler {
 	
 	private int schwierigkeit;
-	private Spiel spiel;
 	
 	public Ki(final String name, final int schwierigkeit){
 		setName(name);
-		this.schwierigkeit=schwierigkeit;
+		this.schwierigkeit = schwierigkeit;
 	}
 	
-	public String[] getMove(){
-		String[] result = {};
-		this.spiel=spiel;
-		System.out.println("Ki macht");
-		if(spiel.getStapel().getKarten().isEmpty() != true){
+	public void react(final Spiel spiel){
+		
+		if(!spiel.getStapel().getKarten().isEmpty()){
 			spiel.pull();
 		}
 		else{
+			for (int i = 0; i < Color.values().length; i++) {
+				if (cardAvailable(Color.values()[i], spiel.getSpielfeld().getHighestCard(Color.values()[i]).getNummer(), true)) {
+					spiel.setMove(Color.values()[i], spiel.getSpielfeld().getHighestCard(Color.values()[i]).getNummer()+1);
+				}
+				if (cardAvailable(Color.values()[i], spiel.getSpielfeld().getLowestCard(Color.values()[i]).getNummer(), false)) {
+					spiel.setMove(Color.values()[i], spiel.getSpielfeld().getLowestCard(Color.values()[i]).getNummer()-1);
+				}
+			}
 			spiel.naechsterSpieler();
 		}
-		//spiel.pull();
-		//spiel.naechsterSpieler();
-		return result;
+	}
+	
+	private boolean cardAvailable(final Color color, final int number, final boolean high) {
+		for (Karte k : getKarten()) {
+			if (k.getFarbe().equals(color) && k.getNummer() == number+1 && high) {
+				return true;
+			}
+			if (k.getFarbe().equals(color) && k.getNummer() == number-1 && !high) {
+				return true;
+			}
+		}
+		return false;
 	}
  }

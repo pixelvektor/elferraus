@@ -38,7 +38,8 @@ public class Spiel {
 	private final int kiAnzahl;
 	/** true solange das Spiel laeuft. */
 	private boolean isRunning = true;
-	
+	/** Haeufigkeit des Aufraufs der Methode setMove(). */
+	private int movePerformed;
 	
 	/** Erstellt ein Spiel.
 	 *
@@ -96,7 +97,7 @@ public class Spiel {
 		System.out.println("test2");
 		System.out.println(spieler.get(activePlayer).toString());
 		System.out.println(activePlayer);
-		
+		movePerformed=0;
 		startRound();
 	}
 
@@ -108,13 +109,26 @@ public class Spiel {
 	public boolean setMove(final Color color, final int number) {
 			for (Karte k : spieler.get(activePlayer).getKarten()) {
 				if (k.getFarbe().equals(color) && k.getNummer() == number) {
-				if (move(k, spielfeld)) {
-					spieler.get(activePlayer).remove(k);
-					return true;
-				}
+					if(k.getNummer() == ELF){
+						if (move(k, spielfeld)) {
+							spieler.get(activePlayer).remove(k);
+							movePerformed++;
+							return true;
+						}	
+					}if(!pruefeAufElf()){
+						if (move(k, spielfeld)) {
+							spieler.get(activePlayer).remove(k);
+							movePerformed++;
+							return true;
+						}	
+			        }else{
+			        	movePerformed++;
+			        	return true;
+			        }
+		        }
+		    
 			}
-		}
-		return false;
+			return false;
 	}
 	
 	/** Der aktive Spieler zieht eine Karte vom Stapel.
@@ -123,9 +137,9 @@ public class Spiel {
 	public boolean pull() {
 		Karte karte = stapel.getNext();
 		boolean result = true;
-		
+		if(movePerformed == 0){
 		if(stapel.getKarten().size() != 0){
-		     if(pruefeAufElf() == false){
+		     if(!pruefeAufElf()){
 		    	 if (karte.getNummer() == ELF) {
 		    		 result = move(karte, spielfeld);
 		         } else {
@@ -143,8 +157,16 @@ public class Spiel {
 	    }else{
 			return false;
 		}
+		}else{
+			System.out.println("Sie können nach einem Zug nicht ziehen!");
+			return true; 
+		}
+		
 	}
-
+    /**
+     * Prüft ob der aktive Spieler eine Elf auf der Hand hat, wenn ja wird die Elf automatisch auf das Spielfeld gelegt. 
+     * @return true, wenn Spieler eine Elf auf der Hand hat, sonst false.
+     */
 	private boolean pruefeAufElf() {
 		for (Karte k : spieler.get(activePlayer).getKarten()){
 			if(k.getNummer() == ELF){

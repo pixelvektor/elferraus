@@ -26,18 +26,7 @@ public abstract class Holder {
 		this.name = name;
 	}
 	
-	public void add(final Karte karte) {
-		karten.add(karte);
-		sort();
-	}
-	
-	public void remove(final Karte karte) {
-		karten.remove(karte);
-	}
-	
-	public String[] getMove(){
-		String[] result = {};
-		return result;
+	public void react(final Spiel spiel){
 	}
 
 	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.
@@ -91,6 +80,15 @@ public abstract class Holder {
 	 */
 	public ArrayList<Karte> getKarten() {
 		return karten;
+	}
+
+	public void add(final Karte karte) {
+		karten.add(karte);
+		sort();
+	}
+
+	public void remove(final Karte karte) {
+		karten.remove(karte);
 	}
 
 	private void sort() {

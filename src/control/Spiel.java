@@ -36,6 +36,8 @@ public class Spiel {
 	private int activePlayer;
 	/** Anzahl der vorhandenen Kis */
 	private final int kiAnzahl;
+	/** Name des Gewinners. */
+	private String winner = "niemand";
 	/** true solange das Spiel laeuft. */
 	private boolean isRunning = true;
 	
@@ -79,6 +81,20 @@ public class Spiel {
 		return spielfeld;
 	}
 	
+	/** Getter fuer den Namen des Gewinners.
+	 * @return Gibt den Namen des Gewinners zurueck.
+	 */
+	public String getWinner() {
+		return winner;
+	}
+
+	/** Getter fuer den Spielzustand.
+	 * @return Gibt den Spielzustand zurueck. True wenn das Spiel laeuft, sonst false.
+	 */
+	public boolean isRunning() {
+		return isRunning;
+	}
+
 	public void exit() {
 		isRunning = false;
 	}
@@ -142,6 +158,13 @@ public class Spiel {
 		     }
 	    }else{
 			return false;
+		}
+	}
+	
+	private void checkWinner() {
+		if (spieler.get(activePlayer).getKarten().size() == 0) {
+			winner = spieler.get(activePlayer).getName();
+			exit();
 		}
 	}
 
@@ -222,7 +245,7 @@ public class Spiel {
     
     private void startRound(){
     	if(isRunning && activePlayer > 0) {
-    		spieler.get(activePlayer).react(this);
+    		spieler.get(activePlayer).getMove(this);
     	}
     }
     

@@ -12,7 +12,8 @@ public class Ki extends Spieler {
 		this.schwierigkeit=schwierigkeit;
 	}
 	
-	public void react(Spiel spiel){
+	public String[] getMove(){
+		String[] result = {};
 		this.spiel=spiel;
 		System.out.println("Ki macht");
 		if(spiel.getStapel().getKarten().isEmpty() != true){
@@ -23,5 +24,6 @@ public class Ki extends Spieler {
 		}
 		//spiel.pull();
 		//spiel.naechsterSpieler();
+		return result;
 	}
  }

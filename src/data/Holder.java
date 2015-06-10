@@ -35,7 +35,7 @@ public abstract class Holder {
 		karten.remove(karte);
 	}
 	
-	public void react(Spiel spiel){
+	public void getMove(Spiel spiel){
 		
 	}
 

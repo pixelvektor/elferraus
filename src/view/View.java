@@ -77,6 +77,7 @@ public class View implements ViewInterface {
 	@Override
 	public void update(final Spiel spiel) {
 		this.spiel = spiel;
+		
 		for (int i = 1; i < spiel.getSpieler().size(); i++) {
 			System.out.println("Karten von " + spiel.getSpieler().get(i).getName() + ": " + spiel.getSpieler().get(i).getKarten().size() + ".");
 		}
@@ -112,7 +113,7 @@ public class View implements ViewInterface {
 				spiel.naechsterSpieler();
 	            break;
 			case "bye":
-				System.out.println("Bye Bye.");
+			case "exit":
 				spiel.exit();
 				break;
 			default:
@@ -121,6 +122,10 @@ public class View implements ViewInterface {
 				break;
 			}
 		} while (!result);
+		
+		if (!spiel.isRunning()) {
+			System.out.println("Gewonnen hat: " + spiel.getWinner());
+		}
 	}
 	
 	/** Gibt eine Nachricht auf der Kommandozeile aus und liesst eine Eingabe.

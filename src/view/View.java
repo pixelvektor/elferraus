@@ -24,6 +24,7 @@ public class View implements ViewInterface {
 	private static final String HELP_MESSAGE = "\r\n"
 			+ "Um eine Karte zu ziehen geben Sie 'pull' ein.\r\n"
 			+ "Um eine Karte zu legen geben Sie 'put', den Farbbuchstaben und die Nummer ein. Bsp: put R9.\r\n"
+			+ "Mit 'next' kann der Zug beendet werden."
 			+ "Diese Hilfe kann mit 'help' angezeigt werden.\r\n"
 			+ "Die Regeln erhalten Sie ueber den Befehl 'rules'.\r\n"
 			+ "Und wenn Sie dann doch keine Lust mehr haben sagen Sie 'bye'.\r\n";
@@ -85,13 +86,14 @@ public class View implements ViewInterface {
 	public void update(final Spiel spiel) {
 		this.spiel = spiel;
 		
+		System.out.println();
 		for (int i = 1; i < spiel.getSpieler().size(); i++) {
 			System.out.println("Karten von " + spiel.getSpieler().get(i).getName() + ": " + spiel.getSpieler().get(i).getKarten().size() + ".");
 		}
 		
 		printSpielfeld();
 		
-		System.out.println("Stapel: " + spiel.getStapel().getKarten().size());
+		System.out.println("Karten auf dem Stapel: " + spiel.getStapel().getKarten().size());
 		System.out.println("Ihre Karten: " + spiel.getSpieler().get(0).getKarten().size());
 		printSpielerKarten(spiel.getSpieler().get(0).getKarten());
 		
@@ -113,18 +115,23 @@ public class View implements ViewInterface {
 				}
 	        	break;
 	        case "put":
-	        	result = move(input[1]);
+	        	try {
+	        		result = move(input[1]);
+				} catch (Exception e) {
+					System.out.println("Bitte geben Sie eine Karte an.");
+				}
 	        	break;
 			case "next":
 				System.out.println("Bitte Warten.");
 				spiel.naechsterSpieler();
+				result = true;
 	            break;
 			case "bye":
 			case "exit":
 				spiel.exit();
 				break;
 			default:
-				System.out.println("Ich verstehe '" + input + "' nicht.");
+				System.out.println("Ich verstehe die Eingabe nicht.");
 				update(spiel);
 				break;
 			}
@@ -190,29 +197,31 @@ public class View implements ViewInterface {
 	}
 	
 	private void printSpielerKarten(final ArrayList<Karte> karten) {
-		Karte temp = karten.get(0);
-		String[] farbe = {"B","G","O","R"};
 		String output = "";
-		
-		boolean firstRound = true;
-		for (Karte k : karten) {
-			if (firstRound) {
-				for (int i = 0; i < farbe.length; i++) {
-					if (k.getFarbe().equals(Spiel.getColor()[i])) {
-						output += farbe[i];
+		if (karten.size() > 0) {
+			Karte temp = karten.get(0);
+			String[] farbe = {"B","G","O","R"};
+			
+			boolean firstRound = true;
+			for (Karte k : karten) {
+				if (firstRound) {
+					for (int i = 0; i < farbe.length; i++) {
+						if (k.getFarbe().equals(Spiel.getColor()[i])) {
+							output += farbe[i];
+						}
+					}
+					firstRound = false;
+				}
+				if (!temp.getFarbe().equals(k.getFarbe())) {
+					for (int i = 0; i < farbe.length; i++) {
+						if (k.getFarbe().equals(Spiel.getColor()[i])) {
+							output += "\r\n" + farbe[i];
+						}
 					}
 				}
-				firstRound = false;
+				output += " " + k.getNummer();
+				temp = k;
 			}
-			if (!temp.getFarbe().equals(k.getFarbe())) {
-				for (int i = 0; i < farbe.length; i++) {
-					if (k.getFarbe().equals(Spiel.getColor()[i])) {
-						output += "\r\n" + farbe[i];
-					}
-				}
-			}
-			output += " " + k.getNummer();
-			temp = k;
 		}
 		
 		System.out.println(output);

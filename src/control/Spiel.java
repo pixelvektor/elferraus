@@ -110,9 +110,8 @@ public class Spiel {
 			activePlayer=0;
 		}
 		
-		System.out.println("test2");
-		System.out.println(spieler.get(activePlayer).toString());
-		System.out.println(activePlayer);
+		System.out.println(spieler.get(activePlayer).getName() + "NS");
+		System.out.println("ActivePlayer: " + activePlayer);
 		movePerformed=0;
 		startRound();
 	}
@@ -131,7 +130,7 @@ public class Spiel {
 							movePerformed++;
 							return true;
 						}	
-					}if(!pruefeAufElf()){
+					}if(!pruefeElfAufHand()){
 						if (move(k, spielfeld)) {
 							spieler.get(activePlayer).remove(k);
 							movePerformed++;
@@ -151,28 +150,28 @@ public class Spiel {
 	 * @return true wenn die Karte vom Stapel gezogen wurde. Sonst false (=leer).
 	 */
 	public boolean pull() {
-		Karte karte = stapel.getNext();
 		boolean result = true;
 		if(movePerformed == 0){
-		if(stapel.getKarten().size() != 0){
-		     if(!pruefeAufElf()){
-		    	 if (karte.getNummer() == ELF) {
-		    		 result = move(karte, spielfeld);
-		         } else {
-			         result = move(karte, spieler.get(activePlayer));
-			         result = move(stapel.getNext(), spieler.get(activePlayer));
-			         result = move(stapel.getNext(), spieler.get(activePlayer));
-		         }
-		         naechsterSpieler();
-		         return result;
-		     }
-		     else{
-			 naechsterSpieler();
-			 return true;
-		     }
-	    }else{
-			return false;
-		}
+			if(stapel.getKarten().size() != 0){
+			     if(!pruefeElfAufHand()){
+			    	 Karte karte = stapel.getNext();
+			    	 if (karte.getNummer() == ELF) {
+			    		 result = move(karte, spielfeld);
+			         } else {
+				         result = move(karte, spieler.get(activePlayer));
+				         result = move(stapel.getNext(), spieler.get(activePlayer));
+				         result = move(stapel.getNext(), spieler.get(activePlayer));
+			         }
+			         naechsterSpieler();
+			         return result;
+			     }
+			     else{
+					 naechsterSpieler();
+					 return true;
+			     }
+		    }else{
+				return false;
+			}
 		}else{
 			System.out.println("Sie koennen nach einem Zug nicht ziehen!");
 			return true; 
@@ -187,11 +186,10 @@ public class Spiel {
 		}
 	}
 
-    /**
-     * Prueft ob der aktive Spieler eine Elf auf der Hand hat, wenn ja wird die Elf automatisch auf das Spielfeld gelegt. 
+    /** Prueft ob der aktive Spieler eine Elf auf der Hand hat, wenn ja wird die Elf automatisch auf das Spielfeld gelegt. 
      * @return true, wenn Spieler eine Elf auf der Hand hat, sonst false.
      */
-	private boolean pruefeAufElf() {
+	private boolean pruefeElfAufHand() {
 		for (Karte k : spieler.get(activePlayer).getKarten()){
 			if(k.getNummer() == ELF){
 				System.out.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
@@ -223,7 +221,7 @@ public class Spiel {
      *
      */
     private void gameInit(){
-    	spieler.add(new Spieler());
+    	spieler.add(new Spieler("Human"));
     	
     	for(int y=1; y<=kiAnzahl; y++){
     		spieler.add(new Ki("KI " + y,1));	
@@ -260,15 +258,15 @@ public class Spiel {
     		}
     	}
     	
-    	System.out.println("test3");
-    	System.out.println(spieler.get(activePlayer).toString());
-    	System.out.println(activePlayer);
+    	System.out.println("GameStart");
+    	System.out.println(spieler.get(activePlayer).getName() + " GS");
+    	System.out.println("ActivePlayer: " + activePlayer);
     	startRound();
     }
     
     private void startRound(){
     	if(isRunning && activePlayer > 0) {
-    		spieler.get(activePlayer).getMove();
+    		spieler.get(activePlayer).react(this);
     	}
     }
     

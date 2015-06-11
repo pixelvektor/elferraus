@@ -122,45 +122,8 @@ public class Spiel {
 			startRound();
 		}	
 	}
-    /** Prueft ob der aktive Spieler noch einen Zug ausführen kann, oder ob er noch Ziehen oder Legen kann.
-     * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug moeglich ist, sonst false.
-     */
-	private boolean pruefeObZugMoeglich() {
-		if(!stapel.getKarten().isEmpty()){
-			return true;
-		}
-		if(spielfeld.getHighestCard(Color.BLUE) != null){
-			for(Karte k : spieler.get(activePlayer).getBlaueKarten()){
-				if(pruefeZug(k, spielfeld)){
-					return true;
-				}			
-			}
-		}
-		if(spielfeld.getHighestCard(Color.GREEN) != null){
-			for(Karte k : spieler.get(activePlayer).getGrueneKarten()){
-				if(pruefeZug(k, spielfeld)){
-					return true;
-				}
-			}
-		}
-		if(spielfeld.getHighestCard(Color.ORANGE) != null){
-			for(Karte k : spieler.get(activePlayer).getOrangeKarten()){
-				if(pruefeZug(k, spielfeld)){
-					return true;
-				}
-			}
-		}
-		if(spielfeld.getHighestCard(Color.RED) != null){
-			for(Karte k : spieler.get(activePlayer).getRoteKarten()){
-				if(pruefeZug(k, spielfeld)){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/** Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.
+	
+    /** Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.
 	 * @param color Farbe der zu bewegenden Karte.
 	 * @param number Nummer der zu bewegenden Karte.
 	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
@@ -172,16 +135,19 @@ public class Spiel {
 						if (move(k, spielfeld)) {
 							spieler.get(activePlayer).remove(k);
 							movePerformed++;
+							checkWinner();
 							return true;
 						}	
 					}if(!pruefeElfAufHand()){
 						if (move(k, spielfeld)) {
 							spieler.get(activePlayer).remove(k);
 							movePerformed++;
+							checkWinner();
 							return true;
 						}	
 			        }else{
 			        	movePerformed++;
+			        	checkWinner();
 			        	return true;
 			        }
 		        }
@@ -225,6 +191,44 @@ public class Spiel {
 		
 	}
 	
+	/** Prueft ob der aktive Spieler noch einen Zug ausführen kann, oder ob er noch Ziehen oder Legen kann.
+	 * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug moeglich ist, sonst false.
+	 */
+	private boolean pruefeObZugMoeglich() {
+		if(!stapel.getKarten().isEmpty()){
+			return true;
+		}
+		if(spielfeld.getHighestCard(Color.BLUE) != null){
+			for(Karte k : spieler.get(activePlayer).getBlaueKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}			
+			}
+		}
+		if(spielfeld.getHighestCard(Color.GREEN) != null){
+			for(Karte k : spieler.get(activePlayer).getGrueneKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		if(spielfeld.getHighestCard(Color.ORANGE) != null){
+			for(Karte k : spieler.get(activePlayer).getOrangeKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		if(spielfeld.getHighestCard(Color.RED) != null){
+			for(Karte k : spieler.get(activePlayer).getRoteKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private void checkWinner() {
 		if (spieler.get(activePlayer).getKarten().size() == 0) {
 			winner = spieler.get(activePlayer).getName();

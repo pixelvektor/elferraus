@@ -4,8 +4,14 @@ import control.Spiel;
 
 public class Ki extends Spieler {
 	
+	/** Schwierigkeit der KI. */
 	private int schwierigkeit;
 	
+	/**
+	 * Erstellt eine KI.
+	 * @param name Name der KI.
+	 * @param schwierigkeit Schwierigkeit der KI.
+	 */
 	public Ki(final String name, final int schwierigkeit){
 		setName(name);
 		this.schwierigkeit = schwierigkeit;

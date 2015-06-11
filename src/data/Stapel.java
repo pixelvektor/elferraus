@@ -4,6 +4,8 @@ import java.util.Collections;
 
 public class Stapel extends Holder{
 
+	/** Mischt den Stapel.
+	 */
 	public void mischen() {
 		Collections.shuffle(this.getKarten());
 	}

@@ -15,19 +15,31 @@ public class Karte {
 	/** Nummer der Karte. */
 	private final int nummer;
 	
+	/** Erstellt eine Karte.
+	 * @param farbe Farbe der Karte.
+	 * @param nummer Nummer der Karte.
+	 */
 	public Karte(final Color farbe, final int nummer){
 		this.farbe = farbe;
 		this.nummer = nummer;
 	}
 
+	/** Getter fuer die Farbe der Karte.
+	 * @return farbe Farbe der Karte.
+	 */
 	public Color getFarbe() {
 		return farbe;
 	}
 
+	/** Getter fuer die Nummer
+	 * @return nummer Nummer der Karte.
+	 */
 	public int getNummer() {
 		return nummer;
 	}
 	
+	/** Gibt die farbe und die Nummer der Karte als String zurueck.
+	 */
 	public String toString() {
 		return farbe + " " + nummer + "\n";
 	}

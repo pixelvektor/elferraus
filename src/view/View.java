@@ -31,12 +31,14 @@ public class View implements ViewInterface {
 	/** Regeltext. */
 	private static final String RULES = "Spielregeln:\r\n"
 			+ "Ziel des Spiels ist es alle Karten abzulegen.\r\n"
-			+ "Jeder Spieler erhält 11 Karten.Es gibt 4 Farben mit jeweils 20 Karten, die von 1-20 nummeriert sind.\r\n"
-			+ "Karten dürfen nur Karten mit der gleichen Farbe auf einen Stapel des Spielfelds gelegt werden.\r\n"
-			+ "Bei jeder Farbe wird jeweils von Elf ab- bzw. aufwärts gelegt\r\n"
+			+ "Jeder Spieler erhält 11 Karten. Es gibt 4 Farben mit jeweils 20 Karten, die von 1-20 nummeriert sind.\r\n"
+			+ "Karten dürfen nur auf Karten mit der gleichen Farbe auf einen Stapel des Spielfelds gelegt werden.\r\n"
+			+ "Bei jeder Farbe wird jeweils von Elf bis 1 ab- bzw. von 12 bis 20 aufwärts gelegt\r\n"
 			+ "Der Spieler mit einer Elf faengt an.\r\n"
-			+ "Elfen müssen immer zuerst gelegt werden.\r\n"
-			+ "Es ist nicht verpflichtend die anderen Karten zu legen, solange noch Karten auf dem Stapel sind.\r\n";
+			+ "Elfen muessen immer zuerst gelegt werden.\r\n"
+			+ "Es ist nicht verpflichtend die anderen Karten zu legen, solange noch Karten auf dem Stapel sind.\r\n"
+			+ "Es koennen so viele Karten gelegt werden wie man möchte, jedoch mindestens Eine sofern man kann.\r\n"
+			+ "Es wird entweder gezogen oder gelegt, danach ist der naechste Spieler dran.";
 	/** Das Spiel. */
 	private Spiel spiel;
 	/** Anzahl der KIs. */

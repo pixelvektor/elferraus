@@ -123,7 +123,7 @@ public class Spiel {
 		}	
 	}
     /** Prueft ob der aktive Spieler noch einen Zug ausführen kann, oder ob er noch Ziehen oder Legen kann.
-     * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug möglich ist, sonst false.
+     * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug moeglich ist, sonst false.
      */
 	private boolean pruefeObZugMoeglich() {
 		if(!stapel.getKarten().isEmpty()){

@@ -14,18 +14,29 @@ import control.Spiel;
  * @author lara
  */
 public abstract class Holder {
+	/** Name des Holders. */
     private String name;
-
+    
+    /** Karten im Besitz des Holders. */
 	private final ArrayList<Karte> karten = new ArrayList<Karte>();
     
+	/** Getter fuer den Namen des Holders
+	 * @return name Name des Holders
+	 */
 	public String getName() {
 		return name;
 	}
-
+    
+	/** Setter fuer den Namen
+	 * @param name Zukuenftiger Name des Holders
+	 */
 	public void setName(final String name) {
 		this.name = name;
 	}
 	
+	/** Reaktion der KI.
+	 * @param spiel Das aktuelle Spiel.
+	 */
 	public void react(final Spiel spiel){
 	}
 
@@ -81,16 +92,24 @@ public abstract class Holder {
 	public ArrayList<Karte> getKarten() {
 		return karten;
 	}
-
+    
+	/** Fuegt eine neue Karte hinzu.
+	 * @param karte karte die hinzugefuegt werden soll.
+	 */
 	public void add(final Karte karte) {
 		karten.add(karte);
 		sort();
 	}
-
+	
+    /** Entfernt eine Karte.
+     * @param karte Karte die entfernt werden soll. 
+     */
 	public void remove(final Karte karte) {
 		karten.remove(karte);
 	}
-
+	
+    /** Sortiert die Karten nach Farbe.
+     */
 	private void sort() {
 		ArrayList<Karte> blue = new ArrayList<Karte>();
 		ArrayList<Karte> green = new ArrayList<Karte>();
@@ -150,7 +169,7 @@ public abstract class Holder {
 		}
 	}
 	
-	/** Gibt alle blauen Karten zurück.
+	/** Gibt alle blauen Karten zurueck.
 	 * @return blue, ArrayList mit den Karten der Farbe BLUE. 
 	 */
 	public ArrayList<Karte> getBlaueKarten() {
@@ -164,7 +183,7 @@ public abstract class Holder {
 		
 	}
 	
-	/** Gibt alle gruenen Karten zurück.
+	/** Gibt alle gruenen Karten zurueck.
 	 * @return green, ArrayList mit den Karten der Farbe GREEN. 
 	 */
 	public ArrayList<Karte> getGrueneKarten() {
@@ -178,7 +197,7 @@ public abstract class Holder {
 		
 	}
 	
-	/** Gibt alle orangenen Karten zurück.
+	/** Gibt alle orangenen Karten zurueck.
 	 * @return orange, ArrayList mit den Karten der Farbe ORANGE. 
 	 */
 	public ArrayList<Karte> getOrangeKarten() {
@@ -192,7 +211,7 @@ public abstract class Holder {
 		
 	}
 	
-	/** Gibt alle roten Karten zurück.
+	/** Gibt alle roten Karten zurueck.
 	 * @return red, ArrayList mit den Karten der Farbe RED. 
 	 */
 	public ArrayList<Karte> getRoteKarten() {

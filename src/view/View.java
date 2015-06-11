@@ -6,13 +6,13 @@
 
 package view;
 
-import data.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import control.Spiel;
+import data.Color;
 import data.Karte;
 
 /**
@@ -31,20 +31,20 @@ public class View implements ViewInterface {
 	/** Regeltext. */
 	private static final String RULES = "Spielregeln:\r\n"
 			+ "Ziel des Spiels ist es alle Karten abzulegen.\r\n"
-			+ "Jeder Spieler erhält 11 Karten. Es gibt 4 Farben mit jeweils 20 Karten, die von 1-20 nummeriert sind.\r\n"
-			+ "Karten dürfen nur auf Karten mit der gleichen Farbe auf einen Stapel des Spielfelds gelegt werden.\r\n"
-			+ "Bei jeder Farbe wird jeweils von Elf bis 1 ab- bzw. von 12 bis 20 aufwärts gelegt\r\n"
+			+ "Jeder Spieler erhaelt 11 Karten. Es gibt 4 Farben mit jeweils 20 Karten, die von 1-20 nummeriert sind.\r\n"
+			+ "Karten duerfen nur auf Karten mit der gleichen Farbe auf einen Stapel des Spielfelds gelegt werden.\r\n"
+			+ "Bei jeder Farbe wird jeweils von Elf bis 1 ab- bzw. von 12 bis 20 aufwaerts gelegt\r\n"
 			+ "Der Spieler mit einer Elf faengt an.\r\n"
 			+ "Elfen muessen immer zuerst gelegt werden.\r\n"
 			+ "Es ist nicht verpflichtend die anderen Karten zu legen, solange noch Karten auf dem Stapel sind.\r\n"
-			+ "Es koennen so viele Karten gelegt werden wie man möchte, jedoch mindestens Eine sofern man kann.\r\n"
+			+ "Es koennen so viele Karten gelegt werden wie man moechte, jedoch mindestens Eine sofern man kann.\r\n"
 			+ "Es wird entweder gezogen oder gelegt, danach ist der naechste Spieler dran.";
 	/** Das Spiel. */
 	private Spiel spiel;
 	/** Anzahl der KIs. */
 	private int countKi;
-	/** Schwierigkeit. */
-	private int difficulty;
+	/** Schwierigkeit der KIs. */
+	private boolean difficulty;
 
 	/** Erstellt eine neue View fuer das Spiel.
 	 * Muss an Spiel uebergeben werden.
@@ -55,17 +55,22 @@ public class View implements ViewInterface {
 		
 		do {
 			try {
-				countKi = Integer.parseInt(input("Anzahl Gegner [1-3]: "));
+				countKi = Integer.parseInt(input("Anzahl der Gegner [1-3]: "));
 			} catch (NumberFormatException e) {
 			}
 		} while (countKi < 1 || countKi > 3);
 		
+		boolean result = false;
 		do {
-			try {
-				difficulty = Integer.parseInt(input("Schwierigkeitsgrad [1-3]:  "));
-			} catch (NumberFormatException e) {
+			String input = input("Leicht oder schwer [easy / hard]: ").toLowerCase();
+			if (input.equals("easy")) {
+				difficulty = false;
+				result = true;
+			} else if (input.equals("hard")) {
+				difficulty = true;
+				result = true;
 			}
-		} while (difficulty < 1 || difficulty > 3);
+		} while (!result);
 	}
 	
 	/** Getter fuer die Anzahl der KIs.
@@ -78,7 +83,7 @@ public class View implements ViewInterface {
 	/** Getter fuer die Schwierigkeit.
 	 * @return Gibt die Schwierigkeit zurueck.
 	 */
-	public int getDifficulty() {
+	public boolean getDifficulty() {
 		return difficulty;
 	}
 
@@ -208,7 +213,7 @@ public class View implements ViewInterface {
 			for (Karte k : karten) {
 				if (firstRound) {
 					for (int i = 0; i < farbe.length; i++) {
-						if (k.getFarbe().equals(Spiel.getColor()[i])) {
+						if (k.getFarbe().equals(Color.values()[i])) {
 							output += farbe[i];
 						}
 					}
@@ -216,7 +221,7 @@ public class View implements ViewInterface {
 				}
 				if (!temp.getFarbe().equals(k.getFarbe())) {
 					for (int i = 0; i < farbe.length; i++) {
-						if (k.getFarbe().equals(Spiel.getColor()[i])) {
+						if (k.getFarbe().equals(Color.values()[i])) {
 							output += "\r\n" + farbe[i];
 						}
 					}

@@ -7,9 +7,23 @@ package data;
  */
 
 public class Spielfeld extends Holder {
+	/** Enthaelt die Stapel Instanz. */
+	private static Spielfeld spielfeld;
 	
-	/** Inaktive Methode.
-	 * 
+	/** Ctor fuer das Spielfeld. */
+	private Spielfeld() {}
+	
+	/** Getter fuer die Spielfeld Instanz.
+	 * @return Gibt die Spielfeld Instanz zurueck.
+	 */
+	public static Spielfeld getInstance() {
+		if (spielfeld == null) {
+			spielfeld = new Spielfeld();
+		}
+		return spielfeld;
+	}
+	
+	/** Inaktive Methode. 
 	 */
 	public void remove(final Karte karte) {
 		// Leer, damit nicht geloescht werden kann.

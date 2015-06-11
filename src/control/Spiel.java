@@ -27,13 +27,15 @@ public class Spiel {
 	/** Spieler-ArrayList. */
 	private final ArrayList<Holder> spieler = new ArrayList<Holder>();
 	/** Stapel fuer die Karten. */
-	private final Stapel stapel = new Stapel();
+	private final Stapel stapel = Stapel.getInstance();
 	/** Spielfeld. */
-	private final Spielfeld spielfeld = new Spielfeld();
+	private final Spielfeld spielfeld = Spielfeld.getInstance();
 	/** Index des aktiven Spielers. */
 	private int activePlayer;
 	/** Anzahl der vorhandenen Kis */
-	private final int kiAnzahl;
+	private final int countKi;
+	/** Schwierigkeit der KIs. */
+	private boolean difficulty;
 	/** Name des Gewinners. */
 	private String winner = "niemand";
 	/** true solange das Spiel laeuft. */
@@ -47,18 +49,12 @@ public class Spiel {
 	 * @param view Die TUI des Spiels
 	 */
     public Spiel(final View view) {
-    	kiAnzahl = view.getCountKi();
+    	countKi = view.getCountKi();
+    	difficulty = view.getDifficulty();
     	gameInit();
     	while (isRunning) {
 			view.update(this);
 		}
-	}
-    
-    /** Getter fuer die Farben des Spiels.
-	 * @return Gibt die Farben des Spiels zurueck.
-	 */
-	public static Color[] getColor() {
-		return COLOR;
 	}
 
 	/** Getter fuer die Spieler.
@@ -108,7 +104,7 @@ public class Spiel {
 		if(movePerformed == 0 &&  pullPerformed == 0 && pruefeObZugMoeglich()){
 			System.out.println("Sie muessen eine Aktion ausfuehren!");			
 		}else{
-			if(activePlayer < kiAnzahl){
+			if(activePlayer < countKi){
 				activePlayer++;
 			}
 			else{
@@ -272,10 +268,10 @@ public class Spiel {
 	/** Initialisiert das Spiel.
      */
     private void gameInit(){
-    	spieler.add(new Spieler("Human"));
+    	spieler.add(new Spieler("Sie"));
     	
-    	for(int y=1; y<=kiAnzahl; y++){
-    		spieler.add(new Ki("KI " + y,1));	
+    	for(int y=1; y<=countKi; y++){
+    		spieler.add(new Ki("KI " + y, difficulty));	
      	}
     	
     	kartenInit();
@@ -289,19 +285,19 @@ public class Spiel {
     	
     	// Verteilen von je 11 Karten an jeden Spieler
     	for(int i=0; i<ELF; i++){
-    		for(int y = 0; y <= kiAnzahl; y++){
+    		for(int y = 0; y <= countKi; y++){
     			move(stapel.getNext(), spieler.get(y));
     		}
     	}
     	
     	// Sucht den ersten Spieler mit einer 11 raus und setzt ihn als aktiven Spieler
     	for(int i=0; i<ELF; i++){
-    		for(int j=0; j<=kiAnzahl; j++){
+    		for(int j=0; j<=countKi; j++){
     			if(spieler.get(j).getKarten().get(i).getNummer()==ELF){
         			activePlayer = j;
         			// Beenden der Schleifen bei gefundener 11
         			i = ELF + 1;
-        			j = kiAnzahl + 1;
+        			j = countKi + 1;
         		} else {
 					activePlayer = 0;
 				}

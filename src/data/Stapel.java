@@ -9,7 +9,23 @@ package data;
 import java.util.Collections;
 
 public class Stapel extends Holder{
-
+	/** Enthaelt die Stapel Instanz. */
+	private static Stapel stapel;
+	
+	/** Ctor fuer den Stapel.
+	 */
+	private Stapel() {}
+	
+	/** Getter fuer die Stapel Instanz.
+	 * @return Gibt die Stapel Instanz zurueck.
+	 */
+	public static Stapel getInstance() {
+		if (stapel == null) {
+			stapel = new Stapel();
+		}
+		return stapel;
+	}
+	
 	/** Mischt den Stapel.
 	 */
 	public void mischen() {

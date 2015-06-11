@@ -11,16 +11,16 @@ import control.Spiel;
 public class Ki extends Spieler {
 	
 	/** Schwierigkeit der KI. */
-	private int schwierigkeit;
+	private final boolean difficult;
 	
 	/**
 	 * Erstellt eine KI.
 	 * @param name Name der KI.
-	 * @param schwierigkeit Schwierigkeit der KI.
+	 * @param difficult Schwierigkeit der KI.
 	 */
-	public Ki(final String name, final int schwierigkeit){
+	public Ki(final String name, final boolean difficult){
 		setName(name);
-		this.schwierigkeit = schwierigkeit;
+		this.difficult = difficult;
 	}
 	
 	public void react(final Spiel spiel){

@@ -24,8 +24,6 @@ import data.Stapel;
 public class Spiel {
 	/** Die Schluesselzahl 11. */
 	private static final int ELF = 11;
-	/** Die Farben der Karten. */
-	private static final Color[] COLOR = {Color.BLUE, Color.GREEN, Color.ORANGE, Color.RED};
 	/** Spieler-ArrayList. */
 	private final ArrayList<Holder> spieler = new ArrayList<Holder>();
 	/** Stapel fuer die Karten. */
@@ -357,11 +355,11 @@ public class Spiel {
     	boolean result = false;
     	
     	if(ziel.equals(spielfeld)){
-    		for (int i = 0; i < COLOR.length; i++) {
-    			if(karte.getFarbe().equals(COLOR[i])){
-                	if(karte.getNummer() == ziel.getHighestCard(COLOR[i]).getNummer()+1){
+    		for (int i = 0; i < Color.values().length; i++) {
+    			if(karte.getFarbe().equals(Color.values()[i])){
+                	if(karte.getNummer() == ziel.getHighestCard(Color.values()[i]).getNummer()+1){
                 		result = true;
-                	} else if(karte.getNummer() == ziel.getLowestCard(COLOR[i]).getNummer()-1){
+                	} else if(karte.getNummer() == ziel.getLowestCard(Color.values()[i]).getNummer()-1){
                 		result = true;
                 	}
     			}

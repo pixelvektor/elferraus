@@ -45,8 +45,8 @@ public class Spiel {
 	/** Haeufigkeit des Aufraufs der Methode pull(). */
 	private int pullPerformed;
 	
-	/** Erstellt ein Spiel.
-	 *
+	/** Erstellt ein Spiel und updatet die View.
+	 * @param view Die TUI des Spiels
 	 */
     public Spiel(final View view) {
     	kiAnzahl = view.getCountKi();
@@ -98,11 +98,13 @@ public class Spiel {
 		return isRunning;
 	}
 
+	/** Beendet das Spiel.
+	 */
 	public void exit() {
 		isRunning = false;
 	}
-    /** Wechselt bei Aufruf den aktiven Holder und startet eine neue Runde.
-     * 
+	
+    /** Wechselt den aktiven Spieler, falls kein Zug mehr moeglich ist, und startet eine neue Runde.
      */
 	public void naechsterSpieler(){
 		if(movePerformed == 0 &&  pullPerformed == 0 && pruefeObZugMoeglich()){
@@ -156,8 +158,8 @@ public class Spiel {
 			return false;
 	}
 	
-	/** Der aktive Spieler zieht eine Karte vom Stapel.
-	 * @return true wenn die Karte vom Stapel gezogen wurde. Sonst false (=leer).
+	/** Der aktive Spieler zieht eine Karte vom Stapel, falls er vorher Keine gelegt hat oder noch eine Elf auf der Hand hat.
+	 * @return true wenn die Karte vom Stapel gezogen wurde, wenn noch eine Elf auf der Hand ist, wenn schon gelegt worden ist. Sonst false (=leer).
 	 */
 	public boolean pull() {
 		boolean result = true;
@@ -191,7 +193,7 @@ public class Spiel {
 		
 	}
 	
-	/** Prueft ob der aktive Spieler noch einen Zug ausführen kann, oder ob er noch Ziehen oder Legen kann.
+	/** Prueft ob der aktive Spieler noch einen Zug ausfuehren kann, oder ob er noch Ziehen oder Legen kann.
 	 * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug moeglich ist, sonst false.
 	 */
 	private boolean pruefeObZugMoeglich() {
@@ -229,6 +231,8 @@ public class Spiel {
 		return false;
 	}
 
+	/** Prueft ob der aktive Spieler gewonnen hat.
+	 */
 	private void checkWinner() {
 		if (spieler.get(activePlayer).getKarten().size() == 0) {
 			winner = spieler.get(activePlayer).getName();
@@ -268,7 +272,6 @@ public class Spiel {
 	}
 
 	/** Initialisiert das Spiel.
-     *
      */
     private void gameInit(){
     	spieler.add(new Spieler("Human"));
@@ -282,7 +285,6 @@ public class Spiel {
     }
     
    /** Der Stapel wird gemischt, danach werden jeweils 11 Karten an die Spieler verteilt. Der Spieler mit einer 11 beginnt. 
-    *  
     */
     private void gameStart(){
     	stapel.mischen();
@@ -314,6 +316,8 @@ public class Spiel {
     	startRound();
     }
     
+    /** Startet eine neue Runde.
+     */
     private void startRound(){
     	if(isRunning && activePlayer > 0) {
     		spieler.get(activePlayer).react(this);
@@ -321,7 +325,6 @@ public class Spiel {
     }
     
     /** Karten werden erstellt, danach zum Stapel hinzugefuegt.
-     *
      */
     private void kartenInit(){
     	for(int nummer=1; nummer<=20; nummer++){

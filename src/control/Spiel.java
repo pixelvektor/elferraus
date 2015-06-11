@@ -105,8 +105,8 @@ public class Spiel {
      * 
      */
 	public void naechsterSpieler(){
-		if(movePerformed == 0 &&  pullPerformed == 0){
-			System.out.println("Sie muessen eine Aktion ausfuehren!");
+		if(movePerformed == 0 &&  pullPerformed == 0 && pruefeObZugMoeglich()){
+			System.out.println("Sie muessen eine Aktion ausfuehren!");			
 		}else{
 			if(activePlayer < kiAnzahl){
 				activePlayer++;
@@ -121,6 +121,43 @@ public class Spiel {
 			pullPerformed=0;
 			startRound();
 		}	
+	}
+    /** Prueft ob der aktive Spieler noch einen Zug ausführen kann, oder ob er noch Ziehen oder Legen kann.
+     * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug möglich ist, sonst false.
+     */
+	private boolean pruefeObZugMoeglich() {
+		if(!stapel.getKarten().isEmpty()){
+			return true;
+		}
+		if(spielfeld.getHighestCard(Color.BLUE) != null){
+			for(Karte k : spieler.get(activePlayer).getBlaueKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}			
+			}
+		}
+		if(spielfeld.getHighestCard(Color.GREEN) != null){
+			for(Karte k : spieler.get(activePlayer).getGrueneKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		if(spielfeld.getHighestCard(Color.ORANGE) != null){
+			for(Karte k : spieler.get(activePlayer).getOrangeKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		if(spielfeld.getHighestCard(Color.RED) != null){
+			for(Karte k : spieler.get(activePlayer).getRoteKarten()){
+				if(pruefeZug(k, spielfeld)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/** Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.

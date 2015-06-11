@@ -149,4 +149,60 @@ public abstract class Holder {
 			farbe.remove(j+1);
 		}
 	}
+	
+	/** Gibt alle blauen Karten zurück.
+	 * @return blue, ArrayList mit den Karten der Farbe BLUE. 
+	 */
+	public ArrayList<Karte> getBlaueKarten() {
+		ArrayList<Karte> blue = new ArrayList<Karte>();
+		for (Karte k : karten){
+			if (k.getFarbe().equals(Color.BLUE)) {
+				blue.add(k);
+			}
+		}
+		return blue;
+		
+	}
+	
+	/** Gibt alle gruenen Karten zurück.
+	 * @return green, ArrayList mit den Karten der Farbe GREEN. 
+	 */
+	public ArrayList<Karte> getGrueneKarten() {
+		ArrayList<Karte> green = new ArrayList<Karte>();
+		for (Karte k : karten){
+			if (k.getFarbe().equals(Color.GREEN)) {
+				green.add(k);
+			}
+		}
+		return green;
+		
+	}
+	
+	/** Gibt alle orangenen Karten zurück.
+	 * @return orange, ArrayList mit den Karten der Farbe ORANGE. 
+	 */
+	public ArrayList<Karte> getOrangeKarten() {
+		ArrayList<Karte> orange = new ArrayList<Karte>();
+		for (Karte k : karten){
+			if (k.getFarbe().equals(Color.ORANGE)) {
+				orange.add(k);
+			}
+		}
+		return orange;
+		
+	}
+	
+	/** Gibt alle roten Karten zurück.
+	 * @return red, ArrayList mit den Karten der Farbe RED. 
+	 */
+	public ArrayList<Karte> getRoteKarten() {
+		ArrayList<Karte> red = new ArrayList<Karte>();
+		for (Karte k : karten){
+			if (k.getFarbe().equals(Color.RED)) {
+				red.add(k);
+			}
+		}
+		return red;
+		
+	}
 }

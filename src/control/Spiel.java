@@ -42,6 +42,8 @@ public class Spiel {
 	private boolean isRunning = true;
 	/** Haeufigkeit des Aufraufs der Methode setMove(). */
 	private int movePerformed;
+	/** Haeufigkeit des Aufraufs der Methode pull(). */
+	private int pullPerformed;
 	
 	/** Erstellt ein Spiel.
 	 *
@@ -103,17 +105,22 @@ public class Spiel {
      * 
      */
 	public void naechsterSpieler(){
-		if(activePlayer < kiAnzahl){
-			activePlayer++;
-		}
-		else{
-			activePlayer=0;
-		}
-		
-		System.out.println(spieler.get(activePlayer).getName() + "NS");
-		System.out.println("ActivePlayer: " + activePlayer);
-		movePerformed=0;
-		startRound();
+		if(movePerformed == 0 &&  pullPerformed == 0){
+			System.out.println("Sie muessen eine Aktion ausfuehren!");
+		}else{
+			if(activePlayer < kiAnzahl){
+				activePlayer++;
+			}
+			else{
+				activePlayer=0;
+			}
+			
+			System.out.println(spieler.get(activePlayer).getName() + "NS");
+			System.out.println("ActivePlayer: " + activePlayer);
+			movePerformed=0;
+			pullPerformed=0;
+			startRound();
+		}	
 	}
 
 	/** Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.
@@ -162,10 +169,12 @@ public class Spiel {
 				         result = move(stapel.getNext(), spieler.get(activePlayer));
 				         result = move(stapel.getNext(), spieler.get(activePlayer));
 			         }
+			    	 pullPerformed++;
 			         naechsterSpieler();
 			         return result;
 			     }
 			     else{
+			    	 pullPerformed++;
 					 naechsterSpieler();
 					 return true;
 			     }

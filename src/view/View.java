@@ -133,6 +133,9 @@ public class View implements ViewInterface {
 				spiel.naechsterSpieler();
 				result = true;
 	            break;
+			case "allin":
+				spiel.pruefeAufAllIn();
+				break;
 			case "bye":
 			case "exit":
 				spiel.exit();

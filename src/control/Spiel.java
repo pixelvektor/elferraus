@@ -187,6 +187,51 @@ public class Spiel {
 		
 	}
 	
+	public boolean pruefeAufAllIn() {
+		if(pruefeObBlauAllIn() && pruefeObGruenAllIn() && pruefeObOrangeAllIn() && pruefeObRotAllIn()){
+			allIn();
+			return true;
+		}
+		System.out.println("Sie koennen nicht alle Karten ablegen!");
+		return false;
+	}
+
+	private void allIn() {
+		for (Karte k : spieler.get(activePlayer).getKarten()) {
+			move(k,spielfeld);
+			spieler.get(activePlayer).remove(k);
+		}
+		checkWinner();
+	}
+	
+	private boolean pruefeObBlauAllIn(){
+		if(pruefeObBlauAllInLow() && pruefeObBlauAllInHigh()){
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean pruefeObGruenAllIn(){
+		if(pruefeObGruenAllInLow() && pruefeObGruenAllInHigh()){
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean pruefeObOrangeAllIn(){
+		if(pruefeObOrangeAllInLow() && pruefeObOrangeAllInHigh()){
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean pruefeObRotAllIn(){
+		if(pruefeObRotAllInLow() && pruefeObRotAllInHigh()){
+			return true;
+		}
+		return false;
+	}
+
 	/** Prueft ob der aktive Spieler noch einen Zug ausfuehren kann, oder ob er noch Ziehen oder Legen kann.
 	 * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug moeglich ist, sonst false.
 	 */
@@ -225,6 +270,278 @@ public class Spiel {
 		return false;
 	}
 
+	private boolean pruefeObBlauAllInHigh(){
+		int temp;
+		int i=0;
+		int max=spieler.get(activePlayer).getBlaueKarten().size()-1;
+		
+		if(spieler.get(activePlayer).getBlaueKarten().size() != 0){
+			while(i <= max){
+				if(spieler.get(activePlayer).getBlaueKarten().get(i).getNummer()==spielfeld.getHighestCard(Color.BLUE).getNummer()+1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x < max ; x++){
+							if(spieler.get(activePlayer).getBlaueKarten().get(temp+1).getNummer() == spieler.get(activePlayer).getBlaueKarten().get(temp).getNummer()+1){
+								temp++;
+								i++;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i++;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean pruefeObGruenAllInHigh(){
+		int temp;
+		int i=0;
+		int max=spieler.get(activePlayer).getGrueneKarten().size()-1;
+		
+		if(spieler.get(activePlayer).getGrueneKarten().size() != 0){
+			while(i <= max){
+				if(spieler.get(activePlayer).getGrueneKarten().get(i).getNummer()==spielfeld.getHighestCard(Color.GREEN).getNummer()+1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x < max ; x++){
+							if(spieler.get(activePlayer).getGrueneKarten().get(temp+1).getNummer() == spieler.get(activePlayer).getGrueneKarten().get(temp).getNummer()+1){
+								temp++;
+								i++;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i++;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean pruefeObOrangeAllInHigh(){
+		int temp;
+		int i=0;
+		int max=spieler.get(activePlayer).getOrangeKarten().size()-1;
+
+		if(spieler.get(activePlayer).getOrangeKarten().size() != 0){
+			while(i <= max){
+				if(spieler.get(activePlayer).getOrangeKarten().get(i).getNummer()==spielfeld.getHighestCard(Color.ORANGE).getNummer()+1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x < max ; x++){
+							if(spieler.get(activePlayer).getOrangeKarten().get(temp+1).getNummer() == spieler.get(activePlayer).getOrangeKarten().get(temp).getNummer()+1){
+								temp++;
+								i++;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i++;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	private boolean pruefeObRotAllInHigh(){
+		int temp;
+		int i=0;
+		int max=spieler.get(activePlayer).getRoteKarten().size()-1;
+
+		if(spieler.get(activePlayer).getRoteKarten().size() != 0){
+			while(i <= max){
+				if(spieler.get(activePlayer).getRoteKarten().get(i).getNummer()==spielfeld.getHighestCard(Color.RED).getNummer()+1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x < max ; x++){
+							if(spieler.get(activePlayer).getRoteKarten().get(temp+1).getNummer() == spieler.get(activePlayer).getRoteKarten().get(temp).getNummer()+1){
+								temp++;
+								i++;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i++;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean pruefeObBlauAllInLow(){
+		int temp;
+		int i=spieler.get(activePlayer).getBlaueKarten().size()-1;
+		int max=0;
+
+		if(spieler.get(activePlayer).getBlaueKarten().size() != 0){
+			while(i >= max){
+				if(spieler.get(activePlayer).getBlaueKarten().get(i).getNummer()==spielfeld.getLowestCard(Color.BLUE).getNummer()-1){
+					temp=i;
+					if(i==max){
+						System.out.println("AllIn2");
+						return true;
+					}else{
+						for(int x=i; x > max ; x--){
+							if(spieler.get(activePlayer).getBlaueKarten().get(temp-1).getNummer() == spieler.get(activePlayer).getBlaueKarten().get(temp).getNummer()-1){
+								temp--;
+								i--;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i--;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean pruefeObGruenAllInLow(){
+		int temp;
+		int i=spieler.get(activePlayer).getGrueneKarten().size()-1;
+		int max=0;
+
+		if(spieler.get(activePlayer).getGrueneKarten().size() != 0){
+			while(i >= max){
+				if(spieler.get(activePlayer).getGrueneKarten().get(i).getNummer()==spielfeld.getLowestCard(Color.GREEN).getNummer()-1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x > max ; x--){
+							if(spieler.get(activePlayer).getGrueneKarten().get(temp-1).getNummer() == spieler.get(activePlayer).getGrueneKarten().get(temp).getNummer()-1){
+								temp--;
+								i--;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i--;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	private boolean pruefeObOrangeAllInLow(){
+		int temp;
+		int i=spieler.get(activePlayer).getOrangeKarten().size()-1;
+		int max=0;
+
+		if(spieler.get(activePlayer).getOrangeKarten().size() != 0){
+			while(i >= max){
+				if(spieler.get(activePlayer).getOrangeKarten().get(i).getNummer()==spielfeld.getLowestCard(Color.ORANGE).getNummer()-1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x > max ; x--){
+							if(spieler.get(activePlayer).getOrangeKarten().get(temp-1).getNummer() == spieler.get(activePlayer).getOrangeKarten().get(temp).getNummer()-1){
+								temp--;
+								i--;
+								if(temp==max){
+									return true;
+								}
+							}else{
+								return false;
+							}
+						}
+					}	
+				}else{
+					i--;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	private boolean pruefeObRotAllInLow(){
+		int temp;
+		int i=spieler.get(activePlayer).getRoteKarten().size()-1;
+		int max=0;
+
+		if(spieler.get(activePlayer).getRoteKarten().size() != 0){
+			while(i >= max){
+				if(spieler.get(activePlayer).getRoteKarten().get(i).getNummer()==spielfeld.getLowestCard(Color.RED).getNummer()-1){
+					temp=i;
+					if(i==max){
+						return true;
+					}else{
+						for(int x=i; x > max ; x--){
+							if(spieler.get(activePlayer).getRoteKarten().get(temp-1).getNummer() == spieler.get(activePlayer).getRoteKarten().get(temp).getNummer()-1){
+								temp--;
+								i--;
+								if(temp==max){
+									return true;
+								}
+							}else{;
+								return false;
+							}
+						}
+					}	
+				}else{
+					i--;
+				}
+			}
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	/** Prueft ob der aktive Spieler gewonnen hat.
 	 */
 	private void checkWinner() {

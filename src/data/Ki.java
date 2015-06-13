@@ -34,7 +34,7 @@ public class Ki extends Spieler {
 			checkBackHand();
 		}
 		
-		if(!spiel.getStapel().getKarten().isEmpty()){
+		if(!spiel.getStapel().getCards().isEmpty()){
 			spiel.pull();
 		}
 		else if (!difficult){
@@ -72,7 +72,7 @@ public class Ki extends Spieler {
 	}
 	
 	private boolean cardAvailable(final Color color, final int number, final boolean high) {
-		for (Karte k : getKarten()) {
+		for (Karte k : getCards()) {
 			if (k.getFarbe().equals(color) && k.getNummer() == number+1 && high) {
 				return true;
 			}

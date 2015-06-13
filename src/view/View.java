@@ -95,14 +95,14 @@ public class View implements ViewInterface {
 		
 		System.out.println();
 		for (int i = 1; i < spiel.getSpieler().size(); i++) {
-			System.out.println("Karten von " + spiel.getSpieler().get(i).getName() + ": " + spiel.getSpieler().get(i).getKarten().size() + ".");
+			System.out.println("Karten von " + spiel.getSpieler().get(i).getName() + ": " + spiel.getSpieler().get(i).getCards().size() + ".");
 		}
 		
 		printSpielfeld();
 		
-		System.out.println("Karten auf dem Stapel: " + spiel.getStapel().getKarten().size());
-		System.out.println("Ihre Karten: " + spiel.getSpieler().get(0).getKarten().size());
-		printSpielerKarten(spiel.getSpieler().get(0).getKarten());
+		System.out.println("Karten auf dem Stapel: " + spiel.getStapel().getCards().size());
+		System.out.println("Ihre Karten: " + spiel.getSpieler().get(0).getCards().size());
+		printSpielerKarten(spiel.getSpieler().get(0).getCards());
 		
 		boolean result = true;
 		do {
@@ -134,7 +134,7 @@ public class View implements ViewInterface {
 				result = true;
 	            break;
 			case "allin":
-				spiel.pruefeAufAllIn();
+				spiel.checkForAllIn();
 				break;
 			case "bye":
 			case "exit":

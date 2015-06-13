@@ -29,7 +29,7 @@ public class Stapel extends Holder{
 	/** Mischt den Stapel.
 	 */
 	public void mischen() {
-		Collections.shuffle(this.getKarten());
+		Collections.shuffle(this.getCards());
 	}
 	
 	/** Nimmt eine Karte vom Stapel und gibt diese zurueck.
@@ -39,7 +39,7 @@ public class Stapel extends Holder{
 	public Karte getNext() {
 		Karte karte = null;
 		try {
-			karte = this.getKarten().get(0);
+			karte = this.getCards().get(0);
 		} catch (IndexOutOfBoundsException e) {
 			//e.printStackTrace();
 		}

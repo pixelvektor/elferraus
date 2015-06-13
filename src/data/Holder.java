@@ -89,8 +89,21 @@ public abstract class Holder {
 	/** Getter fuer die Karten des Holders.
 	 * @return Gibt die Karten des Holders zurueck.
 	 */
-	public ArrayList<Karte> getKarten() {
+	public ArrayList<Karte> getCards() {
 		return karten;
+	}
+	
+	/** Gibt alle Karten einer bestimmten Farbe zurueck.
+	 * @return ArrayList mit den Karten der gesuchten Farbe. 
+	 */
+	public ArrayList<Karte> getCards(final Color color) {
+		ArrayList<Karte> searchedColor = new ArrayList<Karte>();
+		for (Karte k : karten){
+			if (k.getFarbe().equals(color)) {
+				searchedColor.add(k);
+			}
+		}
+		return searchedColor;
 	}
     
 	/** Fuegt eine neue Karte hinzu.
@@ -167,61 +180,5 @@ public abstract class Holder {
 			farbe.add(j, temp);
 			farbe.remove(j+1);
 		}
-	}
-	
-	/** Gibt alle blauen Karten zurueck.
-	 * @return blue, ArrayList mit den Karten der Farbe BLUE. 
-	 */
-	public ArrayList<Karte> getBlaueKarten() {
-		ArrayList<Karte> blue = new ArrayList<Karte>();
-		for (Karte k : karten){
-			if (k.getFarbe().equals(Color.BLUE)) {
-				blue.add(k);
-			}
-		}
-		return blue;
-		
-	}
-	
-	/** Gibt alle gruenen Karten zurueck.
-	 * @return green, ArrayList mit den Karten der Farbe GREEN. 
-	 */
-	public ArrayList<Karte> getGrueneKarten() {
-		ArrayList<Karte> green = new ArrayList<Karte>();
-		for (Karte k : karten){
-			if (k.getFarbe().equals(Color.GREEN)) {
-				green.add(k);
-			}
-		}
-		return green;
-		
-	}
-	
-	/** Gibt alle orangenen Karten zurueck.
-	 * @return orange, ArrayList mit den Karten der Farbe ORANGE. 
-	 */
-	public ArrayList<Karte> getOrangeKarten() {
-		ArrayList<Karte> orange = new ArrayList<Karte>();
-		for (Karte k : karten){
-			if (k.getFarbe().equals(Color.ORANGE)) {
-				orange.add(k);
-			}
-		}
-		return orange;
-		
-	}
-	
-	/** Gibt alle roten Karten zurueck.
-	 * @return red, ArrayList mit den Karten der Farbe RED. 
-	 */
-	public ArrayList<Karte> getRoteKarten() {
-		ArrayList<Karte> red = new ArrayList<Karte>();
-		for (Karte k : karten){
-			if (k.getFarbe().equals(Color.RED)) {
-				red.add(k);
-			}
-		}
-		return red;
-		
 	}
 }

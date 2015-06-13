@@ -34,7 +34,7 @@ public abstract class Holder {
 		this.name = name;
 	}
 	
-	/** Reaktion der KI.
+	/** Reaktion des Holders.
 	 * @param spiel Das aktuelle Spiel.
 	 */
 	public void react(final Spiel spiel){

@@ -46,9 +46,7 @@ public class Spiel {
 
 	/**
 	 * Erstellt ein Spiel und updatet die View.
-	 * 
-	 * @param view
-	 *            Die TUI des Spiels
+	 * @param view Die TUI des Spiels
 	 */
 	public Spiel(final View view) {
 		countKi = view.getCountKi();
@@ -61,7 +59,6 @@ public class Spiel {
 
 	/**
 	 * Getter fuer die Spieler.
-	 * 
 	 * @return Gibt die Spieler zurueck.
 	 */
 	public ArrayList<Holder> getSpieler() {
@@ -70,7 +67,6 @@ public class Spiel {
 
 	/**
 	 * Getter fuer den Stapel.
-	 * 
 	 * @return Gibt den Stapel zurueck.
 	 */
 	public Stapel getStapel() {
@@ -79,7 +75,6 @@ public class Spiel {
 
 	/**
 	 * Getter fuer das Spielfeld.
-	 * 
 	 * @return Gibt das Spielfeld zurueck.
 	 */
 	public Spielfeld getSpielfeld() {
@@ -88,7 +83,6 @@ public class Spiel {
 
 	/**
 	 * Getter fuer den Namen des Gewinners.
-	 * 
 	 * @return Gibt den Namen des Gewinners zurueck.
 	 */
 	public String getWinner() {
@@ -97,7 +91,6 @@ public class Spiel {
 
 	/**
 	 * Getter fuer den Spielzustand.
-	 * 
 	 * @return Gibt den Spielzustand zurueck. True wenn das Spiel laeuft, sonst
 	 *         false.
 	 */
@@ -136,11 +129,8 @@ public class Spiel {
 
 	/**
 	 * Der gewuenschte Zug fuer den aktiven Spieler wird gesetzt.
-	 * 
-	 * @param color
-	 *            Farbe der zu bewegenden Karte.
-	 * @param number
-	 *            Nummer der zu bewegenden Karte.
+	 * @param color Farbe der zu bewegenden Karte.
+	 * @param number Nummer der zu bewegenden Karte.
 	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
 	 */
 	public boolean setMove(final Color color, final int number) {
@@ -175,7 +165,6 @@ public class Spiel {
 	/**
 	 * Der aktive Spieler zieht eine Karte vom Stapel, falls er vorher Keine
 	 * gelegt hat oder noch eine Elf auf der Hand hat.
-	 * 
 	 * @return true wenn die Karte vom Stapel gezogen wurde, wenn noch eine Elf
 	 *         auf der Hand ist, wenn schon gelegt worden ist. Sonst false
 	 *         (=leer).
@@ -315,7 +304,6 @@ public class Spiel {
 	/**
 	 * Prueft ob der aktive Spieler noch einen Zug ausfuehren kann, oder ob er
 	 * noch Ziehen oder Legen kann.
-	 * 
 	 * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug
 	 *         moeglich ist, sonst false.
 	 */
@@ -367,7 +355,6 @@ public class Spiel {
 	/**
 	 * Prueft ob der aktive Spieler eine Elf auf der Hand hat, wenn ja wird die
 	 * Elf automatisch auf das Spielfeld gelegt.
-	 * 
 	 * @return true, wenn Spieler eine Elf auf der Hand hat, sonst false.
 	 */
 	private boolean pruefeElfAufHand() {
@@ -386,11 +373,8 @@ public class Spiel {
 
 	/**
 	 * Methode um eine Karte einem neuen Holder zu ueberschreiben.
-	 * 
-	 * @param karte
-	 *            die Karte die verschoben werden soll.
-	 * @param ziel
-	 *            Holder an den die Karte geht.
+	 * @param karte die Karte die verschoben werden soll.
+	 * @param ziel Holder an den die Karte geht.
 	 * @return true wenn der Zug erfolgreich ist. Sonst false (Karte null).
 	 */
 	private boolean move(final Karte karte, final Holder ziel) {
@@ -485,11 +469,8 @@ public class Spiel {
 
 	/**
 	 * Prueft ob der aktuelle Zug gueltig ist.
-	 * 
-	 * @param karte
-	 *            die Karte die verschoben werden soll.
-	 * @param ziel
-	 *            Holder an den die Karte geht.
+	 * @param karte die Karte die verschoben werden soll.
+	 * @param ziel Holder an den die Karte geht.
 	 * @return true wenn ziel kein Spielfeld ist, Farbe und Nummer stimmen.
 	 *         Sonst false.
 	 */

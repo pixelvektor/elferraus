@@ -41,14 +41,38 @@ public abstract class Holder {
 	}
 
 	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.
-	 * @param farbe Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die kleinste Karte gesucht wird.
+	 * @param color Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die kleinste Karte gesucht wird.
 	 * @return Die kleinste Karte der Farbe, sofern kleiner gleich 11. Sonst null.
 	 */
-	public Karte getLowestCard(final Color farbe) {
+	public Karte getLowestCard(final Color color) {
 		Karte lowestCard = null;
 		
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(farbe) && k.getNummer() < 12) {
+			if (k.getFarbe().equals(color) && k.getNummer() < 12) {
+				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
+				if (lowestCard == null) {
+					lowestCard = k;
+				}
+				// Sofern eine kleinere Karte gefunden ist, wird sie als Kleinste gesetzt
+				else if (lowestCard.getNummer() > k.getNummer()) {
+					lowestCard = k;
+				}
+			}
+		}
+		
+		return lowestCard;
+	}
+	
+	/** Gibt die kleinste Karte unterhalb von 12 der gesuchten Farbe zurueck.
+	 * @param cards Die ArrayList in der die kleinste Karte gesucht werden soll.
+	 * @param color Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die kleinste Karte gesucht wird.
+	 * @return Die kleinste Karte der Farbe, sofern kleiner gleich 11. Sonst null.
+	 */
+	public Karte getLowestCard(final ArrayList<Karte> cards, final Color color) {
+		Karte lowestCard = null;
+		
+		for (Karte k : cards) {
+			if (k.getFarbe().equals(color) && k.getNummer() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
 				if (lowestCard == null) {
 					lowestCard = k;
@@ -64,14 +88,38 @@ public abstract class Holder {
 	}
 
 	/** Gibt die hoechste Karte oberhalb von 10 der gesuchten Farbe zurueck.
-	 * @param farbe Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die hoechste Karte gesucht wird.
+	 * @param color Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die hoechste Karte gesucht wird.
 	 * @return Die hoechste Karte der Farbe, sofern groesser gleich 11. Sonst null.
 	 */
-	public Karte getHighestCard(final Color farbe) {
+	public Karte getHighestCard(final Color color) {
 		Karte highestCard = null;
 		
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(farbe) && k.getNummer() > 10) {
+			if (k.getFarbe().equals(color) && k.getNummer() > 10) {
+				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
+				if (highestCard == null) {
+					highestCard = k;
+				}
+				// Sofern eine hoehere Karte gefunden ist, wird sie als Hoechste gesetzt
+				else if (highestCard.getNummer() < k.getNummer()) {
+					highestCard = k;
+				}
+			}
+		}
+		
+		return highestCard;
+	}
+	
+	/** Gibt die hoechste Karte oberhalb von 10 der gesuchten Farbe zurueck.
+	 * @param cards Die ArrayList in der die hoechste Karte gesucht werden soll.
+	 * @param color Die Farbe (BLUE, GREEN, ORANGE, RED) fuer welche die hoechste Karte gesucht wird.
+	 * @return Die hoechste Karte der Farbe, sofern groesser gleich 11. Sonst null.
+	 */
+	public Karte getHighestCard(final ArrayList<Karte> cards, final Color color) {
+		Karte highestCard = null;
+		
+		for (Karte k : cards) {
+			if (k.getFarbe().equals(color) && k.getNummer() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer immer
 				if (highestCard == null) {
 					highestCard = k;
@@ -111,26 +159,26 @@ public abstract class Holder {
 	 */
 	public void add(final Karte karte) {
 		karten.add(karte);
-		sort();
+		sort(karten);
 	}
 	
     /** Entfernt eine Karte.
-     * @param karte Karte die entfernt werden soll. 
+     * @param card Karte die entfernt werden soll. 
      */
-	public void remove(final Karte karte) {
-		karten.remove(karte);
+	public void remove(final Karte card) {
+		karten.remove(card);
 	}
 	
     /** Sortiert die Karten nach Farbe.
      */
-	private void sort() {
+	protected void sort(final ArrayList<Karte> cards) {
 		ArrayList<Karte> blue = new ArrayList<Karte>();
 		ArrayList<Karte> green = new ArrayList<Karte>();
 		ArrayList<Karte> orange = new ArrayList<Karte>();
 		ArrayList<Karte> red = new ArrayList<Karte>();
 		
 		// Aufsplitten der Farben im Stapel
-		for (Karte k : karten) {
+		for (Karte k : cards) {
 			if (k.getFarbe().equals(Color.BLUE)) {
 				blue.add(k);
 			} else if (k.getFarbe().equals(Color.GREEN)) {
@@ -148,20 +196,20 @@ public abstract class Holder {
 		sortNumber(orange);
 		sortNumber(red);
 		
-		karten.clear();
+		cards.clear();
 		
 		// Zusammenfuegen der Farben in einen Stapel
 		for (Karte k : blue) {
-			karten.add(k);
+			cards.add(k);
 		}
 		for (Karte k : green) {
-			karten.add(k);
+			cards.add(k);
 		}
 		for (Karte k : orange) {
-			karten.add(k);
+			cards.add(k);
 		}
 		for (Karte k : red) {
-			karten.add(k);
+			cards.add(k);
 		}
 	}
 

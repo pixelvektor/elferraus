@@ -208,7 +208,7 @@ public class Spiel {
 			allIn();
 			return true;
 		}
-		if(activePlayer > 0){
+		if(activePlayer == 0){
 			System.out.println("Sie koennen nicht alle Karten ablegen!");
 		}
 		return false;
@@ -393,7 +393,7 @@ public class Spiel {
 	 * Initialisiert das Spiel.
 	 */
 	private void gameInit() {
-		spieler.add(new Spieler("Sie"));
+		spieler.add(new Spieler("Layer 8"));
 
 		for (int y = 1; y <= countKi; y++) {
 			spieler.add(new Ki("KI " + y, difficulty));

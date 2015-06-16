@@ -208,7 +208,9 @@ public class Spiel {
 			allIn();
 			return true;
 		}
-		System.out.println("Sie koennen nicht alle Karten ablegen!");
+		if(activePlayer > 0){
+			System.out.println("Sie koennen nicht alle Karten ablegen!");
+		}
 		return false;
 	}
 

@@ -202,6 +202,10 @@ public class Spiel {
 
 	}
 
+	/**
+	 * Prueft alle Farben, ob alle Karten abgelegt werden koennen.
+	 * @return true, wenn alle Karten abgelegt werden koennen, sonst false.
+	 */
 	public boolean checkForAllIn() {
 		if (checkAllIn(Color.BLUE) && checkAllIn(Color.GREEN)
 				&& checkAllIn(Color.ORANGE) && checkAllIn(Color.RED)) {
@@ -214,14 +218,19 @@ public class Spiel {
 		return false;
 	}
 
+	/**
+	 * Leert die Hand des Spielers.
+	 */
 	private void allIn() {
-		for (Karte k : spieler.get(activePlayer).getCards()) {
-			move(k, spielfeld);
-			spieler.get(activePlayer).remove(k);
-		}
+	    spieler.get(activePlayer).getCards().clear();
 		checkWinner();
 	}
 
+	/**
+	 * Prueft ob gleichzeitig alle Karte <&>11 gelegt werden koennen. 
+	 * @param color Farbe die geprueft werden soll.
+	 * @return true, wenn alle Karte <&>11 gelegt werden koennen, sonst false.
+	 */
 	private boolean checkAllIn(final Color color) {
 		if (checkAllInLow(color) && checkAllInHigh(color)) {
 			return true;
@@ -229,6 +238,11 @@ public class Spiel {
 		return false;
 	}
 
+	/**
+	 * Prueft ob alle Karten auf der Hand (>11) legbar sind.
+	 * @param color Farbe der Karten die ueberprueft werden sollen.
+	 * @return true, wenn alle Karten >11 abgelegt werden koennen, sonst false
+	 */
 	private boolean checkAllInHigh(final Color color) {
 		int temp;
 		int i = 0;
@@ -266,6 +280,11 @@ public class Spiel {
 		}
 	}
 
+	/**
+	 * Prueft ob alle Karten auf der Hand (<11) legbar sind.
+	 * @param color Farbe der Karten die ueberprueft werden sollen.
+	 * @return true, wenn alle Karten <11 abgelegt werden koennen, sonst false
+	 */
 	private boolean checkAllInLow(final Color color) {
 		int temp;
 		ArrayList<Karte> cards = spieler.get(activePlayer).getCards(color);
@@ -362,8 +381,10 @@ public class Spiel {
 	private boolean pruefeElfAufHand() {
 		for (Karte k : spieler.get(activePlayer).getCards()) {
 			if (k.getNummer() == ELF) {
-				System.out
-						.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
+				if(activePlayer == 0){
+					System.out
+							.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
+				}	
 				move(k, spielfeld);
 				spieler.get(activePlayer).remove(k);
 				return true;

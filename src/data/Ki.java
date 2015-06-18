@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import control.Spiel;
 
 public class Ki extends Spieler {
-	/** Hoechste Karten, die zurueck gehalten werden. */
-	private ArrayList<Karte> backHand = new ArrayList<Karte>();
 	/** Schwierigkeit der KI. */
 	private final boolean difficult;
 
@@ -31,10 +29,6 @@ public class Ki extends Spieler {
 	 * @param spiel Das aktuelle Spiel.
 	 */
 	public void react(final Spiel spiel) {
-		if (difficult) {
-			checkBackHand();
-		}
-
 		if (!spiel.getStapel().getCards().isEmpty()) {
 			spiel.pull();
 		} else if (!difficult) {
@@ -42,37 +36,6 @@ public class Ki extends Spieler {
 		} else {
 			hard(spiel);
 		}
-	}
-
-	/**
-	 * Prueft ob hohe Karten vorhanden sind und legt diese in die Hinterhand
-	 * zurueck.
-	 */
-	private void checkBackHand() {
-		for (int i = 0; i < Color.values().length; i++) {
-			Karte hiCardYet = getHighestCard(backHand, Color.values()[i]);
-			Karte loCardYet = getLowestCard(backHand, Color.values()[i]);
-			Karte hiCard = this.getHighestCard(Color.values()[i]);
-			Karte loCard = this.getLowestCard(Color.values()[i]);
-
-			if (hiCard != null && hiCardYet != null) {
-				if (hiCard.getNummer() < 20 && !backHand.contains(hiCard)) {
-					if (hiCardYet.getNummer() < hiCard.getNummer()) {
-						backHand.remove(hiCardYet);
-					}
-					backHand.add(hiCard);
-				}
-			}
-			if (loCard != null && loCardYet != null) {
-				if (loCard.getNummer() > 1 && !backHand.contains(loCard)) {
-					if (loCardYet.getNummer() > loCard.getNummer()) {
-						backHand.remove(loCardYet);
-					}
-					backHand.add(loCard);
-				}
-			}
-		}
-		sort(backHand);
 	}
 
 	/**
@@ -86,12 +49,12 @@ public class Ki extends Spieler {
 			// dann gelegt.
 			if (spiel.getSpielfeld().getHighestCard(Color.values()[i]) != null) {
 				int hiNum = spiel.getSpielfeld()
-						.getHighestCard(Color.values()[i]).getNummer() + 1;
+						.getHighestCard(Color.values()[i]).getNumber() + 1;
 				if (cardAvailable(Color.values()[i], hiNum)) {
 					spiel.setMove(Color.values()[i], hiNum);
 				}
 				int loNum = spiel.getSpielfeld()
-						.getLowestCard(Color.values()[i]).getNummer() - 1;
+						.getLowestCard(Color.values()[i]).getNumber() - 1;
 				if (cardAvailable(Color.values()[i], loNum)) {
 					spiel.setMove(Color.values()[i], loNum);
 				}
@@ -110,9 +73,7 @@ public class Ki extends Spieler {
 			// Legen der kuerzesten Kette sofern eine Karte nicht auf der
 			// Backhand liegt
 			for (Karte c : shortestChainCards) {
-				if (!backHand.contains(c)) {
-					spiel.setMove(c.getFarbe(), c.getNummer());
-				}
+				spiel.setMove(c.getFarbe(), c.getNumber());
 			}
 		}
 		spiel.naechsterSpieler();
@@ -127,7 +88,7 @@ public class Ki extends Spieler {
 	private boolean cardAvailable(final Color color, final int number) {
 		for (Karte k : getCards()) {
 			// Pruefen auf alle Suchparameter
-			if (k.getFarbe().equals(color) && k.getNummer() == number) {
+			if (k.getFarbe().equals(color) && k.getNumber() == number) {
 				return true;
 			}
 		}
@@ -149,46 +110,48 @@ public class Ki extends Spieler {
 
 		for (int i = 0; i < Color.values().length; i++) {
 			Color c = Color.values()[i];
-			
+
 			// Suche nach allen Karten < 11 die an das Spielfeld passen
 			if (cardAvailable(c, spiel.getSpielfeld().getHighestCard(c)
-					.getNummer() + 1)) {
+					.getNumber() + 1)) {
 				// Rueckwaerts zusamenfuegen der Karten solange keine
 				// Unterbrechung der Kette vorhanden ist
 				int j = getCards().indexOf(
 						getCard(c, spiel.getSpielfeld().getHighestCard(c)
-								.getNummer() + 1));
+								.getNumber() + 1));
 				do {
 					tempCard = getCards().get(j++);
 					tempHi.add(tempCard);
-				} while (cardAvailable(c, tempCard.getNummer() + 1));
+				} while (cardAvailable(c, tempCard.getNumber() + 1));
 			}
-			
+
 			// Suche nach allen Karten > 11 die an das Spielfeld passen
 			if (cardAvailable(c, spiel.getSpielfeld().getLowestCard(c)
-					.getNummer() - 1)) {
+					.getNumber() - 1)) {
 				// Vorwaerts zusamenfuegen der Karten solange keine
 				// Unterbrechung der Kette vorhanden ist
 				int j = getCards().indexOf(
 						getCard(c, spiel.getSpielfeld().getLowestCard(c)
-								.getNummer() - 1));
+								.getNumber() - 1));
 				do {
 					tempCard = getCards().get(j--);
 					tempLo.add(tempCard);
-				} while (cardAvailable(c, tempCard.getNummer() - 1));
+				} while (cardAvailable(c, tempCard.getNumber() - 1));
 			}
-			
+
 			// Wenn keine HiKarten vorhanden sind
-			int tempHiSize = tempHi.size() == 0 ? tempLo.size() + 1 : tempHi.size();
+			int tempHiSize = tempHi.size() == 0 ? tempLo.size() + 1 : tempHi
+					.size();
 			// Zuweisen des kleinsten Stapels
-			if (tempLo.size() > 0 && tempHiSize > tempLo.size() && result.size() > tempLo.size()) {
+			if (tempLo.size() > 0 && tempHiSize > tempLo.size()
+					&& result.size() > tempLo.size()) {
 				result.clear();
 				result.addAll(tempLo);
 			} else if (tempHi.size() > 0 && result.size() > tempHi.size()) {
 				result.clear();
 				result.addAll(tempHi);
 			}
-			
+
 			tempHi.clear();
 			tempLo.clear();
 		}

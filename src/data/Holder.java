@@ -54,7 +54,7 @@ public abstract class Holder {
 		Karte lowestCard = null;
 
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(color) && k.getNummer() < 12) {
+			if (k.getFarbe().equals(color) && k.getNumber() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (lowestCard == null) {
@@ -62,7 +62,7 @@ public abstract class Holder {
 				}
 				// Sofern eine kleinere Karte gefunden ist, wird sie als
 				// Kleinste gesetzt
-				else if (lowestCard.getNummer() > k.getNummer()) {
+				else if (lowestCard.getNumber() > k.getNumber()) {
 					lowestCard = k;
 				}
 			}
@@ -83,7 +83,7 @@ public abstract class Holder {
 		Karte lowestCard = null;
 
 		for (Karte k : cards) {
-			if (k.getFarbe().equals(color) && k.getNummer() < 12) {
+			if (k.getFarbe().equals(color) && k.getNumber() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (lowestCard == null) {
@@ -91,7 +91,7 @@ public abstract class Holder {
 				}
 				// Sofern eine kleinere Karte gefunden ist, wird sie als
 				// Kleinste gesetzt
-				else if (lowestCard.getNummer() > k.getNummer()) {
+				else if (lowestCard.getNumber() > k.getNumber()) {
 					lowestCard = k;
 				}
 			}
@@ -111,7 +111,7 @@ public abstract class Holder {
 		Karte highestCard = null;
 
 		for (Karte k : karten) {
-			if (k.getFarbe().equals(color) && k.getNummer() > 10) {
+			if (k.getFarbe().equals(color) && k.getNumber() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (highestCard == null) {
@@ -119,7 +119,7 @@ public abstract class Holder {
 				}
 				// Sofern eine hoehere Karte gefunden ist, wird sie als Hoechste
 				// gesetzt
-				else if (highestCard.getNummer() < k.getNummer()) {
+				else if (highestCard.getNumber() < k.getNumber()) {
 					highestCard = k;
 				}
 			}
@@ -140,7 +140,7 @@ public abstract class Holder {
 		Karte highestCard = null;
 
 		for (Karte k : cards) {
-			if (k.getFarbe().equals(color) && k.getNummer() > 10) {
+			if (k.getFarbe().equals(color) && k.getNumber() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (highestCard == null) {
@@ -148,7 +148,7 @@ public abstract class Holder {
 				}
 				// Sofern eine hoehere Karte gefunden ist, wird sie als Hoechste
 				// gesetzt
-				else if (highestCard.getNummer() < k.getNummer()) {
+				else if (highestCard.getNumber() < k.getNumber()) {
 					highestCard = k;
 				}
 			}
@@ -166,7 +166,7 @@ public abstract class Holder {
 	public Karte getCard(final Color color, final int number) {
 		for (Karte k : getCards()) {
 			// Pruefen auf alle Suchparameter
-			if (k.getFarbe().equals(color) && k.getNummer() == number) {
+			if (k.getFarbe().equals(color) && k.getNumber() == number) {
 				return k;
 			}
 		}
@@ -265,7 +265,7 @@ public abstract class Holder {
 		for (int i = 0; i < farbe.size(); i++) {
 			Karte temp = farbe.get(i);
 			int j = i;
-			while (j > 0 && farbe.get(j - 1).getNummer() > temp.getNummer()) {
+			while (j > 0 && farbe.get(j - 1).getNumber() > temp.getNumber()) {
 				farbe.add(j, farbe.get(j - 1));
 				farbe.remove(j + 1);
 				j--;

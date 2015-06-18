@@ -135,8 +135,8 @@ public class Spiel {
 	 */
 	public boolean setMove(final Color color, final int number) {
 		for (Karte k : spieler.get(activePlayer).getCards()) {
-			if (k.getFarbe().equals(color) && k.getNummer() == number) {
-				if (k.getNummer() == ELF) {
+			if (k.getFarbe().equals(color) && k.getNumber() == number) {
+				if (k.getNumber() == ELF) {
 					if (move(k, spielfeld)) {
 						spieler.get(activePlayer).remove(k);
 						movePerformed++;
@@ -175,7 +175,7 @@ public class Spiel {
 			if (stapel.getCards().size() != 0) {
 				if (!pruefeElfAufHand()) {
 					Karte karte = stapel.getNext();
-					if (karte.getNummer() == ELF) {
+					if (karte.getNumber() == ELF) {
 						result = move(karte, spielfeld);
 					} else {
 						result = move(karte, spieler.get(activePlayer));
@@ -251,15 +251,15 @@ public class Spiel {
 
 		if (max + 1 != 0) {
 			while (i <= max) {
-				if (cards.get(i).getNummer() == spielfeld.getHighestCard(color)
-						.getNummer() + 1) {
+				if (cards.get(i).getNumber() == spielfeld.getHighestCard(color)
+						.getNumber() + 1) {
 					temp = i;
 					if (i == max) {
 						return true;
 					} else {
 						for (int x = i; x < max; x++) {
-							if (cards.get(temp + 1).getNummer() == cards.get(
-									temp).getNummer() + 1) {
+							if (cards.get(temp + 1).getNumber() == cards.get(
+									temp).getNumber() + 1) {
 								temp++;
 								i++;
 								if (temp == max) {
@@ -293,15 +293,15 @@ public class Spiel {
 
 		if (i + 1 != 0) {
 			while (i >= max) {
-				if (cards.get(i).getNummer() == spielfeld.getLowestCard(color)
-						.getNummer() - 1) {
+				if (cards.get(i).getNumber() == spielfeld.getLowestCard(color)
+						.getNumber() - 1) {
 					temp = i;
 					if (i == max) {
 						return true;
 					} else {
 						for (int x = i; x > max; x--) {
-							if (cards.get(temp - 1).getNummer() == cards.get(
-									temp).getNummer() - 1) {
+							if (cards.get(temp - 1).getNumber() == cards.get(
+									temp).getNumber() - 1) {
 								temp--;
 								i--;
 								if (temp == max) {
@@ -380,7 +380,7 @@ public class Spiel {
 	 */
 	private boolean pruefeElfAufHand() {
 		for (Karte k : spieler.get(activePlayer).getCards()) {
-			if (k.getNummer() == ELF) {
+			if (k.getNumber() == ELF) {
 				if(activePlayer == 0){
 					System.out
 							.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
@@ -442,7 +442,7 @@ public class Spiel {
 		// Spieler
 		for (int i = 0; i < ELF; i++) {
 			for (int j = 0; j <= countKi; j++) {
-				if (spieler.get(j).getCards().get(i).getNummer() == ELF) {
+				if (spieler.get(j).getCards().get(i).getNumber() == ELF) {
 					activePlayer = j;
 					// Beenden der Schleifen bei gefundener 11
 					i = ELF + 1;
@@ -498,7 +498,7 @@ public class Spiel {
 	 *         Sonst false.
 	 */
 	private boolean pruefeZug(final Karte karte, final Holder ziel) {
-		if (karte.getNummer() == ELF)
+		if (karte.getNumber() == ELF)
 			return true;
 
 		boolean result = false;
@@ -506,11 +506,11 @@ public class Spiel {
 		if (ziel.equals(spielfeld)) {
 			for (int i = 0; i < Color.values().length; i++) {
 				if (karte.getFarbe().equals(Color.values()[i])) {
-					if (karte.getNummer() == ziel.getHighestCard(
-							Color.values()[i]).getNummer() + 1) {
+					if (karte.getNumber() == ziel.getHighestCard(
+							Color.values()[i]).getNumber() + 1) {
 						result = true;
-					} else if (karte.getNummer() == ziel.getLowestCard(
-							Color.values()[i]).getNummer() - 1) {
+					} else if (karte.getNumber() == ziel.getLowestCard(
+							Color.values()[i]).getNumber() - 1) {
 						result = true;
 					}
 				}

@@ -191,14 +191,14 @@ public class View implements ViewInterface {
 		int[] result = new int[2];
 		// Wert der niedrigsten Karte
 		try {
-			result[0] = spiel.getSpielfeld().getLowestCard(color).getNummer();
+			result[0] = spiel.getSpielfeld().getLowestCard(color).getNumber();
 		} catch (NullPointerException e) {
 			result[0] = 0;
 		}
 
 		// Wert der hoechsten Karte
 		try {
-			result[1] = spiel.getSpielfeld().getHighestCard(color).getNummer();
+			result[1] = spiel.getSpielfeld().getHighestCard(color).getNumber();
 		} catch (NullPointerException e) {
 			result[1] = 0;
 		}
@@ -229,7 +229,7 @@ public class View implements ViewInterface {
 						}
 					}
 				}
-				output += " " + k.getNummer();
+				output += " " + k.getNumber();
 				temp = k;
 			}
 		}

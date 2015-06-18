@@ -34,7 +34,7 @@ public class Karte {
 	/** Getter fuer die Nummer
 	 * @return nummer Nummer der Karte.
 	 */
-	public int getNummer() {
+	public int getNumber() {
 		return nummer;
 	}
 	

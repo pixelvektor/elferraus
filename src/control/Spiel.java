@@ -118,9 +118,7 @@ public class Spiel {
 			} else {
 				activePlayer = 0;
 			}
-
-			System.out.println(spieler.get(activePlayer).getName() + "NS");
-			System.out.println("ActivePlayer: " + activePlayer);
+			
 			movePerformed = 0;
 			pullPerformed = 0;
 			startRound();
@@ -452,10 +450,7 @@ public class Spiel {
 				}
 			}
 		}
-
-		System.out.println("GameStart");
-		System.out.println(spieler.get(activePlayer).getName() + " GS");
-		System.out.println("ActivePlayer: " + activePlayer);
+		
 		startRound();
 	}
 

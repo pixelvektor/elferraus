@@ -111,32 +111,38 @@ public class Ki extends Spieler {
 		for (int i = 0; i < Color.values().length; i++) {
 			Color c = Color.values()[i];
 
-			// Suche nach allen Karten < 11 die an das Spielfeld passen
-			if (cardAvailable(c, spiel.getSpielfeld().getHighestCard(c)
-					.getNumber() + 1)) {
-				// Rueckwaerts zusamenfuegen der Karten solange keine
-				// Unterbrechung der Kette vorhanden ist
-				int j = getCards().indexOf(
-						getCard(c, spiel.getSpielfeld().getHighestCard(c)
-								.getNumber() + 1));
-				do {
-					tempCard = getCards().get(j++);
-					tempHi.add(tempCard);
-				} while (cardAvailable(c, tempCard.getNumber() + 1));
+			Karte hiCard = spiel.getSpielfeld().getHighestCard(c);
+			if (hiCard != null) {
+				// Suche nach allen Karten < 11 die an das Spielfeld passen
+				if (cardAvailable(c, spiel.getSpielfeld().getHighestCard(c)
+						.getNumber() + 1)) {
+					// Rueckwaerts zusamenfuegen der Karten solange keine
+					// Unterbrechung der Kette vorhanden ist
+					int j = getCards().indexOf(
+							getCard(c, spiel.getSpielfeld().getHighestCard(c)
+									.getNumber() + 1));
+					do {
+						tempCard = getCards().get(j++);
+						tempHi.add(tempCard);
+					} while (cardAvailable(c, tempCard.getNumber() + 1));
+				}
 			}
 
-			// Suche nach allen Karten > 11 die an das Spielfeld passen
-			if (cardAvailable(c, spiel.getSpielfeld().getLowestCard(c)
-					.getNumber() - 1)) {
-				// Vorwaerts zusamenfuegen der Karten solange keine
-				// Unterbrechung der Kette vorhanden ist
-				int j = getCards().indexOf(
-						getCard(c, spiel.getSpielfeld().getLowestCard(c)
-								.getNumber() - 1));
-				do {
-					tempCard = getCards().get(j--);
-					tempLo.add(tempCard);
-				} while (cardAvailable(c, tempCard.getNumber() - 1));
+			Karte loCard = spiel.getSpielfeld().getLowestCard(c);
+			if (loCard != null) {
+				// Suche nach allen Karten > 11 die an das Spielfeld passen
+				if (cardAvailable(c, spiel.getSpielfeld().getLowestCard(c)
+						.getNumber() - 1)) {
+					// Vorwaerts zusamenfuegen der Karten solange keine
+					// Unterbrechung der Kette vorhanden ist
+					int j = getCards().indexOf(
+							getCard(c, spiel.getSpielfeld().getLowestCard(c)
+									.getNumber() - 1));
+					do {
+						tempCard = getCards().get(j--);
+						tempLo.add(tempCard);
+					} while (cardAvailable(c, tempCard.getNumber() - 1));
+				}
 			}
 
 			// Wenn keine HiKarten vorhanden sind

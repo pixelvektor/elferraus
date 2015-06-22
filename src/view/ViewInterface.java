@@ -10,8 +10,6 @@ import control.Spiel;
 
 /** Interface der View.
  * Gibt die Schnittstelle zur control vor.
- * @author fabian
- * @version 0306201501
  */
 public interface ViewInterface {
 

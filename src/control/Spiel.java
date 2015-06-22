@@ -17,9 +17,7 @@ import data.Spieler;
 import data.Spielfeld;
 import data.Stapel;
 
-/**
- * @author adrian
- */
+
 public class Spiel {
 	/** Die Schluesselzahl 11. */
 	private static final int ELF = 11;

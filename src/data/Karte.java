@@ -6,9 +6,6 @@ package data;
  * 22.05.2015
  */
 
-/**
- * @author lara
- */
 public class Karte {
 	/** Farbe der Karte. */
 	private final Color farbe;

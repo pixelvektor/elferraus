@@ -15,10 +15,6 @@ import control.Spiel;
 import data.Color;
 import data.Karte;
 
-/**
- * @author fabian
- *
- */
 public class View implements ViewInterface {
 	/** Hilfetext. */
 	private static final String HELP_MESSAGE = "\r\n"

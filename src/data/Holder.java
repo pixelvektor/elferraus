@@ -10,9 +10,6 @@ import control.Spiel;
  * 22.05.2015
  */
 
-/**
- * @author lara
- */
 public abstract class Holder {
 	/** Name des Holders. */
 	private String name;

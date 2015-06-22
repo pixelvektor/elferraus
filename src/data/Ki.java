@@ -8,9 +8,9 @@ package data;
 
 import java.util.ArrayList;
 
-import control.Spiel;
+import control.Game;
 
-public class Ki extends Spieler {
+public class Ki extends Player {
 	/** Schwierigkeit der KI. */
 	private final boolean difficult;
 
@@ -28,8 +28,8 @@ public class Ki extends Spieler {
 	 * Reaktion der KI.
 	 * @param spiel Das aktuelle Spiel.
 	 */
-	public void react(final Spiel spiel) {
-		if (!spiel.getStapel().getCards().isEmpty()) {
+	public void react(final Game spiel) {
+		if (!spiel.getStack().getCards().isEmpty()) {
 			spiel.pull();
 		} else if (!difficult) {
 			easy(spiel);
@@ -40,43 +40,43 @@ public class Ki extends Spieler {
 
 	/**
 	 * Die KI als leichter Gegner.
-	 * @param spiel Das Spiel.
+	 * @param game Das Spiel.
 	 */
-	private void easy(final Spiel spiel) {
+	private void easy(final Game game) {
 		for (int i = 0; i < Color.values().length; i++) {
 			// Fuer Jede Farbe wird geprueft ob auf der Hand eine Karte groesser
 			// oder kleiner als die auf dem Spielfeld vorhanden ist. Diese wird
 			// dann gelegt.
-			if (spiel.getSpielfeld().getHighestCard(Color.values()[i]) != null) {
-				int hiNum = spiel.getSpielfeld()
+			if (game.getField().getHighestCard(Color.values()[i]) != null) {
+				int hiNum = game.getField()
 						.getHighestCard(Color.values()[i]).getNumber() + 1;
 				if (cardAvailable(Color.values()[i], hiNum)) {
-					spiel.setMove(Color.values()[i], hiNum);
+					game.setMove(Color.values()[i], hiNum);
 				}
-				int loNum = spiel.getSpielfeld()
+				int loNum = game.getField()
 						.getLowestCard(Color.values()[i]).getNumber() - 1;
 				if (cardAvailable(Color.values()[i], loNum)) {
-					spiel.setMove(Color.values()[i], loNum);
+					game.setMove(Color.values()[i], loNum);
 				}
 			}
 		}
-		spiel.naechsterSpieler();
+		game.nextPlayer();
 	}
 
 	/**
 	 * Die KI als schwerer Gegner.
-	 * @param spiel Das Spiel.
+	 * @param game Das Spiel.
 	 */
-	private void hard(final Spiel spiel) {
-		if (!spiel.checkForAllIn()) {
-			ArrayList<Karte> shortestChainCards = shortestChain(spiel);
+	private void hard(final Game game) {
+		if (!game.checkForAllIn()) {
+			ArrayList<Card> shortestChainCards = shortestChain(game);
 			// Legen der kuerzesten Kette sofern eine Karte nicht auf der
 			// Backhand liegt
-			for (Karte c : shortestChainCards) {
-				spiel.setMove(c.getFarbe(), c.getNumber());
+			for (Card c : shortestChainCards) {
+				game.setMove(c.getColor(), c.getNumber());
 			}
 		}
-		spiel.naechsterSpieler();
+		game.nextPlayer();
 	}
 
 	/**
@@ -86,9 +86,9 @@ public class Ki extends Spieler {
 	 * @return true wenn die Karte vorhanden ist, sonst false.
 	 */
 	private boolean cardAvailable(final Color color, final int number) {
-		for (Karte k : getCards()) {
+		for (Card k : getCards()) {
 			// Pruefen auf alle Suchparameter
-			if (k.getFarbe().equals(color) && k.getNumber() == number) {
+			if (k.getColor().equals(color) && k.getNumber() == number) {
 				return true;
 			}
 		}
@@ -98,28 +98,28 @@ public class Ki extends Spieler {
 	/**
 	 * Gibt die kuerzeste Kartenkette zurueck die auf der Hand liegt und auf dem
 	 * Spielfeld gelegt werden kann.
-	 * @param spiel Das Spiel.
+	 * @param game Das Spiel.
 	 * @return ArrayList mit den Karten der kuersesten Kette.
 	 */
-	private ArrayList<Karte> shortestChain(final Spiel spiel) {
-		ArrayList<Karte> result = new ArrayList<Karte>();
-		ArrayList<Karte> tempLo = new ArrayList<Karte>();
-		ArrayList<Karte> tempHi = new ArrayList<Karte>();
-		Karte tempCard;
+	private ArrayList<Card> shortestChain(final Game game) {
+		ArrayList<Card> result = new ArrayList<Card>();
+		ArrayList<Card> tempLo = new ArrayList<Card>();
+		ArrayList<Card> tempHi = new ArrayList<Card>();
+		Card tempCard;
 		result.addAll(this.getCards());
 
 		for (int i = 0; i < Color.values().length; i++) {
 			Color c = Color.values()[i];
 
-			Karte hiCard = spiel.getSpielfeld().getHighestCard(c);
+			Card hiCard = game.getField().getHighestCard(c);
 			if (hiCard != null) {
 				// Suche nach allen Karten < 11 die an das Spielfeld passen
-				if (cardAvailable(c, spiel.getSpielfeld().getHighestCard(c)
+				if (cardAvailable(c, game.getField().getHighestCard(c)
 						.getNumber() + 1)) {
 					// Rueckwaerts zusamenfuegen der Karten solange keine
 					// Unterbrechung der Kette vorhanden ist
 					int j = getCards().indexOf(
-							getCard(c, spiel.getSpielfeld().getHighestCard(c)
+							getCard(c, game.getField().getHighestCard(c)
 									.getNumber() + 1));
 					do {
 						tempCard = getCards().get(j++);
@@ -128,15 +128,15 @@ public class Ki extends Spieler {
 				}
 			}
 
-			Karte loCard = spiel.getSpielfeld().getLowestCard(c);
+			Card loCard = game.getField().getLowestCard(c);
 			if (loCard != null) {
 				// Suche nach allen Karten > 11 die an das Spielfeld passen
-				if (cardAvailable(c, spiel.getSpielfeld().getLowestCard(c)
+				if (cardAvailable(c, game.getField().getLowestCard(c)
 						.getNumber() - 1)) {
 					// Vorwaerts zusamenfuegen der Karten solange keine
 					// Unterbrechung der Kette vorhanden ist
 					int j = getCards().indexOf(
-							getCard(c, spiel.getSpielfeld().getLowestCard(c)
+							getCard(c, game.getField().getLowestCard(c)
 									.getNumber() - 1));
 					do {
 						tempCard = getCards().get(j--);
@@ -164,7 +164,7 @@ public class Ki extends Spieler {
 
 		// Leeren des Ergebnisses wenn keine Kette gefunden wurde
 		if (result.size() == getCards().size()) {
-			result = new ArrayList<Karte>();
+			result = new ArrayList<Card>();
 		}
 
 		return result;

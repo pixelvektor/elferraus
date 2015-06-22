@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import control.Spiel;
+import control.Game;
 import data.Color;
-import data.Karte;
+import data.Card;
 
 public class View implements ViewInterface {
 	/** Hilfetext. */
@@ -38,7 +38,7 @@ public class View implements ViewInterface {
 			+ "Es koennen so viele Karten gelegt werden wie man moechte, jedoch mindestens Eine sofern man kann.\r\n"
 			+ "Es wird entweder gezogen oder gelegt, danach ist der naechste Spieler dran.";
 	/** Das Spiel. */
-	private Spiel spiel;
+	private Game game;
 	/** Anzahl der KIs. */
 	private int countKi;
 	/** Schwierigkeit der KIs. */
@@ -93,42 +93,42 @@ public class View implements ViewInterface {
 	 * Aktualisiert das Spiel auf der Kommandozeile und wartet auf neue Befehle.
 	 */
 	@Override
-	public void update(final Spiel spiel) {
-		this.spiel = spiel;
+	public void update(final Game game) {
+		this.game = game;
 
 		boolean result = true;
 		do {
 			System.out.println();
-			for (int i = 1; i < spiel.getSpieler().size(); i++) {
+			for (int i = 1; i < game.getPlayer().size(); i++) {
 				System.out.println("Karten von "
-						+ spiel.getSpieler().get(i).getName() + ": "
-						+ spiel.getSpieler().get(i).getCards().size() + ".");
+						+ game.getPlayer().get(i).getName() + ": "
+						+ game.getPlayer().get(i).getCards().size() + ".");
 			}
 
 			System.out.println();
-			printSpielfeld();
+			printField();
 			System.out.println();
 
 			System.out.println("Karten auf dem Stapel: "
-					+ spiel.getStapel().getCards().size());
+					+ game.getStack().getCards().size());
 			System.out.println();
 			System.out.println("Ihre Karten ("
-					+ spiel.getSpieler().get(0).getCards().size() + "):");
-			printSpielerKarten(spiel.getSpieler().get(0).getCards());
+					+ game.getPlayer().get(0).getCards().size() + "):");
+			printPlayerCards(game.getPlayer().get(0).getCards());
 
 			System.out.println();
 			String[] input = input("Ihr Zug: ").split(" ");
 			switch (input[0]) {
 			case "help":
 				System.out.println(HELP_MESSAGE);
-				update(spiel);
+				update(game);
 				break;
 			case "rules":
 				System.out.println(RULES);
-				update(spiel);
+				update(game);
 				break;
 			case "pull":
-				if (!spiel.pull()) {
+				if (!game.pull()) {
 					System.out.println("Keine Karten mehr auf dem Stapel.");
 				}
 				break;
@@ -141,25 +141,25 @@ public class View implements ViewInterface {
 				break;
 			case "next":
 				System.out.println("Bitte Warten.");
-				spiel.naechsterSpieler();
+				game.nextPlayer();
 				result = true;
 				break;
 			case "allin":
-				spiel.checkForAllIn();
+				game.checkForAllIn();
 				break;
 			case "bye":
 			case "exit":
-				spiel.exit();
+				game.exit();
 				break;
 			default:
 				System.out.println("Ich verstehe die Eingabe nicht.");
-				update(spiel);
+				update(game);
 				break;
 			}
 		} while (!result);
 
-		if (!spiel.isRunning()) {
-			System.out.println("Gewonnen hat: " + spiel.getWinner());
+		if (!game.isRunning()) {
+			System.out.println("Gewonnen hat: " + game.getWinner());
 		}
 	}
 
@@ -180,7 +180,7 @@ public class View implements ViewInterface {
 		return input.toLowerCase();
 	}
 
-	private void printSpielfeld() {
+	private void printField() {
 		System.out.println("Spielfeld:");
 		int[] blue = getNumbers(Color.BLUE);
 		int[] orange = getNumbers(Color.ORANGE);
@@ -207,14 +207,14 @@ public class View implements ViewInterface {
 		int[] result = new int[2];
 		// Wert der niedrigsten Karte
 		try {
-			result[0] = spiel.getSpielfeld().getLowestCard(color).getNumber();
+			result[0] = game.getField().getLowestCard(color).getNumber();
 		} catch (NullPointerException e) {
 			result[0] = 0;
 		}
 
 		// Wert der hoechsten Karte
 		try {
-			result[1] = spiel.getSpielfeld().getHighestCard(color).getNumber();
+			result[1] = game.getField().getHighestCard(color).getNumber();
 		} catch (NullPointerException e) {
 			result[1] = 0;
 		}
@@ -222,25 +222,25 @@ public class View implements ViewInterface {
 		return result;
 	}
 
-	private void printSpielerKarten(final ArrayList<Karte> karten) {
+	private void printPlayerCards(final ArrayList<Card> cards) {
 		String output = "";
-		if (karten.size() > 0) {
-			Karte temp = karten.get(0);
+		if (cards.size() > 0) {
+			Card temp = cards.get(0);
 			String[] farbe = { "B", "G", "O", "R" };
 
 			boolean firstRound = true;
-			for (Karte k : karten) {
+			for (Card k : cards) {
 				if (firstRound) {
 					for (int i = 0; i < farbe.length; i++) {
-						if (k.getFarbe().equals(Color.values()[i])) {
+						if (k.getColor().equals(Color.values()[i])) {
 							output += farbe[i];
 						}
 					}
 					firstRound = false;
 				}
-				if (!temp.getFarbe().equals(k.getFarbe())) {
+				if (!temp.getColor().equals(k.getColor())) {
 					for (int i = 0; i < farbe.length; i++) {
-						if (k.getFarbe().equals(Color.values()[i])) {
+						if (k.getColor().equals(Color.values()[i])) {
 							output += "\r\n" + farbe[i];
 						}
 					}
@@ -300,7 +300,7 @@ public class View implements ViewInterface {
 		}
 
 		// Ausfuehren des Zugs
-		if (spiel.setMove(color, number)) {
+		if (game.setMove(color, number)) {
 			return true;
 		} else {
 			System.out.println("Zug nicht moeglich!");

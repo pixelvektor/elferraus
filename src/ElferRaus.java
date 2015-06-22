@@ -4,13 +4,11 @@
  * 22.05.2015
  */
 
-import control.Spiel;
+import control.Game;
 import view.View;
 
 /** Hauptklasse des Spiels ElferRaus.
  * Startet das Spiel.
- * @author fabian
- * @version 2205201501
  */
 public final class ElferRaus {
 
@@ -20,7 +18,7 @@ public final class ElferRaus {
      */
     public static void main(String... args) {
         View view = new View();
-        new Spiel(view);
+        new Game(view);
     }
     
     private ElferRaus() {}

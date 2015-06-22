@@ -2,7 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
-import control.Spiel;
+import control.Game;
 
 /** Hochschule Hamm-Lippstadt
  * Praktikum Informatik II (ElferRaus)
@@ -15,7 +15,7 @@ public abstract class Holder {
 	private String name;
 
 	/** Karten im Besitz des Holders. */
-	private final ArrayList<Karte> karten = new ArrayList<Karte>();
+	private final ArrayList<Card> cards = new ArrayList<Card>();
 
 	/**
 	 * Getter fuer den Namen des Holders
@@ -37,7 +37,7 @@ public abstract class Holder {
 	 * Reaktion des Holders.
 	 * @param spiel Das aktuelle Spiel.
 	 */
-	public void react(final Spiel spiel) {
+	public void react(final Game spiel) {
 	}
 
 	/**
@@ -47,11 +47,11 @@ public abstract class Holder {
 	 * @return Die kleinste Karte der Farbe, sofern kleiner gleich 11. Sonst
 	 *         null.
 	 */
-	public Karte getLowestCard(final Color color) {
-		Karte lowestCard = null;
+	public Card getLowestCard(final Color color) {
+		Card lowestCard = null;
 
-		for (Karte k : karten) {
-			if (k.getFarbe().equals(color) && k.getNumber() < 12) {
+		for (Card k : cards) {
+			if (k.getColor().equals(color) && k.getNumber() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (lowestCard == null) {
@@ -76,11 +76,11 @@ public abstract class Holder {
 	 * @return Die kleinste Karte der Farbe, sofern kleiner gleich 11. Sonst
 	 *         null.
 	 */
-	public Karte getLowestCard(final ArrayList<Karte> cards, final Color color) {
-		Karte lowestCard = null;
+	public Card getLowestCard(final ArrayList<Card> cards, final Color color) {
+		Card lowestCard = null;
 
-		for (Karte k : cards) {
-			if (k.getFarbe().equals(color) && k.getNumber() < 12) {
+		for (Card k : cards) {
+			if (k.getColor().equals(color) && k.getNumber() < 12) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (lowestCard == null) {
@@ -104,11 +104,11 @@ public abstract class Holder {
 	 * @return Die hoechste Karte der Farbe, sofern groesser gleich 11. Sonst
 	 *         null.
 	 */
-	public Karte getHighestCard(final Color color) {
-		Karte highestCard = null;
+	public Card getHighestCard(final Color color) {
+		Card highestCard = null;
 
-		for (Karte k : karten) {
-			if (k.getFarbe().equals(color) && k.getNumber() > 10) {
+		for (Card k : cards) {
+			if (k.getColor().equals(color) && k.getNumber() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (highestCard == null) {
@@ -133,11 +133,11 @@ public abstract class Holder {
 	 * @return Die hoechste Karte der Farbe, sofern groesser gleich 11. Sonst
 	 *         null.
 	 */
-	public Karte getHighestCard(final ArrayList<Karte> cards, final Color color) {
-		Karte highestCard = null;
+	public Card getHighestCard(final ArrayList<Card> cards, final Color color) {
+		Card highestCard = null;
 
-		for (Karte k : cards) {
-			if (k.getFarbe().equals(color) && k.getNumber() > 10) {
+		for (Card k : cards) {
+			if (k.getColor().equals(color) && k.getNumber() > 10) {
 				// Sofern noch keine Karte gesetzt wurde passt der erste Treffer
 				// immer
 				if (highestCard == null) {
@@ -160,10 +160,10 @@ public abstract class Holder {
 	 * @param number Nummer der gesuchten Karte.
 	 * @return Die Karte zu den gesuchten Parametern, sonst null.
 	 */
-	public Karte getCard(final Color color, final int number) {
-		for (Karte k : getCards()) {
+	public Card getCard(final Color color, final int number) {
+		for (Card k : getCards()) {
 			// Pruefen auf alle Suchparameter
-			if (k.getFarbe().equals(color) && k.getNumber() == number) {
+			if (k.getColor().equals(color) && k.getNumber() == number) {
 				return k;
 			}
 		}
@@ -174,18 +174,18 @@ public abstract class Holder {
 	 * Getter fuer die Karten des Holders.
 	 * @return Gibt die Karten des Holders zurueck.
 	 */
-	public ArrayList<Karte> getCards() {
-		return karten;
+	public ArrayList<Card> getCards() {
+		return cards;
 	}
 
 	/**
 	 * Gibt alle Karten einer bestimmten Farbe zurueck.
 	 * @return ArrayList mit den Karten der gesuchten Farbe.
 	 */
-	public ArrayList<Karte> getCards(final Color color) {
-		ArrayList<Karte> searchedColor = new ArrayList<Karte>();
-		for (Karte k : karten) {
-			if (k.getFarbe().equals(color)) {
+	public ArrayList<Card> getCards(final Color color) {
+		ArrayList<Card> searchedColor = new ArrayList<Card>();
+		for (Card k : cards) {
+			if (k.getColor().equals(color)) {
 				searchedColor.add(k);
 			}
 		}
@@ -194,37 +194,37 @@ public abstract class Holder {
 
 	/**
 	 * Fuegt eine neue Karte hinzu.
-	 * @param karte karte die hinzugefuegt werden soll.
+	 * @param card karte die hinzugefuegt werden soll.
 	 */
-	public void add(final Karte karte) {
-		karten.add(karte);
-		sort(karten);
+	public void add(final Card card) {
+		cards.add(card);
+		sort(cards);
 	}
 
 	/**
 	 * Entfernt eine Karte.
 	 * @param card Karte die entfernt werden soll.
 	 */
-	public void remove(final Karte card) {
-		karten.remove(card);
+	public void remove(final Card card) {
+		cards.remove(card);
 	}
 
 	/**
 	 * Sortiert die Karten nach Farbe.
 	 */
-	protected void sort(final ArrayList<Karte> cards) {
-		ArrayList<Karte> blue = new ArrayList<Karte>();
-		ArrayList<Karte> green = new ArrayList<Karte>();
-		ArrayList<Karte> orange = new ArrayList<Karte>();
-		ArrayList<Karte> red = new ArrayList<Karte>();
+	protected void sort(final ArrayList<Card> cards) {
+		ArrayList<Card> blue = new ArrayList<Card>();
+		ArrayList<Card> green = new ArrayList<Card>();
+		ArrayList<Card> orange = new ArrayList<Card>();
+		ArrayList<Card> red = new ArrayList<Card>();
 
 		// Aufsplitten der Farben im Stapel
-		for (Karte k : cards) {
-			if (k.getFarbe().equals(Color.BLUE)) {
+		for (Card k : cards) {
+			if (k.getColor().equals(Color.BLUE)) {
 				blue.add(k);
-			} else if (k.getFarbe().equals(Color.GREEN)) {
+			} else if (k.getColor().equals(Color.GREEN)) {
 				green.add(k);
-			} else if (k.getFarbe().equals(Color.ORANGE)) {
+			} else if (k.getColor().equals(Color.ORANGE)) {
 				orange.add(k);
 			} else {
 				red.add(k);
@@ -240,35 +240,35 @@ public abstract class Holder {
 		cards.clear();
 
 		// Zusammenfuegen der Farben in einen Stapel
-		for (Karte k : blue) {
+		for (Card k : blue) {
 			cards.add(k);
 		}
-		for (Karte k : green) {
+		for (Card k : green) {
 			cards.add(k);
 		}
-		for (Karte k : orange) {
+		for (Card k : orange) {
 			cards.add(k);
 		}
-		for (Karte k : red) {
+		for (Card k : red) {
 			cards.add(k);
 		}
 	}
 	
 	/**
 	 * Sortiert die Nummern einer Kartenfarbe aufsteigend.
-	 * @param farbe ArrayList der zu sortierenden Kartenfarbe.
+	 * @param cards ArrayList der zu sortierenden Kartenfarbe.
 	 */
-	private void sortNumber(final ArrayList<Karte> farbe) {
-		for (int i = 0; i < farbe.size(); i++) {
-			Karte temp = farbe.get(i);
+	private void sortNumber(final ArrayList<Card> cards) {
+		for (int i = 0; i < cards.size(); i++) {
+			Card temp = cards.get(i);
 			int j = i;
-			while (j > 0 && farbe.get(j - 1).getNumber() > temp.getNumber()) {
-				farbe.add(j, farbe.get(j - 1));
-				farbe.remove(j + 1);
+			while (j > 0 && cards.get(j - 1).getNumber() > temp.getNumber()) {
+				cards.add(j, cards.get(j - 1));
+				cards.remove(j + 1);
 				j--;
 			}
-			farbe.add(j, temp);
-			farbe.remove(j + 1);
+			cards.add(j, temp);
+			cards.remove(j + 1);
 		}
 	}
 }

@@ -11,22 +11,22 @@ import java.util.ArrayList;
 import view.View;
 import data.Color;
 import data.Holder;
-import data.Karte;
+import data.Card;
 import data.Ki;
-import data.Spieler;
-import data.Spielfeld;
-import data.Stapel;
+import data.Player;
+import data.Field;
+import data.Stack;
 
 
-public class Spiel {
+public class Game {
 	/** Die Schluesselzahl 11. */
-	private static final int ELF = 11;
+	private static final int ELEVEN = 11;
 	/** Spieler-ArrayList. */
-	private final ArrayList<Holder> spieler = new ArrayList<Holder>();
+	private final ArrayList<Holder> player = new ArrayList<Holder>();
 	/** Stapel fuer die Karten. */
-	private final Stapel stapel = Stapel.getInstance();
+	private final Stack stack = Stack.getInstance();
 	/** Spielfeld. */
-	private final Spielfeld spielfeld = Spielfeld.getInstance();
+	private final Field field = Field.getInstance();
 	/** Index des aktiven Spielers. */
 	private int activePlayer;
 	/** Anzahl der vorhandenen Kis */
@@ -46,7 +46,7 @@ public class Spiel {
 	 * Erstellt ein Spiel und updatet die View.
 	 * @param view Die TUI des Spiels
 	 */
-	public Spiel(final View view) {
+	public Game(final View view) {
 		countKi = view.getCountKi();
 		difficulty = view.getDifficulty();
 		gameInit();
@@ -59,24 +59,24 @@ public class Spiel {
 	 * Getter fuer die Spieler.
 	 * @return Gibt die Spieler zurueck.
 	 */
-	public ArrayList<Holder> getSpieler() {
-		return spieler;
+	public ArrayList<Holder> getPlayer() {
+		return player;
 	}
 
 	/**
 	 * Getter fuer den Stapel.
 	 * @return Gibt den Stapel zurueck.
 	 */
-	public Stapel getStapel() {
-		return stapel;
+	public Stack getStack() {
+		return stack;
 	}
 
 	/**
 	 * Getter fuer das Spielfeld.
 	 * @return Gibt das Spielfeld zurueck.
 	 */
-	public Spielfeld getSpielfeld() {
-		return spielfeld;
+	public Field getField() {
+		return field;
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class Spiel {
 	 * Wechselt den aktiven Spieler, falls kein Zug mehr moeglich ist, und
 	 * startet eine neue Runde.
 	 */
-	public void naechsterSpieler() {
-		if (movePerformed == 0 && pullPerformed == 0 && pruefeObZugMoeglich()) {
+	public void nextPlayer() {
+		if (movePerformed == 0 && pullPerformed == 0 && checkForPossibleMove()) {
 			System.out.println("Sie muessen eine Aktion ausfuehren!");
 		} else {
 			if (activePlayer < countKi) {
@@ -130,19 +130,19 @@ public class Spiel {
 	 * @return true wenn der Zug durchgefuehrt wurde. Sonst false.
 	 */
 	public boolean setMove(final Color color, final int number) {
-		for (Karte k : spieler.get(activePlayer).getCards()) {
-			if (k.getFarbe().equals(color) && k.getNumber() == number) {
-				if (k.getNumber() == ELF) {
-					if (move(k, spielfeld)) {
-						spieler.get(activePlayer).remove(k);
+		for (Card k : player.get(activePlayer).getCards()) {
+			if (k.getColor().equals(color) && k.getNumber() == number) {
+				if (k.getNumber() == ELEVEN) {
+					if (move(k, field)) {
+						player.get(activePlayer).remove(k);
 						movePerformed++;
 						checkWinner();
 						return true;
 					}
 				}
-				if (!pruefeElfAufHand()) {
-					if (move(k, spielfeld)) {
-						spieler.get(activePlayer).remove(k);
+				if (!checkElevenOnHand()) {
+					if (move(k, field)) {
+						player.get(activePlayer).remove(k);
 						movePerformed++;
 						checkWinner();
 						return true;
@@ -168,24 +168,24 @@ public class Spiel {
 	public boolean pull() {
 		boolean result = true;
 		if (movePerformed == 0) {
-			if (stapel.getCards().size() != 0) {
-				if (!pruefeElfAufHand()) {
-					Karte karte = stapel.getNext();
-					if (karte.getNumber() == ELF) {
-						result = move(karte, spielfeld);
+			if (stack.getCards().size() != 0) {
+				if (!checkElevenOnHand()) {
+					Card card = stack.getNext();
+					if (card.getNumber() == ELEVEN) {
+						result = move(card, field);
 					} else {
-						result = move(karte, spieler.get(activePlayer));
-						result = move(stapel.getNext(),
-								spieler.get(activePlayer));
-						result = move(stapel.getNext(),
-								spieler.get(activePlayer));
+						result = move(card, player.get(activePlayer));
+						result = move(stack.getNext(),
+								player.get(activePlayer));
+						result = move(stack.getNext(),
+								player.get(activePlayer));
 					}
 					pullPerformed++;
-					naechsterSpieler();
+					nextPlayer();
 					return result;
 				} else {
 					pullPerformed++;
-					naechsterSpieler();
+					nextPlayer();
 					return true;
 				}
 			} else {
@@ -218,7 +218,7 @@ public class Spiel {
 	 * Leert die Hand des Spielers.
 	 */
 	private void allIn() {
-	    spieler.get(activePlayer).getCards().clear();
+	    player.get(activePlayer).getCards().clear();
 		checkWinner();
 	}
 
@@ -242,12 +242,12 @@ public class Spiel {
 	private boolean checkAllInHigh(final Color color) {
 		int temp;
 		int i = 0;
-		ArrayList<Karte> cards = spieler.get(activePlayer).getCards(color);
+		ArrayList<Card> cards = player.get(activePlayer).getCards(color);
 		int max = cards.size() - 1;
 
 		if (max + 1 != 0) {
 			while (i <= max) {
-				if (cards.get(i).getNumber() == spielfeld.getHighestCard(color)
+				if (cards.get(i).getNumber() == field.getHighestCard(color)
 						.getNumber() + 1) {
 					temp = i;
 					if (i == max) {
@@ -283,13 +283,13 @@ public class Spiel {
 	 */
 	private boolean checkAllInLow(final Color color) {
 		int temp;
-		ArrayList<Karte> cards = spieler.get(activePlayer).getCards(color);
+		ArrayList<Card> cards = player.get(activePlayer).getCards(color);
 		int i = cards.size() - 1;
 		int max = 0;
 
 		if (i + 1 != 0) {
 			while (i >= max) {
-				if (cards.get(i).getNumber() == spielfeld.getLowestCard(color)
+				if (cards.get(i).getNumber() == field.getLowestCard(color)
 						.getNumber() - 1) {
 					temp = i;
 					if (i == max) {
@@ -324,34 +324,34 @@ public class Spiel {
 	 * @return true, wenn noch Karten auf dem Stapel sind, oder wenn ein Zug
 	 *         moeglich ist, sonst false.
 	 */
-	private boolean pruefeObZugMoeglich() {
-		if (!stapel.getCards().isEmpty()) {
+	private boolean checkForPossibleMove() {
+		if (!stack.getCards().isEmpty()) {
 			return true;
 		}
-		if (spielfeld.getHighestCard(Color.BLUE) != null) {
-			for (Karte k : spieler.get(activePlayer).getCards(Color.BLUE)) {
-				if (pruefeZug(k, spielfeld)) {
+		if (field.getHighestCard(Color.BLUE) != null) {
+			for (Card k : player.get(activePlayer).getCards(Color.BLUE)) {
+				if (checkMove(k, field)) {
 					return true;
 				}
 			}
 		}
-		if (spielfeld.getHighestCard(Color.GREEN) != null) {
-			for (Karte k : spieler.get(activePlayer).getCards(Color.GREEN)) {
-				if (pruefeZug(k, spielfeld)) {
+		if (field.getHighestCard(Color.GREEN) != null) {
+			for (Card k : player.get(activePlayer).getCards(Color.GREEN)) {
+				if (checkMove(k, field)) {
 					return true;
 				}
 			}
 		}
-		if (spielfeld.getHighestCard(Color.ORANGE) != null) {
-			for (Karte k : spieler.get(activePlayer).getCards(Color.ORANGE)) {
-				if (pruefeZug(k, spielfeld)) {
+		if (field.getHighestCard(Color.ORANGE) != null) {
+			for (Card k : player.get(activePlayer).getCards(Color.ORANGE)) {
+				if (checkMove(k, field)) {
 					return true;
 				}
 			}
 		}
-		if (spielfeld.getHighestCard(Color.RED) != null) {
-			for (Karte k : spieler.get(activePlayer).getCards(Color.RED)) {
-				if (pruefeZug(k, spielfeld)) {
+		if (field.getHighestCard(Color.RED) != null) {
+			for (Card k : player.get(activePlayer).getCards(Color.RED)) {
+				if (checkMove(k, field)) {
 					return true;
 				}
 			}
@@ -363,8 +363,8 @@ public class Spiel {
 	 * Prueft ob der aktive Spieler gewonnen hat.
 	 */
 	private void checkWinner() {
-		if (spieler.get(activePlayer).getCards().size() == 0) {
-			winner = spieler.get(activePlayer).getName();
+		if (player.get(activePlayer).getCards().size() == 0) {
+			winner = player.get(activePlayer).getName();
 			exit();
 		}
 	}
@@ -374,15 +374,15 @@ public class Spiel {
 	 * Elf automatisch auf das Spielfeld gelegt.
 	 * @return true, wenn Spieler eine Elf auf der Hand hat, sonst false.
 	 */
-	private boolean pruefeElfAufHand() {
-		for (Karte k : spieler.get(activePlayer).getCards()) {
-			if (k.getNumber() == ELF) {
+	private boolean checkElevenOnHand() {
+		for (Card k : player.get(activePlayer).getCards()) {
+			if (k.getNumber() == ELEVEN) {
 				if(activePlayer == 0){
 					System.out
 							.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
 				}	
-				move(k, spielfeld);
-				spieler.get(activePlayer).remove(k);
+				move(k, field);
+				player.get(activePlayer).remove(k);
 				return true;
 			}
 		}
@@ -396,9 +396,9 @@ public class Spiel {
 	 * @param ziel Holder an den die Karte geht.
 	 * @return true wenn der Zug erfolgreich ist. Sonst false (Karte null).
 	 */
-	private boolean move(final Karte karte, final Holder ziel) {
+	private boolean move(final Card karte, final Holder ziel) {
 		if (karte != null) {
-			if (pruefeZug(karte, ziel)) {
+			if (checkMove(karte, ziel)) {
 				ziel.add(karte);
 				return true;
 			}
@@ -410,10 +410,10 @@ public class Spiel {
 	 * Initialisiert das Spiel.
 	 */
 	private void gameInit() {
-		spieler.add(new Spieler("Layer 8"));
+		player.add(new Player("Layer 8"));
 
 		for (int y = 1; y <= countKi; y++) {
-			spieler.add(new Ki("KI " + y, difficulty));
+			player.add(new Ki("KI " + y, difficulty));
 		}
 
 		kartenInit();
@@ -425,23 +425,23 @@ public class Spiel {
 	 * verteilt. Der Spieler mit einer 11 beginnt.
 	 */
 	private void gameStart() {
-		stapel.mischen();
+		stack.shuffle();
 
 		// Verteilen von je 11 Karten an jeden Spieler
-		for (int i = 0; i < ELF; i++) {
+		for (int i = 0; i < ELEVEN; i++) {
 			for (int y = 0; y <= countKi; y++) {
-				move(stapel.getNext(), spieler.get(y));
+				move(stack.getNext(), player.get(y));
 			}
 		}
 
 		// Sucht den ersten Spieler mit einer 11 raus und setzt ihn als aktiven
 		// Spieler
-		for (int i = 0; i < ELF; i++) {
+		for (int i = 0; i < ELEVEN; i++) {
 			for (int j = 0; j <= countKi; j++) {
-				if (spieler.get(j).getCards().get(i).getNumber() == ELF) {
+				if (player.get(j).getCards().get(i).getNumber() == ELEVEN) {
 					activePlayer = j;
 					// Beenden der Schleifen bei gefundener 11
-					i = ELF + 1;
+					i = ELEVEN + 1;
 					j = countKi + 1;
 				} else {
 					activePlayer = 0;
@@ -457,7 +457,7 @@ public class Spiel {
 	 */
 	private void startRound() {
 		if (isRunning && activePlayer > 0) {
-			spieler.get(activePlayer).react(this);
+			player.get(activePlayer).react(this);
 		}
 	}
 
@@ -466,20 +466,20 @@ public class Spiel {
 	 */
 	private void kartenInit() {
 		for (int nummer = 1; nummer <= 20; nummer++) {
-			Karte karte = new Karte(Color.BLUE, nummer);
-			stapel.add(karte);
+			Card karte = new Card(Color.BLUE, nummer);
+			stack.add(karte);
 		}
 		for (int nummer = 1; nummer <= 20; nummer++) {
-			Karte karte = new Karte(Color.GREEN, nummer);
-			stapel.add(karte);
+			Card karte = new Card(Color.GREEN, nummer);
+			stack.add(karte);
 		}
 		for (int nummer = 1; nummer <= 20; nummer++) {
-			Karte karte = new Karte(Color.ORANGE, nummer);
-			stapel.add(karte);
+			Card karte = new Card(Color.ORANGE, nummer);
+			stack.add(karte);
 		}
 		for (int nummer = 1; nummer <= 20; nummer++) {
-			Karte karte = new Karte(Color.RED, nummer);
-			stapel.add(karte);
+			Card karte = new Card(Color.RED, nummer);
+			stack.add(karte);
 		}
 	}
 
@@ -490,15 +490,15 @@ public class Spiel {
 	 * @return true wenn ziel kein Spielfeld ist, Farbe und Nummer stimmen.
 	 *         Sonst false.
 	 */
-	private boolean pruefeZug(final Karte karte, final Holder ziel) {
-		if (karte.getNumber() == ELF)
+	private boolean checkMove(final Card karte, final Holder ziel) {
+		if (karte.getNumber() == ELEVEN)
 			return true;
 
 		boolean result = false;
 
-		if (ziel.equals(spielfeld)) {
+		if (ziel.equals(field)) {
 			for (int i = 0; i < Color.values().length; i++) {
-				if (karte.getFarbe().equals(Color.values()[i])) {
+				if (karte.getColor().equals(Color.values()[i])) {
 					if (karte.getNumber() == ziel.getHighestCard(
 							Color.values()[i]).getNumber() + 1) {
 						result = true;

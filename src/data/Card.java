@@ -6,39 +6,39 @@ package data;
  * 22.05.2015
  */
 
-public class Karte {
+public class Card {
 	/** Farbe der Karte. */
-	private final Color farbe;
+	private final Color color;
 	/** Nummer der Karte. */
-	private final int nummer;
+	private final int number;
 	
 	/** Erstellt eine Karte.
-	 * @param farbe Farbe der Karte.
-	 * @param nummer Nummer der Karte.
+	 * @param color Farbe der Karte.
+	 * @param number Nummer der Karte.
 	 */
-	public Karte(final Color farbe, final int nummer){
-		this.farbe = farbe;
-		this.nummer = nummer;
+	public Card(final Color color, final int number){
+		this.color = color;
+		this.number = number;
 	}
 
 	/** Getter fuer die Farbe der Karte.
 	 * @return farbe Farbe der Karte.
 	 */
-	public Color getFarbe() {
-		return farbe;
+	public Color getColor() {
+		return color;
 	}
 
 	/** Getter fuer die Nummer
 	 * @return nummer Nummer der Karte.
 	 */
 	public int getNumber() {
-		return nummer;
+		return number;
 	}
 	
 	/** Gibt die farbe und die Nummer der Karte als String zurueck.
 	 */
 	public String toString() {
-		return farbe + " " + nummer + "\n";
+		return color + " " + number + "\n";
 	}
 
 }

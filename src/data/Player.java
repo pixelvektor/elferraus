@@ -6,18 +6,18 @@ package data;
  * 22.05.2015
  */
 
-public class Spieler extends Holder {
+public class Player extends Holder {
 	
 	/** Erstellt einen neuen Spieler.
 	 */
-	public Spieler() {
+	public Player() {
 		
 	}
 	
 	/** Erstellt einen neuen Spieler.
 	 * @param Name des Spielers.
 	 */
-	public Spieler(final String name) {
+	public Player(final String name) {
 		setName(name);
 	}
 }

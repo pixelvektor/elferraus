@@ -8,27 +8,27 @@ package data;
 
 import java.util.Collections;
 
-public class Stapel extends Holder{
+public class Stack extends Holder{
 	/** Enthaelt die Stapel Instanz. */
-	private static Stapel stapel;
+	private static Stack stack;
 	
 	/** Ctor fuer den Stapel.
 	 */
-	private Stapel() {}
+	private Stack() {}
 	
 	/** Getter fuer die Stapel Instanz.
 	 * @return Gibt die Stapel Instanz zurueck.
 	 */
-	public static Stapel getInstance() {
-		if (stapel == null) {
-			stapel = new Stapel();
+	public static Stack getInstance() {
+		if (stack == null) {
+			stack = new Stack();
 		}
-		return stapel;
+		return stack;
 	}
 	
 	/** Mischt den Stapel.
 	 */
-	public void mischen() {
+	public void shuffle() {
 		Collections.shuffle(this.getCards());
 	}
 	
@@ -36,8 +36,8 @@ public class Stapel extends Holder{
 	 * Die Karte wird auf dem Stapel geloescht.
 	 * @return Unterste Karte vom Stapel. null bei leerem Stapel.
 	 */
-	public Karte getNext() {
-		Karte karte = null;
+	public Card getNext() {
+		Card karte = null;
 		try {
 			karte = this.getCards().get(0);
 		} catch (IndexOutOfBoundsException e) {

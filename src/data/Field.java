@@ -6,26 +6,26 @@ package data;
  * 22.05.2015
  */
 
-public class Spielfeld extends Holder {
+public class Field extends Holder {
 	/** Enthaelt die Stapel Instanz. */
-	private static Spielfeld spielfeld;
+	private static Field field;
 	
 	/** Ctor fuer das Spielfeld. */
-	private Spielfeld() {}
+	private Field() {}
 	
 	/** Getter fuer die Spielfeld Instanz.
 	 * @return Gibt die Spielfeld Instanz zurueck.
 	 */
-	public static Spielfeld getInstance() {
-		if (spielfeld == null) {
-			spielfeld = new Spielfeld();
+	public static Field getInstance() {
+		if (field == null) {
+			field = new Field();
 		}
-		return spielfeld;
+		return field;
 	}
 	
 	/** Inaktive Methode. 
 	 */
-	public void remove(final Karte karte) {
+	public void remove(final Card card) {
 		// Leer, damit nicht geloescht werden kann.
 	}
 }

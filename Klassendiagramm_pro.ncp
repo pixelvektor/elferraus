@@ -8,124 +8,144 @@
         <Name>Holder</Name>
         <Access>Public</Access>
         <Location left="20" top="24" />
-        <Size width="182" height="281" />
+        <Size width="182" height="298" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private final ArrayList&lt;Karte&gt; karten</Member>
         <Member type="Field">private String name</Member>
         <Member type="Method">public void getName()</Member>
         <Member type="Method">public void setName(String name)</Member>
         <Member type="Method">public void remove()</Member>
-        <Member type="Method">public void add(Karte karte)</Member>
-        <Member type="Method">public Karte getLowestCard()</Member>
-        <Member type="Method">public Karte getHighestCard()</Member>
-        <Member type="Method">public ArrayList&lt;Karte&gt; getKarten()</Member>
+        <Member type="Method">public void add(Card card)</Member>
+        <Member type="Method">public Card getLowestCard()</Member>
+        <Member type="Method">public Card getHighestCard()</Member>
+        <Member type="Method">public ArrayList&lt;Card&gt; getCards()</Member>
         <Member type="Method">private void sort()</Member>
         <Member type="Method">public void sortNumber()</Member>
-        <Member type="Method">public void newMethod()</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Spieler</Name>
-        <Access>Public</Access>
-        <Location left="299" top="24" />
-        <Size width="162" height="104" />
-        <Collapsed>False</Collapsed>
-        <Member type="Constructor">public Spieler()</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>KI</Name>
-        <Access>Public</Access>
-        <Location left="534" top="24" />
-        <Size width="162" height="145" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private int schwierigkeit</Member>
-        <Member type="Field">private int spiel</Member>
-        <Member type="Constructor">public KI()</Member>
         <Member type="Method">public void react()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Stapel</Name>
+        <Name>Player</Name>
         <Access>Public</Access>
-        <Location left="534" top="200" />
-        <Size width="162" height="127" />
+        <Location left="299" top="24" />
+        <Size width="162" height="104" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">public void newMethod()</Member>
-        <Member type="Method">public Karte getNext()</Member>
+        <Member type="Constructor">public Player()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Spielfeld</Name>
+        <Name>AI</Name>
+        <Access>Public</Access>
+        <Location left="534" top="24" />
+        <Size width="162" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int schwierigkeit</Member>
+        <Member type="Field">private int spiel</Member>
+        <Member type="Constructor">public AI()</Member>
+        <Member type="Method">public void react()</Member>
+        <Member type="Method">private void easy()</Member>
+        <Member type="Method">private void hard()</Member>
+        <Member type="Method">private boolean cardAvailable()</Member>
+        <Member type="Method">private ArrayList&lt;Card&gt; shortestChain()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Stack</Name>
+        <Access>Public</Access>
+        <Location left="299" top="193" />
+        <Size width="162" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void shuffle()</Member>
+        <Member type="Method">public Karte getNext()</Member>
+        <Member type="Method">public static Stack getInstance()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Field</Name>
         <Access>Public</Access>
         <Location left="534" top="390" />
-        <Size width="162" height="216" />
+        <Size width="162" height="117" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public void remove(Karte karte)</Member>
+        <Member type="Method">public static Field getInstance()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Karte</Name>
+        <Name>Card</Name>
         <Access>Public</Access>
         <Location left="20" top="390" />
         <Size width="162" height="191" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private final Color farbe</Member>
         <Member type="Field">private final int newField</Member>
-        <Member type="Constructor">public Karte()</Member>
-        <Member type="Method">public Color getFarbe()</Member>
+        <Member type="Constructor">public Card()</Member>
+        <Member type="Method">public Color getColor()</Member>
         <Member type="Method">public int getNummer()</Member>
         <Member type="Method">public String toString()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Spiel</Name>
+        <Name>Game</Name>
         <Access>Public</Access>
         <Location left="280" top="390" />
-        <Size width="186" height="502" />
+        <Size width="186" height="655" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private static final int ELF</Member>
-        <Member type="Field">private static final Color[] COLOR</Member>
-        <Member type="Field">private final ArrayList&lt;Holder&gt; spieler</Member>
-        <Member type="Field">private final Stapel stapel</Member>
-        <Member type="Field">private final Spielfeld spielfeld</Member>
+        <Member type="Field">private static final int ELEVEN</Member>
+        <Member type="Field">private final ArrayList&lt;Holder&gt; player</Member>
+        <Member type="Field">private final Stack stack</Member>
+        <Member type="Field">private final Field field</Member>
         <Member type="Field">private int activePlayer</Member>
-        <Member type="Field">private final int kiAnzahl</Member>
-        <Member type="Field">private final View view</Member>
+        <Member type="Field">private final int countAi</Member>
+        <Member type="Field">private boolean difficulty</Member>
+        <Member type="Field">private String winner</Member>
         <Member type="Field">private boolean isRunning</Member>
-        <Member type="Constructor">public Spiel()</Member>
-        <Member type="Method">public static Color[] getColor()</Member>
-        <Member type="Method">public ArrayList&lt;Holder&gt; getSpieler()</Member>
-        <Member type="Method">public void getStapel()</Member>
-        <Member type="Method">public Spielfeld getSpielfeld()</Member>
+        <Member type="Field">private int movePerformed</Member>
+        <Member type="Field">private int pullPerformed</Member>
+        <Member type="Constructor">public Game()</Member>
+        <Member type="Method">public ArrayList&lt;Holder&gt; getPlayer()</Member>
+        <Member type="Method">public Stack getStack()</Member>
+        <Member type="Method">public Field getField()</Member>
         <Member type="Method">public void exit()</Member>
-        <Member type="Method">public void naechsterSpieler()</Member>
-        <Member type="Method">public boolean setMove()</Member>
+        <Member type="Method">public void nextPlayer()</Member>
+        <Member type="Method">public boolean checkForAllIn()</Member>
         <Member type="Method">public boolean pull()</Member>
-        <Member type="Method">private boolean move()</Member>
         <Member type="Method">private void gameInit()</Member>
         <Member type="Method">private void gameStart()</Member>
         <Member type="Method">private void startRound()</Member>
-        <Member type="Method">private void kartenInit()</Member>
-        <Member type="Method">private boolean pruefeZug()</Member>
-        <Member type="Method">private boolean pruefeAufElf()</Member>
+        <Member type="Method">private void cardInit()</Member>
+        <Member type="Method">private boolean checkForPossibleMove()</Member>
+        <Member type="Method">private boolean checkElevenOnHand()</Member>
+        <Member type="Method">public String getWinner()</Member>
+        <Member type="Method">public boolean isRunning()</Member>
+        <Member type="Method">private void allIn()</Member>
+        <Member type="Method">private boolean checkAllIn()</Member>
+        <Member type="Method">private boolean checkAllInHigh()</Member>
+        <Member type="Method">private boolean checkAllInLow()</Member>
+        <Member type="Method">private void checkWinner()</Member>
+        <Member type="Method">private boolean checkMove()</Member>
+        <Member type="Method">public boolean setMove()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>View</Name>
         <Access>Public</Access>
-        <Location left="534" top="644" />
-        <Size width="162" height="230" />
+        <Location left="534" top="539" />
+        <Size width="162" height="315" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private static final String HELP_MESSAGE</Member>
         <Member type="Field">private static final String RULES</Member>
+        <Member type="Field">private Game game</Member>
+        <Member type="Field">private int countAi</Member>
+        <Member type="Field">private boolean difficulty</Member>
         <Member type="Constructor">public View()</Member>
-        <Member type="Method">public void update(Spiel spiel)</Member>
-        <Member type="Method">public String input()</Member>
-        <Member type="Method">private void printSpielfeld()</Member>
+        <Member type="Method">private String input()</Member>
+        <Member type="Method">private void printField()</Member>
         <Member type="Method">private int[] getNumbers(Color color)</Member>
-        <Member type="Method">private void printSpielerKarten()</Member>
+        <Member type="Method">private void printPlayerCards()</Member>
         <Member type="Method">private boolean move()</Member>
+        <Member type="Method">public int getCountAi()</Member>
+        <Member type="Method">public boolean getDifficulty()</Member>
+        <Member type="Method">public void update()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Enum">
@@ -138,6 +158,25 @@
         <Value>GREEN</Value>
         <Value>ORANGE</Value>
         <Value>RED</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>ElferRaus</Name>
+        <Access>Public</Access>
+        <Location left="748" top="24" />
+        <Size width="162" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static void main()</Member>
+        <Member type="Constructor">private ElferRaus()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ViewInterface</Name>
+        <Access>Public</Access>
+        <Location left="748" top="204" />
+        <Size width="162" height="117" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void update()</Member>
+        <Modifier>None</Modifier>
       </Entity>
     </Entities>
     <Relationships>

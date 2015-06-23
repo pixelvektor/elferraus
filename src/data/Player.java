@@ -6,15 +6,20 @@ package data;
  * 22.05.2015
  */
 
+/**
+ * Spieler ist ein Holder.
+ */
 public class Player extends Holder {
-	
-	/** Erstellt einen neuen Spieler.
+
+	/**
+	 * Erstellt einen neuen Spieler.
 	 */
 	public Player() {
-		
+
 	}
-	
-	/** Erstellt einen neuen Spieler.
+
+	/**
+	 * Erstellt einen neuen Spieler.
 	 * @param Name des Spielers.
 	 */
 	public Player(final String name) {

@@ -8,13 +8,14 @@ package view;
 
 import control.Game;
 
-/** Interface der View.
- * Gibt die Schnittstelle zur control vor.
+/**
+ * Interface der View. Gibt die Schnittstelle zur control vor.
  */
 public interface ViewInterface {
 
-    /** Aktualisiert die View auf den momentanen Spielstatus.
-     * @param game Das Spiel welches update aufruft.
-     */
-    public void update(final Game game);
+	/**
+	 * Aktualisiert die View auf den momentanen Spielstatus.
+	 * @param game Das Spiel welches update aufruft.
+	 */
+	public void update(final Game game);
 }

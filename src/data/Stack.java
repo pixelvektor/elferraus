@@ -8,15 +8,21 @@ package data;
 
 import java.util.Collections;
 
-public class Stack extends Holder{
+/**
+ * Stapel erweitert den Holder. Haelt die noch nicht ausgeteilten Karten.
+ */
+public class Stack extends Holder {
 	/** Enthaelt die Stapel Instanz. */
 	private static Stack stack;
-	
-	/** Ctor fuer den Stapel.
+
+	/**
+	 * Ctor fuer den Stapel.
 	 */
-	private Stack() {}
-	
-	/** Getter fuer die Stapel Instanz.
+	private Stack() {
+	}
+
+	/**
+	 * Getter fuer die Stapel Instanz.
 	 * @return Gibt die Stapel Instanz zurueck.
 	 */
 	public static Stack getInstance() {
@@ -25,15 +31,17 @@ public class Stack extends Holder{
 		}
 		return stack;
 	}
-	
-	/** Mischt den Stapel.
+
+	/**
+	 * Mischt den Stapel.
 	 */
 	public void shuffle() {
 		Collections.shuffle(this.getCards());
 	}
-	
-	/** Nimmt eine Karte vom Stapel und gibt diese zurueck.
-	 * Die Karte wird auf dem Stapel geloescht.
+
+	/**
+	 * Nimmt eine Karte vom Stapel und gibt diese zurueck. Die Karte wird auf
+	 * dem Stapel geloescht.
 	 * @return Unterste Karte vom Stapel. null bei leerem Stapel.
 	 */
 	public Card getNext() {
@@ -41,10 +49,9 @@ public class Stack extends Holder{
 		try {
 			karte = this.getCards().get(0);
 		} catch (IndexOutOfBoundsException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		this.remove(karte);
 		return karte;
 	}
 }
-

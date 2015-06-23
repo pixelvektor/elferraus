@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import control.Game;
 
-public class Ki extends Player {
+public class AI extends Player {
 	/** Schwierigkeit der KI. */
 	private final boolean difficult;
 
@@ -19,7 +19,7 @@ public class Ki extends Player {
 	 * @param name Name der KI.
 	 * @param difficult Schwierigkeit der KI.
 	 */
-	public Ki(final String name, final boolean difficult) {
+	public AI(final String name, final boolean difficult) {
 		setName(name);
 		this.difficult = difficult;
 	}
@@ -48,13 +48,13 @@ public class Ki extends Player {
 			// oder kleiner als die auf dem Spielfeld vorhanden ist. Diese wird
 			// dann gelegt.
 			if (game.getField().getHighestCard(Color.values()[i]) != null) {
-				int hiNum = game.getField()
-						.getHighestCard(Color.values()[i]).getNumber() + 1;
+				int hiNum = game.getField().getHighestCard(Color.values()[i])
+						.getNumber() + 1;
 				if (cardAvailable(Color.values()[i], hiNum)) {
 					game.setMove(Color.values()[i], hiNum);
 				}
-				int loNum = game.getField()
-						.getLowestCard(Color.values()[i]).getNumber() - 1;
+				int loNum = game.getField().getLowestCard(Color.values()[i])
+						.getNumber() - 1;
 				if (cardAvailable(Color.values()[i], loNum)) {
 					game.setMove(Color.values()[i], loNum);
 				}

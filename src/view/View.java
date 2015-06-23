@@ -15,6 +15,9 @@ import control.Game;
 import data.Color;
 import data.Card;
 
+/**
+ * Stellt das Spiel auf Kommandozeile dar und wartet auf Befehle des Spielers.
+ */
 public class View implements ViewInterface {
 	/** Hilfetext. */
 	private static final String HELP_MESSAGE = "\r\n"

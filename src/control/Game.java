@@ -12,11 +12,10 @@ import view.View;
 import data.Color;
 import data.Holder;
 import data.Card;
-import data.Ki;
+import data.AI;
 import data.Player;
 import data.Field;
 import data.Stack;
-
 
 public class Game {
 	/** Die Schluesselzahl 11. */
@@ -116,7 +115,7 @@ public class Game {
 			} else {
 				activePlayer = 0;
 			}
-			
+
 			movePerformed = 0;
 			pullPerformed = 0;
 			startRound();
@@ -175,10 +174,8 @@ public class Game {
 						result = move(card, field);
 					} else {
 						result = move(card, player.get(activePlayer));
-						result = move(stack.getNext(),
-								player.get(activePlayer));
-						result = move(stack.getNext(),
-								player.get(activePlayer));
+						result = move(stack.getNext(), player.get(activePlayer));
+						result = move(stack.getNext(), player.get(activePlayer));
 					}
 					pullPerformed++;
 					nextPlayer();
@@ -208,7 +205,7 @@ public class Game {
 			allIn();
 			return true;
 		}
-		if(activePlayer == 0){
+		if (activePlayer == 0) {
 			System.out.println("Sie koennen nicht alle Karten ablegen!");
 		}
 		return false;
@@ -218,12 +215,12 @@ public class Game {
 	 * Leert die Hand des Spielers.
 	 */
 	private void allIn() {
-	    player.get(activePlayer).getCards().clear();
+		player.get(activePlayer).getCards().clear();
 		checkWinner();
 	}
 
 	/**
-	 * Prueft ob gleichzeitig alle Karte <&>11 gelegt werden koennen. 
+	 * Prueft ob gleichzeitig alle Karte <&>11 gelegt werden koennen.
 	 * @param color Farbe die geprueft werden soll.
 	 * @return true, wenn alle Karte <&>11 gelegt werden koennen, sonst false.
 	 */
@@ -377,10 +374,10 @@ public class Game {
 	private boolean checkElevenOnHand() {
 		for (Card k : player.get(activePlayer).getCards()) {
 			if (k.getNumber() == ELEVEN) {
-				if(activePlayer == 0){
+				if (activePlayer == 0) {
 					System.out
 							.println("Zug nicht moeglich! Elf wird automatisch gelegt!");
-				}	
+				}
 				move(k, field);
 				player.get(activePlayer).remove(k);
 				return true;
@@ -392,14 +389,14 @@ public class Game {
 
 	/**
 	 * Methode um eine Karte einem neuen Holder zu ueberschreiben.
-	 * @param karte die Karte die verschoben werden soll.
-	 * @param ziel Holder an den die Karte geht.
+	 * @param card die Karte die verschoben werden soll.
+	 * @param target Holder an den die Karte geht.
 	 * @return true wenn der Zug erfolgreich ist. Sonst false (Karte null).
 	 */
-	private boolean move(final Card karte, final Holder ziel) {
-		if (karte != null) {
-			if (checkMove(karte, ziel)) {
-				ziel.add(karte);
+	private boolean move(final Card card, final Holder target) {
+		if (card != null) {
+			if (checkMove(card, target)) {
+				target.add(card);
 				return true;
 			}
 		}
@@ -413,10 +410,10 @@ public class Game {
 		player.add(new Player("Layer 8"));
 
 		for (int y = 1; y <= countKi; y++) {
-			player.add(new Ki("KI " + y, difficulty));
+			player.add(new AI("KI " + y, difficulty));
 		}
 
-		kartenInit();
+		cardInit();
 		gameStart();
 	}
 
@@ -448,7 +445,7 @@ public class Game {
 				}
 			}
 		}
-		
+
 		startRound();
 	}
 
@@ -464,45 +461,45 @@ public class Game {
 	/**
 	 * Karten werden erstellt, danach zum Stapel hinzugefuegt.
 	 */
-	private void kartenInit() {
-		for (int nummer = 1; nummer <= 20; nummer++) {
-			Card karte = new Card(Color.BLUE, nummer);
-			stack.add(karte);
+	private void cardInit() {
+		for (int number = 1; number <= 20; number++) {
+			Card card = new Card(Color.BLUE, number);
+			stack.add(card);
 		}
-		for (int nummer = 1; nummer <= 20; nummer++) {
-			Card karte = new Card(Color.GREEN, nummer);
-			stack.add(karte);
+		for (int number = 1; number <= 20; number++) {
+			Card card = new Card(Color.GREEN, number);
+			stack.add(card);
 		}
-		for (int nummer = 1; nummer <= 20; nummer++) {
-			Card karte = new Card(Color.ORANGE, nummer);
-			stack.add(karte);
+		for (int number = 1; number <= 20; number++) {
+			Card card = new Card(Color.ORANGE, number);
+			stack.add(card);
 		}
-		for (int nummer = 1; nummer <= 20; nummer++) {
-			Card karte = new Card(Color.RED, nummer);
-			stack.add(karte);
+		for (int number = 1; number <= 20; number++) {
+			Card card = new Card(Color.RED, number);
+			stack.add(card);
 		}
 	}
 
 	/**
 	 * Prueft ob der aktuelle Zug gueltig ist.
-	 * @param karte die Karte die verschoben werden soll.
-	 * @param ziel Holder an den die Karte geht.
+	 * @param card die Karte die verschoben werden soll.
+	 * @param target Holder an den die Karte geht.
 	 * @return true wenn ziel kein Spielfeld ist, Farbe und Nummer stimmen.
 	 *         Sonst false.
 	 */
-	private boolean checkMove(final Card karte, final Holder ziel) {
-		if (karte.getNumber() == ELEVEN)
+	private boolean checkMove(final Card card, final Holder target) {
+		if (card.getNumber() == ELEVEN)
 			return true;
 
 		boolean result = false;
 
-		if (ziel.equals(field)) {
+		if (target.equals(field)) {
 			for (int i = 0; i < Color.values().length; i++) {
-				if (karte.getColor().equals(Color.values()[i])) {
-					if (karte.getNumber() == ziel.getHighestCard(
+				if (card.getColor().equals(Color.values()[i])) {
+					if (card.getNumber() == target.getHighestCard(
 							Color.values()[i]).getNumber() + 1) {
 						result = true;
-					} else if (karte.getNumber() == ziel.getLowestCard(
+					} else if (card.getNumber() == target.getLowestCard(
 							Color.values()[i]).getNumber() - 1) {
 						result = true;
 					}

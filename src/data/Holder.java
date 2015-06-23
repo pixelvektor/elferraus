@@ -10,6 +10,9 @@ import control.Game;
  * 22.05.2015
  */
 
+/**
+ * Holder-Klasse definiert die Grundfunktionen jedes Kartenhalters.
+ */
 public abstract class Holder {
 	/** Name des Holders. */
 	private String name;
@@ -253,7 +256,7 @@ public abstract class Holder {
 			cards.add(k);
 		}
 	}
-	
+
 	/**
 	 * Sortiert die Nummern einer Kartenfarbe aufsteigend.
 	 * @param cards ArrayList der zu sortierenden Kartenfarbe.
